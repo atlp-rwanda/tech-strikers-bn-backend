@@ -1,55 +1,28 @@
-const mongoose = require("mongoose");
-const uniqueValidator = require("mongoose-unique-validator");
-const crypto = require("crypto");
-const { secret } = require("../config");
-
-const UserSchema = new mongoose.Schema(
-  {
-    username: {
-      type: String,
-      lowercase: true,
-      unique: true,
-      required: [true, "can't be blank"],
-      match: [/^[a-zA-Z0-9]+$/, "is invalid"],
-      index: true,
-    },
-    email: {
-      type: String,
-      lowercase: true,
-      unique: true,
-      required: [true, "can't be blank"],
-      match: [/\S+@\S+\.\S+/, "is invalid"],
-      index: true,
-    },
-    bio: String,
-    image: String,
-    favorites: [{ type: mongoose.Schema.Types.ObjectId, ref: "Article" }],
-    following: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
-    hash: String,
-    salt: String,
-  },
-  { timestamps: true }
-);
-
-UserSchema.plugin(uniqueValidator, { message: "is already taken." });
-
-UserSchema.methods.validPassword = (password) => {
-  const hash = crypto
-    .pbkdf2Sync(password, this.salt, 10000, 512, "sha512")
-    .toString("hex");
-  return this.hash === hash;
+'use strict';
+import sequelize from 'sequelize'
+const {Model}=sequelize
+export default(sequelize, DataTypes) => {
+  class User extends Model {
+    /**
+     * Helper method for defining associations.
+     * This method is not a part of Sequelize lifecycle.
+     * The `models/index` file will call this method automatically.
+     */
+    static associate(models) {
+      // define association here
+    }
+  };
+  User.init({
+    name: DataTypes.STRING,
+    email: DataTypes.STRING,
+    password: DataTypes.STRING,
+    bio: DataTypes.STRING,
+    image: DataTypes.STRING,
+    favorites: DataTypes.STRING,
+    following: DataTypes.STRING
+  }, {
+    sequelize,
+    modelName: 'User',
+  });
+  return User;
 };
-
-UserSchema.methods.setPassword = (password) => {
-  this.salt = crypto.randomBytes(16).toString("hex");
-  this.hash = crypto
-    .pbkdf2Sync(password, this.salt, 10000, 512, "sha512")
-    .toString("hex");
-};
-
-UserSchema.methods.toAuthJSON = () => ({
-  username: this.username,
-  email: this.email,
-});
-
-mongoose.model("User", UserSchema);
