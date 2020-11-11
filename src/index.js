@@ -33,17 +33,20 @@ app.use(
         saveUninitialized: false
     })
 );
+//CONNECTING APP TO POSTGRESS
 
-if (!isProduction) {
-    app.use(errorhandler());
-}
+const pool = require('./database/config.js');
 
-if (isProduction) {
-    mongoose.connect(process.env.MONGODB_URI);
-} else {
-    mongoose.connect("mongodb://localhost/conduit");
-    mongoose.set("debug", true);
+app.post('/visitors', async(req, res)=>{
+try{
+ const {first_name} = req.body;
+ const newVisitor = await pool.query("INSERT INTO visitors(first_name) VALUES($1) RETURNING *" , [first_name])
+ res.json(newVisitor.rows[0]);
+
+}catch(err){
+console.error(err.message);
 }
+})
 
 require("./models/User");
 
