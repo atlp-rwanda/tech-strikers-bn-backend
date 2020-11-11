@@ -1,5 +1,5 @@
 const fs = require("fs"),
-    http = require("http"),
+http = require("http"),
     path = require("path"),
     methods = require("methods"),
     express = require("express"),
@@ -9,8 +9,10 @@ const fs = require("fs"),
     passport = require("passport"),
     errorhandler = require("errorhandler"),
     mongoose = require("mongoose");
+    const { Sequelize } = require('sequelize');
 
 const isProduction = process.env.NODE_ENV === "production";
+
 
 // Create global app object
 const app = express();
@@ -33,18 +35,23 @@ app.use(
         saveUninitialized: false
     })
 );
+//CONNECTING APP TO POSTGRESS
 
-if (!isProduction) {
-    app.use(errorhandler());
+const sequelize = new Sequelize('barefootnomad_db', 'andela', 'andela2020', {
+    host: 'localhost',
+    dialect: 'postgres' 
+  });
+const connectDb = async()=>{
+    try {
+        await sequelize.authenticate();
+        console.log('Connection has been established successfully.');
+      } catch (error) {
+        console.error('Unable to connect to the database:', error);
+      }
 }
-
-if (isProduction) {
-    mongoose.connect(process.env.MONGODB_URI);
-} else {
-    mongoose.connect("mongodb://localhost/conduit");
-    mongoose.set("debug", true);
-}
-
+  
+connectDb();
+  
 require("./models/User");
 
 app.use(require("./routes"));
@@ -56,10 +63,6 @@ app.use(function(req, res, next) {
     next(err);
 });
 
-/// error handlers
-
-// development error handler
-// will print stacktrace
 if (!isProduction) {
     app.use(function(err, req, res, next) {
         console.log(err.stack);
@@ -91,3 +94,5 @@ app.use(function(err, req, res, next) {
 const server = app.listen(process.env.PORT || 3000, function() {
     console.log("Listening on port " + server.address().port);
 });
+
+
