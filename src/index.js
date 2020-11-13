@@ -8,15 +8,15 @@ const fs = require("fs"),
   cors = require("cors"),
   passport = require("passport"),
   errorhandler = require("errorhandler"),
-  mongoose = require("mongoose");
-require("dotenv").config();
+  mongoose = require("mongoose"),
+  swaggerUi = require("swagger-ui-express"),
+  swaggerDoc = require("../swagger.json");
 
 const isProduction = process.env.NODE_ENV === "production";
 
 // Create global app object
 const app = express();
-const { API_VERSION, DEV_DB_HOSTNAME } = process.env;
-console.log(API_VERSION, DEV_DB_HOSTNAME);
+
 app.use(cors());
 
 // Normal express config defaults
@@ -34,7 +34,7 @@ app.use(
     secret: "authorshaven",
     cookie: { maxAge: 60000 },
     resave: false,
-    saveUninitialized: false
+    saveUninitialized: false,
   })
 );
 
@@ -49,9 +49,9 @@ if (isProduction) {
   mongoose.set("debug", true);
 }
 
-require("./models/User.js");
-
 app.use(require("./routes"));
+
+app.use("/", swaggerUi.serve, swaggerUi.setup(swaggerDoc));
 
 /// catch 404 and forward to error handler
 app.use((req, res, next) => {
@@ -73,8 +73,8 @@ if (!isProduction) {
     res.json({
       errors: {
         message: err.message,
-        error: err
-      }
+        error: err,
+      },
     });
   });
 }
@@ -86,8 +86,8 @@ app.use((err, req, res, next) => {
   res.json({
     errors: {
       message: err.message,
-      error: {}
-    }
+      error: {},
+    },
   });
 });
 
