@@ -1,15 +1,11 @@
-const fs = require("fs"),
-  http = require("http"),
-  path = require("path"),
-  methods = require("methods"),
-  express = require("express"),
-  bodyParser = require("body-parser"),
-  session = require("express-session"),
-  cors = require("cors"),
-  passport = require("passport"),
-  errorhandler = require("errorhandler"),
-  mongoose = require("mongoose");
-require("dotenv").config();
+import express from "express";
+import { urlencoded, json } from "body-parser";
+import session from "express-session";
+import cors from "cors";
+import errorhandler from "errorhandler";
+import { connect, set } from "mongoose";
+
+import "./models/User.js";
 
 const isProduction = process.env.NODE_ENV === "production";
 
@@ -95,3 +91,4 @@ app.use((err, req, res, next) => {
 const server = app.listen(process.env.PORT || 3000, () => {
   console.log(`Listening on port ${server.address().port}`);
 });
+

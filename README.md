@@ -1,4 +1,6 @@
 [![Coverage Status](https://coveralls.io/repos/github/atlp-rwanda/tech-strikers-bn-backend/badge.svg?branch=Develop)](https://coveralls.io/github/atlp-rwanda/tech-strikers-bn-backend?branch=Develop)
+[![Reviewed by Hound](https://img.shields.io/badge/Reviewed_by-Hound-8E64B0.svg)](https://houndci.com)
+
 
 Barefoot Nomad - Making company travel and accomodation easy and convinient.
 =======

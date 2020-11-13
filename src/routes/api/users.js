@@ -1,8 +1,7 @@
 const mongoose = require("mongoose");
 const router = require("express").Router();
 const passport = require("passport");
-
-const User = mongoose.model("User");
+const User = require('../../models/User')
 
 router.get("/user", (req, res, next) => {
   User.findById(req.payload.id)
