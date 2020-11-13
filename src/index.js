@@ -37,6 +37,7 @@ app.use(
 );
 //CONNECTING APP TO POSTGRESS
 
+
 const sequelize = new Sequelize('barefootnomad_db', 'andela', 'andela2020', {
     host: 'localhost',
     dialect: 'postgres' 
@@ -52,6 +53,7 @@ const connectDb = async()=>{
   
 connectDb();
   
+
 require("./models/User");
 
 app.use(require("./routes"));
