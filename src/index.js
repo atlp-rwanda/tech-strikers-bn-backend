@@ -1,24 +1,29 @@
-import express from "express";
-import { urlencoded, json } from "body-parser";
-import session from "express-session";
-import cors from "cors";
-import errorhandler from "errorhandler";
-import { connect, set } from "mongoose";
-
-import "./models/User";
+const fs = require("fs"),
+  http = require("http"),
+  path = require("path"),
+  methods = require("methods"),
+  express = require("express"),
+  bodyParser = require("body-parser"),
+  session = require("express-session"),
+  cors = require("cors"),
+  passport = require("passport"),
+  errorhandler = require("errorhandler"),
+  mongoose = require("mongoose");
+require("dotenv").config();
 
 const isProduction = process.env.NODE_ENV === "production";
 
 // Create global app object
 const app = express();
-
+const { API_VERSION, DEV_DB_HOSTNAME } = process.env;
+console.log(API_VERSION, DEV_DB_HOSTNAME);
 app.use(cors());
 
 // Normal express config defaults
 app.use(require("morgan")("dev"));
 
-app.use(urlencoded({ extended: false }));
-app.use(json());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
 app.use(require("method-override")());
 
@@ -29,7 +34,7 @@ app.use(
     secret: "authorshaven",
     cookie: { maxAge: 60000 },
     resave: false,
-    saveUninitialized: false,
+    saveUninitialized: false
   })
 );
 
@@ -38,11 +43,13 @@ if (!isProduction) {
 }
 
 if (isProduction) {
-  connect(process.env.MONGODB_URI);
+  mongoose.connect(process.env.MONGODB_URI);
 } else {
-  connect("mongodb://localhost/conduit");
-  set("debug", true);
+  mongoose.connect("mongodb://localhost/conduit");
+  mongoose.set("debug", true);
 }
+
+require("./models/User.js");
 
 app.use(require("./routes"));
 
@@ -58,7 +65,7 @@ app.use((req, res, next) => {
 // development error handler
 // will print stacktrace
 if (!isProduction) {
-  app.use((err, req, res) => {
+  app.use((err, req, res, next) => {
     console.log(err.stack);
 
     res.status(err.status || 500);
@@ -66,21 +73,21 @@ if (!isProduction) {
     res.json({
       errors: {
         message: err.message,
-        error: err,
-      },
+        error: err
+      }
     });
   });
 }
 
 // production error handler
 // no stacktraces leaked to user
-app.use((err, req, res) => {
+app.use((err, req, res, next) => {
   res.status(err.status || 500);
   res.json({
     errors: {
       message: err.message,
-      error: {},
-    },
+      error: {}
+    }
   });
 });
 
