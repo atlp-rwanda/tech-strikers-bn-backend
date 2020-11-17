@@ -5,5 +5,12 @@ export default {
     password: "Password1!",
     role: "admin",
     username: "warrior",
+  },
+  user2: {
+    fullname: "Duncan warrior",
+    email: "klf89416@cdd.com",
+    password: "Password1!",
+    role: "admin",
+    username: "warrior",
   }
 };

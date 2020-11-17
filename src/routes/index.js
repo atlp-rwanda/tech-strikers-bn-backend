@@ -11,6 +11,8 @@ const baseUrl = `/api/${apiVersion}`;
 router.get("/api", (req, res) => {
   res.status(200).json({ message: "Well Connected api" });
 });
+
 router.use(baseUrl, api);
 router.use(api);
+
 export default router;

@@ -1,11 +1,10 @@
 import jwt from "jwt-simple";
 
 const generateToken = (user) => {
-  const accessToken = jwt.encode(user, process.env.ACCESS_TOKEN_SECRET);
-
-  if (!accessToken) {
+  if (!user || !process.env.ACCESS_TOKEN_SECRET) {
     return { message: "Something went wrong!" };
   }
+  const accessToken = jwt.encode(user, process.env.ACCESS_TOKEN_SECRET);
   return { token: accessToken };
 };
 export default generateToken;
