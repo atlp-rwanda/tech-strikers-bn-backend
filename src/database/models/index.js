@@ -1,13 +1,15 @@
-const fs = require("fs");
-const path = require("path");
-const Sequelize = require("sequelize");
-const envConfigs = require("../config/config");
+/* eslint-disable import/no-dynamic-require */
+import { readdirSync } from "fs";
+import path, { basename as _basename } from "path";
+import Sequelize from "sequelize";
+import dotenv from "dotenv";
+import envConfigs from "../config/config";
 
-const basename = path.basename(__filename);
-const env = process.env.NODE_ENV || "development";
+dotenv.config();
+const basename = _basename(__filename);
+const env = process.env.NODE_ENV;
 const config = envConfigs[env];
 const db = {};
-
 let sequelize;
 if (config.url) {
   sequelize = new Sequelize(config.url, config);
@@ -15,8 +17,7 @@ if (config.url) {
   sequelize = new Sequelize(config.database, config.username, config.password, config);
 }
 
-fs
-  .readdirSync(__dirname)
+readdirSync(__dirname)
   .filter((file) => (file.indexOf(".") !== 0) && (file !== basename) && (file.slice(-3) === ".js"))
   .forEach((file) => {
     const model = require(path.join(__dirname, file))(sequelize, Sequelize.DataTypes);
@@ -32,4 +33,4 @@ Object.keys(db).forEach((modelName) => {
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 
-module.exports = db;
+export default db;
