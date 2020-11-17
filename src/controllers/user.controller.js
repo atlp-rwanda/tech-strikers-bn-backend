@@ -1,3 +1,4 @@
+
 import UserService from "../services/user.service.js";
 import customMessage from "../utils/customMessage.js";
 import helper from "../utils/helpers.js";
@@ -7,8 +8,9 @@ import email from "../utils/email.js";
 import tokenUtil from "../utils/util.jwt";
 import cloudinary from "../utils/cloudinary"
 
-const { createUser, retrieveUserById, upDateUserInfo } = UserService;
-const { hashPassword, base64FileStringGenerator } = helper;
+
+const { createUser,retrieveUserById, upDateUserInfo} = UserService;
+const { hashPassword } = helper;
 const { signedup } = customMessage;
 const { created } = statusCode;
 const { successResponse } = responses;

@@ -16,9 +16,9 @@ chai.use(chaiHttp);
 chai.should();
 
 
-const email = { email: 1 };
+const email = { fullname:"user",email: 1,password:"characters",username:"geraud" };
 const { user1, user2, user3, user4, user0 } = userMock;
-const { created, ok, conflict } = statusCode;
+const { created, ok, conflict,badRequest } = statusCode;
 const { signedup, duplicateEmail } = customMessage;
 const { generateToken } = tokenUtil
  
@@ -61,6 +61,7 @@ describe("User Test", () => {
       .post("/api/v1/user/signup")
       .send(user1)
       .end((err, res) => {
+        console.log(res.body)
         const { error } = res.body;
         expect(res.status).to.equal(conflict);
         expect(error);
@@ -68,20 +69,8 @@ describe("User Test", () => {
         done();
       });
   });
-  it("Should user service method when it recieves an id", (done) => {
-    chai
-      .request(server)
-      .post("/api/v1/user/signup")
-      .send(email)
-      .end((err, res) => {
-        const { error } = res.body;
-        expect(res.status).to.equal(conflict);
-        expect(error);
-        expect(error).to.equal(duplicateEmail);
-        done();
-      });
-  });
-  it("Should not create a user with an Existing Email", (done) => {
+  
+  it("Should update User", (done) => {
     chai
       .request(server)
       .post("/api/v1/user/signup")
@@ -101,13 +90,29 @@ describe("User Test", () => {
       .send(email)
       .end((err, res) => {
         const { error } = res.body;
-        expect(res.status).to.equal(conflict);
+        expect(res.status).to.equal(badRequest);
         expect(error);
-        expect(error).to.equal(duplicateEmail);
         done();
       });
   });
   
+  it("Should not update User if username is taken", (done) => {
+    chai
+      .request(server)
+      .put("/api/v1/user")
+      .set("Authorization", `Bearer ${generateToken(user3).token}`)
+      .field("fullname", "user")
+      .field("username", "user2")
+      .field("email", "you@example.com")
+      .field("password", "first_password")
+      .end((err, res) => {
+        console.log(res.body)
+          expect(res.status).to.equal(400);
+          expect(res.body).to.be.a("object");
+          expect(res.body.message).to.equal("Username has been taken");
+          done();
+        });
+  });
   it("should not update a user if id = 0", (done) => {
     chai
       .request(server)
