@@ -43,8 +43,7 @@ router.put("/user", (req, res, next) => {
     })
     .catch(next);
 });
-
-router.post("/users/login", (req, res, next) => {
+router.post("/user/login", (req, res, next) => {
   if (!req.body.user.email) {
     return res.status(422).json({ errors: { email: "can't be blank" } });
   }
@@ -63,8 +62,7 @@ router.post("/users/login", (req, res, next) => {
     return res.status(422).json(info);
   })(req, res, next);
 });
-
-router.post("/users", (req, res, next) => {
+router.post("/user", (req, res, next) => {
   const user = new User();
 
   user.username = req.body.user.username;
