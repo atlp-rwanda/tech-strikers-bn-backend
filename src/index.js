@@ -9,11 +9,13 @@ const fs = require("fs"),
   passport = require("passport"),
   errorhandler = require("errorhandler"),
   swaggerUi = require("swagger-ui-express"),
-  swaggerDoc = require("../swagger.json");
-  const { Sequelize } = require('sequelize');
+  Users = require("./database/seeders/user.json"),
+  swaggerDoc = require("../swagger.json"),
+  { Sequelize } = require('sequelize');
+  require("dotenv").config()
 
 const isProduction = process.env.NODE_ENV === "production";
-const {development} = require('./config/config.js');
+const {development} = require("./database/config/config");
 const { host } = development;
 // Create global app object
 const app = express();
@@ -39,7 +41,8 @@ app.use(
   })
 );
 //CONNECTING APP TO POSTGRESS
-const sequelize = new Sequelize(development.database, development.username, development.password, {
+
+  const sequelize = new Sequelize(development.url, {
     host: host,
     dialect: 'postgres' 
   });
@@ -54,6 +57,8 @@ const connectDb = async () => {
 }
 connectDb();
   
+app.use(require("./routes"));
+
 app.use("/", swaggerUi.serve, swaggerUi.setup(swaggerDoc));
 
 /// catch 404 and forward to error handler
@@ -74,7 +79,7 @@ if (!isProduction) {
         message: err.message,
         error: err,
       },
-    });
+    })
   });
 }
 
@@ -91,6 +96,10 @@ app.use((err, req, res, next) => {
 });
 
 // finally, let's start our server...
-const server = app.listen(process.env.PORT || 3000, () => {
-  console.log(`Listening on port ${server.address().port}`);
+const port = process.env.PORT || 3000;
+const server = app.listen(port, () => {
+  console.log(`Listening on port ${port}`);
+
 });
+
+module.exports = server;
