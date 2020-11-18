@@ -8,12 +8,13 @@ const fs = require("fs"),
   cors = require("cors"),
   passport = require("passport"),
   errorhandler = require("errorhandler"),
-  mongoose = require("mongoose"),
   swaggerUi = require("swagger-ui-express"),
   swaggerDoc = require("../swagger.json");
+  const { Sequelize } = require('sequelize');
 
 const isProduction = process.env.NODE_ENV === "production";
-
+const {development} = require('./config/config.js');
+const { host } = development;
 // Create global app object
 const app = express();
 
@@ -37,20 +38,22 @@ app.use(
     saveUninitialized: false,
   })
 );
+//CONNECTING APP TO POSTGRESS
+const sequelize = new Sequelize(development.database, development.username, development.password, {
+    host: host,
+    dialect: 'postgres' 
+  });
 
-if (!isProduction) {
-  app.use(errorhandler());
+const connectDb = async () => {
+    try {
+        await sequelize.authenticate();
+        console.log('Connection has been established successfully.');
+      } catch (error) {
+        console.error('Unable to connect to the database:', error);
+      }
 }
-
-if (isProduction) {
-  mongoose.connect(process.env.MONGODB_URI);
-} else {
-  mongoose.connect("mongodb://localhost/conduit");
-  mongoose.set("debug", true);
-}
-
-app.use(require("./routes"));
-
+connectDb();
+  
 app.use("/", swaggerUi.serve, swaggerUi.setup(swaggerDoc));
 
 /// catch 404 and forward to error handler
@@ -60,10 +63,6 @@ app.use((req, res, next) => {
   next(err);
 });
 
-/// error handlers
-
-// development error handler
-// will print stacktrace
 if (!isProduction) {
   app.use((err, req, res, next) => {
     console.log(err.stack);
