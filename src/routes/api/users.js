@@ -1,5 +1,7 @@
 const router = require("express").Router();
 const passport = require("passport");
+const User = require("../../database/models/user");
+
 router.get("/user", (req, res, next) => {
   res.status(200).json({
     message: "successfully sent query"

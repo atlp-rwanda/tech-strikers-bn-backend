@@ -1,0 +1,23 @@
+[
+    {
+    "id":1,
+    "name":"eric",
+    "email":"mugisha@gmail.com"
+    },
+    {
+        "id":2,
+        "name":"igor",
+        "email":"murenzi@gmail.com"     
+    },
+    {
+        "id":3,
+        "name":"nsabimana",
+        "email":"damien@gmail.com"
+    },
+
+ {
+        "id":4,
+        "name":"ishimwe",
+        "email":"hussen@gmail.com"
+    }
+]
