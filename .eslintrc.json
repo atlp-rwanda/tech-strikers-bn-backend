@@ -30,6 +30,13 @@
     "curly": ["error", "multi-line"],
     "import/no-unresolved": [2, { "commonjs": true }],
     "no-shadow": ["error", { "allow": ["req", "res", "err"] }],
+    "object-curly-newline": 0,
+    "no-underscore-dangle": [
+      "error",
+      {
+        "allow": ["__"]
+      }
+    ],
     "valid-jsdoc": [
       "error",
       {
