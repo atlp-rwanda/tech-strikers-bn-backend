@@ -4,7 +4,6 @@ on: [push]
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
     services:
       postgres:
@@ -16,38 +15,41 @@ jobs:
       redis:
         image: redis
         ports:
-        - 6379:6379
+          - 6379:6379
         options: --entrypoint redis-server
     strategy:
       matrix:
         node-version: [14.x]
 
     steps:
-    # Downloads a copy of the code in your repository before running CI tests
-    - name: Check out repository code
-      uses: actions/checkout@v2
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v1
-      with:
-        node-version: ${{ matrix.node-version }}
-    # Performs a clean installation of all dependencies in the `package.json` file
-    # For more information, see https://docs.npmjs.com/cli/ci.html
-    - name: Install dependencies 
-      run: | 
-        npm ci
-        npm test
-        npm run coverage
-      env:
-        TEST_DATABASE_URL: postgres://postgres:postgres@localhost:5432/test
-        REDIS_URL: redis://localhost:6379
-        API_VERSION: ${{ secrets.API_VERSION }}
-        SENDGRID_API_KEY: ${{secrets.SENDGRID_API_KEY}}
-        EMAIL_SENDER: ${{secrets.EMAIL_SENDER}}
-        ACCESS_TOKEN_SECRET: ${{secrets.ACCESS_TOKEN_SECRET}}
+      # Downloads a copy of the code in your repository before running CI tests
+      - name: Check out repository code
+        uses: actions/checkout@v2
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      # Performs a clean installation of all dependencies in the `package.json` file
+      # For more information, see https://docs.npmjs.com/cli/ci.html
+      - name: Install dependencies
+        run: |
+          npm ci
+          npm test
+          npm run coverage
+        env:
+          TEST_DATABASE_URL: postgres://postgres:postgres@localhost:5432/test
+          REDIS_URL: redis://localhost:6379
+          API_VERSION: v1
+          SENDGRID_API_KEY: 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
+          EMAIL_SENDER: strikers668@gmail.com
+          ACCESS_TOKEN_SECRET: AccessTokenSecret
+          GOOGLE_CLIENT_ID: "1073388050685-2f69mr0uovi1g7e6ua8sf0sh0gd6sa5l.apps.googleusercontent.com"
+          GOOGLE_CLIENT_SECRET: "Mq9eBucDOcqPiEbLxi6T12tQ"
+          FACEBOOK_CLIENT_ID: "829045074521003"
+          FACEBOOK_CLIENT_SECRET: "753b3ffb81f0765b7f8c20f6e3030f8f"
 
-     # Save coverage report in Coveralls
-    - name: Coveralls GitHub Action
-      uses: coverallsapp/github-action@v1.1.2
-      with:
-        github-token: ${{ secrets.GITHUB_TOKEN }}
-      
+        # Save coverage report in Coveralls
+      - name: Coveralls GitHub Action
+        uses: coverallsapp/github-action@v1.1.2
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
