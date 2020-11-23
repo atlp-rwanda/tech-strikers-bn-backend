@@ -1,16 +1,19 @@
 import express from "express";
 import Sequelize from "sequelize";
-import { urlencoded, json } from "body-parser";
+import bodyparser from "body-parser";
 import session from "express-session";
+import methodoverride from "method-override";
 import cors from "cors";
-import { serve, setup } from "swagger-ui-express";
+import path from "path";
+import swaggerUi from "swagger-ui-express";
 import dotenv from "dotenv";
 import swaggerDoc from "../swagger.json";
-import routes from "./routes/index";
-import { development } from "./database/config/config";
+import routes from "./routes/index.js";
+import configurations from "./database/config/config.js";
 
 dotenv.config();
-
+// eslint-disable-next-line no-underscore-dangle
+const __dirname = path.resolve();
 const isProduction = process.env.NODE_ENV === "production";
 const { API_VERSION } = process.env;
 console.log(API_VERSION);
@@ -20,12 +23,12 @@ const app = express();
 app.use(cors());
 app.use(routes);
 // Normal express config defaults
-app.use(require("morgan")("dev"));
+// app.use(morgan("dev"));
 
-app.use(urlencoded({ extended: false }));
-app.use(json());
+app.use(bodyparser.urlencoded({ extended: false }));
+app.use(bodyparser.json());
 
-app.use(require("method-override")());
+app.use(methodoverride());
 
 app.use(express.static(`${__dirname}/public`));
 
@@ -39,7 +42,7 @@ app.use(
 );
 // CONNECTING APP TO POSTGRESS
 
-const sequelize = new Sequelize(development.url, {
+const sequelize = new Sequelize(configurations.env_configurations.development.url, {
   dialect: "postgres"
 });
 
@@ -53,7 +56,7 @@ const connectDb = async () => {
 };
 connectDb();
 
-app.use("/", serve, setup(swaggerDoc));
+app.use("/", swaggerUi.serve, swaggerUi.setup(swaggerDoc));
 
 /// catch 404 and forward to error handler
 app.use((req, res, next) => {
@@ -95,4 +98,6 @@ const server = app.listen(port, () => {
   console.log(`Listening on port ${port}`);
 });
 
-module.exports = server;
+const funcToTest = (a, b) => b;
+
+export default { server, funcToTest };
