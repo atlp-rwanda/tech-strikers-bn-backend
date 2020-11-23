@@ -1,32 +1,29 @@
-const fs = require("fs"),
-  http = require("http"),
-  path = require("path"),
-  methods = require("methods"),
-  express = require("express"),
-  bodyParser = require("body-parser"),
-  session = require("express-session"),
-  cors = require("cors"),
-  passport = require("passport"),
-  errorhandler = require("errorhandler"),
-  swaggerUi = require("swagger-ui-express"),
-  Users = require("./database/seeders/user.json"),
-  swaggerDoc = require("../swagger.json"),
-  { Sequelize } = require('sequelize');
-  require("dotenv").config()
+import express from "express";
+import Sequelize from "sequelize";
+import { urlencoded, json } from "body-parser";
+import session from "express-session";
+import cors from "cors";
+import { serve, setup } from "swagger-ui-express";
+import dotenv from "dotenv";
+import swaggerDoc from "../swagger.json";
+import routes from "./routes/index";
+import { development } from "./database/config/config";
+
+dotenv.config();
 
 const isProduction = process.env.NODE_ENV === "production";
-const {development} = require("./database/config/config");
-const { host } = development;
+const { API_VERSION } = process.env;
+console.log(API_VERSION);
 // Create global app object
 const app = express();
 
 app.use(cors());
-
+app.use(routes);
 // Normal express config defaults
 app.use(require("morgan")("dev"));
 
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
+app.use(urlencoded({ extended: false }));
+app.use(json());
 
 app.use(require("method-override")());
 
@@ -40,26 +37,23 @@ app.use(
     saveUninitialized: false,
   })
 );
-//CONNECTING APP TO POSTGRESS
+// CONNECTING APP TO POSTGRESS
 
-  const sequelize = new Sequelize(development.url, {
-    host: host,
-    dialect: 'postgres' 
-  });
+const sequelize = new Sequelize(development.url, {
+  dialect: "postgres"
+});
 
 const connectDb = async () => {
-    try {
-        await sequelize.authenticate();
-        console.log('Connection has been established successfully.');
-      } catch (error) {
-        console.error('Unable to connect to the database:', error);
-      }
-}
+  try {
+    await sequelize.authenticate();
+    console.log("Connection has been established successfully.");
+  } catch (error) {
+    console.error("Unable to connect to the database:", error);
+  }
+};
 connectDb();
-  
-app.use(require("./routes"));
 
-app.use("/", swaggerUi.serve, swaggerUi.setup(swaggerDoc));
+app.use("/", serve, setup(swaggerDoc));
 
 /// catch 404 and forward to error handler
 app.use((req, res, next) => {
@@ -79,7 +73,7 @@ if (!isProduction) {
         message: err.message,
         error: err,
       },
-    })
+    });
   });
 }
 
@@ -99,7 +93,6 @@ app.use((err, req, res, next) => {
 const port = process.env.PORT || 3000;
 const server = app.listen(port, () => {
   console.log(`Listening on port ${port}`);
-
 });
 
 module.exports = server;
