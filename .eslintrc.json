@@ -21,6 +21,7 @@
     "quotes": [2, "double", "avoid-escape"],
     "no-unused-vars": 0,
     "no-console": 0,
+    "import/extensions": 0,
     "func-names": 0,
     "arrow-parens":"off",
     "global-require": "off",
