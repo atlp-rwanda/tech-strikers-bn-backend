@@ -32,4 +32,5 @@ describe("Testing behaviour of verifyToken and generateToken functions", () => {
     expect(status).to.equal(202);
     done();
   });
+
 });

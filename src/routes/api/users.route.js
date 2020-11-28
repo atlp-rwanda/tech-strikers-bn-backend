@@ -3,25 +3,15 @@ import passport from "passport";
 import AuthControllers from "../../controllers/auth.controller";
 import UserControllers from "../../controllers/user.controller.js";
 import authMiddleware from "../../middlewares/auth";
-
+import loginController from "../../controllers/login.controller.js"; 
+import validateUser from "../../validation/index";
 const router = express.Router();
 const { signup } = UserControllers;
 const { loginCallback } = AuthControllers;
 const { checkEmailExist } = authMiddleware;
-
-router.get("/user", (req, res) => {
-  res.status(200).json({ message: "successfully sent" });
-});
-
-router.put("/user", (req, res) => {
-  res.status(200).json({ message: "successfully sent" });
-});
-
+const { login } = loginController;
 router.post("/user/signup", checkEmailExist, signup);
 
-router.delete("/user", (req, res) => {
-  res.status(200).json({ message: "successfully sent" });
-});
 
 router.get(
   "/user/login/google",
@@ -50,5 +40,9 @@ router.get(
   }),
   AuthControllers.loginCallback
 );
+
+
+router.post("/user/signup", signup);
+router.post("/auth/siginIn",validateUser,login);
 
 export default router;

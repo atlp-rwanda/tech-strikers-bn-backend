@@ -18,12 +18,22 @@ module.exports = {
         type: Sequelize.STRING,
         defaultValue: "local",
       },
-      email: {
-        type: Sequelize.STRING,
+
+      username: {
+        type: Sequelize.STRING
       },
-      role: {
+      role:{
         type: Sequelize.STRING,
         defaultValue: "user",
+      },
+
+      isVerified: {
+      type: Sequelize.BOOLEAN,
+      defaultValue: false
+      },
+      email: {
+        type: Sequelize.STRING,
+        unique: true
       },
       password: {
         type: Sequelize.STRING,

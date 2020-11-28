@@ -1,5 +1,12 @@
 {
 	"successfully sent query": "Ubutumwa bwoherejwe neza",
 	"successfully sent": "Igikorwa cyagenze neza",
-    "welcome": "Murakaza neza kuri Barefoot Nomad"
-    }
+	"welcome": "Murakaza neza kuri Barefoot Nomad",
+	"successfully logged in": "Winjiye neza",
+	"Email not found": "Imeri ntabwo yabonetse",
+	"Wrong Password": "Ijambobanga ritari ryo",
+	"Email is required": "Imeri irakenewe",
+	"Password is required": "Ijambobanga rirakenewe",
+	"Password must be in the range of 6 to 15 characters": " Ijambobanga rigomba kuba riri hagati yinyuguti 6 kugeza kuri 15",
+	"Your account has not been verified": "Konti yawe ntabwo yagenzuwe"
+}
