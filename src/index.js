@@ -1,6 +1,6 @@
 import express from "express";
 import Sequelize from "sequelize";
-import bodyparser from "body-parser";
+import bodyParser from "body-parser";
 import session from "express-session";
 import methodoverride from "method-override";
 import cors from "cors";
@@ -9,8 +9,7 @@ import swaggerUi from "swagger-ui-express";
 import dotenv from "dotenv";
 import swaggerDoc from "../swagger.json";
 import routes from "./routes/index.js";
-import configurations from "./database/config/config.js";
-
+import { development } from "./database/config/config.js";
 dotenv.config();
 // eslint-disable-next-line no-underscore-dangle
 const __dirname = path.resolve();
@@ -19,19 +18,15 @@ const { API_VERSION } = process.env;
 console.log(API_VERSION);
 // Create global app object
 const app = express();
-
+app.use(bodyParser.json());
 app.use(cors());
 app.use(routes);
 // Normal express config defaults
 // app.use(morgan("dev"));
 
-app.use(bodyparser.urlencoded({ extended: false }));
-app.use(bodyparser.json());
-
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(methodoverride());
-
 app.use(express.static(`${__dirname}/public`));
-
 app.use(
   session({
     secret: "authorshaven",
@@ -42,7 +37,7 @@ app.use(
 );
 // CONNECTING APP TO POSTGRESS
 
-const sequelize = new Sequelize(configurations.env_configurations.development.url, {
+const sequelize = new Sequelize(development.url, {
   dialect: "postgres"
 });
 
@@ -59,6 +54,7 @@ connectDb();
 app.use("/", swaggerUi.serve, swaggerUi.setup(swaggerDoc));
 
 /// catch 404 and forward to error handler
+
 app.use((req, res, next) => {
   const err = new Error("Not Found");
   err.status = 404;

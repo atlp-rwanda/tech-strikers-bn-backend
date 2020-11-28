@@ -1,8 +1,6 @@
-import dotenv from "dotenv";
+require ("dotenv").config();
 
-dotenv.config();
-
-const env_configurations = {
+module.exports = {
 
   development: {
     url: process.env.DEV_DATABASE_URL,
@@ -20,5 +18,3 @@ const env_configurations = {
     logging: true
   }
 };
-
-export default { env_configurations };
