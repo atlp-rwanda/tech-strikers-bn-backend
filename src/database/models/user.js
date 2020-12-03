@@ -1,8 +1,10 @@
-// eslint-disable-next-line import/prefer-default-export
-export const userModel = (sequelize, DataTypes) => {
-  const User = sequelize.define("User", {
-    name: DataTypes.STRING,
-    email: DataTypes.STRING
+module.exports = (sequelize, DataTypes) => {
+  const Users = sequelize.define("Users", {
+    fullname: DataTypes.STRING,
+    email: DataTypes.STRING,
+    username: DataTypes.STRING,
+    password: DataTypes.STRING,
+    role: DataTypes.STRING,
   }, {});
-  return User;
+  return Users;
 };

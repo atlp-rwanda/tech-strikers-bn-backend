@@ -3,13 +3,13 @@ module.exports = {
     "Users",
     [
       {
-        name: "tytyne",
+        fullname: "tytyne",
         email: "tytyne@example.com",
         createdAt: new Date(),
         updatedAt: new Date(),
       },
       {
-        name: "fofo",
+        fullname: "fofo",
         email: "fofo@example.com",
         createdAt: new Date(),
         updatedAt: new Date(),
