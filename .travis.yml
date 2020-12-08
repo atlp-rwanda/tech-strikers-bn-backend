@@ -12,4 +12,3 @@ notification:
   - email: false
 after_success:
   - npm run coverage
-

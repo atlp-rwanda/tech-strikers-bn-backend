@@ -10,7 +10,7 @@ const transport = nodemailer.createTransport(
 );
 
 const sendConfirmationEmail = async (user) => {
-  const url = `${process.env.APP_URL}/me`;
+  const url = `${process.env.APP_URL}/verified`;
   await transport.sendMail({
     from: `${process.env.EMAIL_SENDER}`,
     to: `${user.fullname} <${user.email}>`,

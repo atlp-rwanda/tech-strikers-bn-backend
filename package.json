@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "description": "A Social platform for the creative at heart",
   "main": "src/index.js",
-  "scripts": {"prestart": "npm run migrations",
+  "scripts": {
+    "prestart": "npm run migrations",
     "start": "babel-node src/index.js",
     "dev": "nodemon --exec babel-node  src/index.js",
     "create-db": "npx sequelize-cli db:create",
