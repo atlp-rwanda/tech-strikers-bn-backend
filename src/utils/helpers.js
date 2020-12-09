@@ -4,6 +4,20 @@ const hashPassword = (password) => {
   const hash = bcrypt.hashSync(password, 15);
   return hash;
 };
+
+const oauthCallback = (refreshToken, accessToken, profile, cb) => {
+  if (profile) {
+    const { displayName, emails, provider } = profile;
+    const profileData = {
+      fullname: displayName,
+      email: emails[0].value,
+      provider,
+    };
+    return cb(null, profileData);
+  }
+};
+
 export default {
-  hashPassword
+  hashPassword,
+  oauthCallback,
 };

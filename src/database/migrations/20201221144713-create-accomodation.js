@@ -1,33 +1,50 @@
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable("Users", {
+    await queryInterface.createTable("Accommodations", {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      fullname: {
+      user_id: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        onDelete: 'CASCADE',
+        references: {
+          model: 'Users',
+          key: 'id',
+          as: 'user_id',
+        },
+      },
+      name: {
         type: Sequelize.STRING,
       },
-      username: {
+
+      address: {
         type: Sequelize.STRING,
-        defaultValue: "",
+      
       },
-      provider: {
+      amenities: {
+        type: Sequelize.ARRAY(Sequelize.STRING),
+      },
+      services: {
         type: Sequelize.STRING,
-        defaultValue: "local",
+    
       },
-      email: {
-        type: Sequelize.STRING,
-      },
-      role: {
-        type: Sequelize.STRING,
-        defaultValue: "user",
-      },
-      password: {
+      description: {
         type: Sequelize.STRING,
       },
+      image:{
+        type: Sequelize.ARRAY(Sequelize.STRING),
+      },
+      status: {
+        type:Sequelize.ENUM({
+          values: ["Pending", "Approved"]
+        }),
+        defaultValue:"Pending"
+      },
+  
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
@@ -41,6 +58,6 @@ module.exports = {
     });
   },
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable("Users");
+    await queryInterface.dropTable("Accommodations");
   },
 };

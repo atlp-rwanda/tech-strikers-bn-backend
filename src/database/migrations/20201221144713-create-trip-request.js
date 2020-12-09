@@ -1,46 +1,44 @@
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable("Users", {
+    await queryInterface.createTable("TripRequests", {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      fullname: {
-        type: Sequelize.STRING,
+      user_id: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
       },
-      username: {
+      status: {
         type: Sequelize.STRING,
-        defaultValue: "",
+        defaultValue: "pending",
+        allowNull: false,
       },
-      provider: {
-        type: Sequelize.STRING,
-        defaultValue: "local",
+      departureDate: {
+        type: Sequelize.DATEONLY,
+        allowNull: false,
       },
-      email: {
-        type: Sequelize.STRING,
+      returnDate: {
+        type: Sequelize.DATEONLY,
+        allowNull: true,
       },
-      role: {
+      reason: {
         type: Sequelize.STRING,
-        defaultValue: "user",
-      },
-      password: {
-        type: Sequelize.STRING,
+        allowNull: false,
       },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
-        defaultValue: Sequelize.fn("NOW"),
       },
       updatedAt: {
         allowNull: false,
         type: Sequelize.DATE,
-        defaultValue: Sequelize.fn("NOW"),
       },
     });
   },
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable("Users");
+    await queryInterface.dropTable("TripRequests");
   },
 };
