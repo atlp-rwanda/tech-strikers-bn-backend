@@ -118,6 +118,28 @@
         }
       }
     },
+    "api/user/login/google":{
+      "get": {
+        "tags": ["user router"],
+        "description": "user login with google",
+        "responses": {
+          "200": {
+            "description": "login successfully"
+          }
+        }
+      }
+    },
+    "api/user/login/facebook":{
+      "get": {
+        "tags": ["user router"],
+        "description": "user login with facebook",
+        "responses": {
+          "200": {
+            "description": "login successfully"
+          }
+        }
+      }
+    },
     "/api/v1/user/signup": {
       "post": {
         "tags": ["user router"],
@@ -143,7 +165,6 @@
       }
     }
   },
-
   "components": {
     "schemas": {
       "User": {

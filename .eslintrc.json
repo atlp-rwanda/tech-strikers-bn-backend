@@ -23,16 +23,18 @@
     "no-console": 0,
     "import/extensions": 0,
     "func-names": 0,
-    "arrow-parens":"off",
+    "arrow-parens": "off",
     "global-require": "off",
-    "sort-imports":"off",
-    "no-return-await":"off",
+    "sort-imports": "off",
+    "no-return-await": "off",
+    "no-useless-catch": 0,
+    "import/no-dynamic-require": 0,
     "curly": ["error", "multi-line"],
     "import/no-unresolved": [2, { "commonjs": true }],
-    "no-shadow": ["error", { "allow": ["req", "res", "err"] }],
+    "no-shadow": ["off", { "allow": ["req", "res", "err"] }],
     "object-curly-newline": 0,
     "no-underscore-dangle": [
-      "error",
+      "off",
       {
         "allow": ["__"]
       }
