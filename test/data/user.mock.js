@@ -12,5 +12,10 @@ export default {
     password: "Password1!",
     role: "admin",
     username: "warrior",
-  }
+  },
+  user3: {
+    fullname: "Jon Doe",
+    email: "manzichristian@auweek.net",
+    role: "manager",
+  },
 };

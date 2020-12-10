@@ -2,10 +2,18 @@ export default (sequelize, DataTypes) => {
   const Notifications = sequelize.define(
     "Notifications",
     {
-      Title: DataTypes.STRING,
-      Content: DataTypes.STRING,
+      title: DataTypes.STRING,
+      content: DataTypes.STRING,
+      status: DataTypes.BOOLEAN,
+      userId: DataTypes.INTEGER,
     },
     {}
   );
+  Notifications.associate = (models) => {
+    Notifications.belongsTo(models.Users, {
+      as: "user",
+      foreignKey: "userId",
+    });
+  };
   return Notifications;
 };

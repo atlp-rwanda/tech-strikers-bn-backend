@@ -5,7 +5,7 @@ import dotenv from "dotenv";
 dotenv.config();
 const transport = nodemailer.createTransport(
   nodemailerSendgrid({
-    apiKey: process.env.SENDGRID_API_KEY
+    apiKey: process.env.SENDGRID_API_KEY,
   })
 );
 
@@ -20,6 +20,17 @@ const sendConfirmationEmail = async (user) => {
   });
 };
 
+const sendNotificationEmailToManagerOnEdit = async (manager, tripRequest) => {
+  const url = `${process.env.APP_URL}/requests/${tripRequest.id}`;
+  await transport.sendMail({
+    from: `${process.env.EMAIL_SENDER}`,
+    to: `${manager.fullname} <${manager.email}>`,
+    subject: "Notification: Trip Request edited",
+    html: `<div><p>Hi ${manager.fullname}, This is to notify you that a trip request has been edited.</p> <p>You can access the updated trip request via <a href=${url}>${url}</a></p></div>`,
+  });
+};
+
 export default {
-  sendConfirmationEmail
+  sendConfirmationEmail,
+  sendNotificationEmailToManagerOnEdit,
 };

@@ -37,16 +37,17 @@ jobs:
           npm test
           npm run coverage
         env:
-          TEST_DATABASE_URL: postgres://postgres:postgres@localhost:5432/test
-          REDIS_URL: redis://localhost:6379
-          API_VERSION: v1
-          SENDGRID_API_KEY: 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
-          EMAIL_SENDER: strikers668@gmail.com
-          ACCESS_TOKEN_SECRET: AccessTokenSecret
-          GOOGLE_CLIENT_ID: "1073388050685-2f69mr0uovi1g7e6ua8sf0sh0gd6sa5l.apps.googleusercontent.com"
-          GOOGLE_CLIENT_SECRET: "Mq9eBucDOcqPiEbLxi6T12tQ"
-          FACEBOOK_CLIENT_ID: "829045074521003"
-          FACEBOOK_CLIENT_SECRET: "753b3ffb81f0765b7f8c20f6e3030f8f"
+          TEST_DATABASE_URL: ${{ secrets.TEST_DATABASE_URL }}
+          REDIS_URL: ${{ secrets.REDIS_URL }}
+          API_VERSION: ${{ secrets.API_VERSION }}
+          APP_URL: ${{ secrets.APP_URL }}
+          SENDGRID_API_KEY: ${{ secrets.SENDGRID_API_KEY }}
+          EMAIL_SENDER: ${{ secrets.EMAIL_SENDER }}
+          ACCESS_TOKEN_SECRET: ${{ secrets.ACCESS_TOKEN_SECRET }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+          FACEBOOK_CLIENT_ID: ${{ secrets.FACEBOOK_CLIENT_ID }}
+          FACEBOOK_CLIENT_SECRET: ${{ secrets.FACEBOOK_CLIENT_SECRET }}
 
         # Save coverage report in Coveralls
       - name: Coveralls GitHub Action
