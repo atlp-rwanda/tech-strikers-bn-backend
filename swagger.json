@@ -2069,6 +2069,62 @@
               "example": "Going for Christmas holidays"
             }
           }
+        },
+        "/api/v1/user/settings/email": {
+          "put": {
+            "tags": ["user router"],
+            "description": "enable/disable email notification",
+            "parameters": [
+              {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            ],
+            "responses": {
+              "201": {
+                "description": "Notification status changed"
+              },
+              "schema": {
+                "$ref": "#/components/schemas/User"
+              }
+            }
+          }
+        },
+        "/api/v1/user/settings/inapp": {
+          "put": {
+            "tags": ["user router"],
+            "description": "enable/disable in-app notification",
+            "parameters": [
+              {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            ],
+            "responses": {
+              "201": {
+                "description": "Notification status changed"
+              },
+              "schema": {
+                "$ref": "#/components/schemas/User"
+              }
+            }
+          }
+        },
+        "/api/v1/notifications": {
+          "get": {
+            "tags": ["notification route"],
+            "description": "Get all notifications ",
+            "responses": {
+              "200": {
+                "description": "All notifications retrieved",
+                "schema": {
+                  "$ref": "#/components/schemas/Notification"
+                }
+              }
+            }
+          }
         }
       }
     }

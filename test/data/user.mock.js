@@ -1,7 +1,7 @@
 export default {
   user1: {
     fullname: "Duncan warrior",
-    email: "klf89416@cuoly.com",
+    email: "manzichristian0@auweek.net",
     password: "Password1!",
     roleId: null,
     username: "warrior2"
@@ -16,6 +16,7 @@ export default {
   },
   user3: {
     id: 1,
+    fullname: "Duncan warrior",
     email: "user1@example.com"
   },
   user4: {

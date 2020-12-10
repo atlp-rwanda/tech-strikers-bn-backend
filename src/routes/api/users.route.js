@@ -18,7 +18,8 @@ import RoleCheckMiddleware from "../../middlewares/superAdminCheck";
 import UserControllers from "../../controllers/user.controller";
 import checkblockedtoken from "../../middlewares/blacklist";
 import tokenlist from "../../controllers/list.controllers";
-import  SocialLogin from "../../controllers/google.facebook.login";
+import SocialLogin from "../../controllers/google.facebook.login";
+
 const { googleLogin, facebookLogin } = SocialLogin;
 const router = express.Router();
 const { isSuperAdmin } = RoleCheckMiddleware;
@@ -31,6 +32,9 @@ const {
   upDateUser,
   resend,
   confirmation,
+
+  updateEmailNotificationStatus,
+  updateInAppNotificationStatus,
 } = UserControllers;
 const {
   assign,
@@ -41,7 +45,6 @@ const {
   getRole,
 } = UserRoleController;
 const { checkEmailExist, checkUsernameExist } = authMiddleware;
-
 const { loginCallback } = AuthControllers;
 
 const { login } = loginController;
@@ -86,7 +89,7 @@ router.get(
   passport.authenticate("google", {
     failureRedirect: "/",
   }),
-  AuthControllers.loginCallback
+  loginCallback
 );
 
 router.get(
@@ -101,7 +104,7 @@ router.get(
   passport.authenticate("facebook", {
     failureRedirect: "/",
   }),
-  AuthControllers.loginCallback
+  loginCallback
 );
 
 router.post("/auth/siginIn", validateUser, login);
@@ -117,10 +120,10 @@ router.post(
   validatePassword,
   resetController.resetPassword
 );
+router.put("/user/settings/:id/inapp", updateInAppNotificationStatus);
+router.put("/user/settings/:id/email", updateEmailNotificationStatus);
 
 router.post("/auth/googlelogin", googleLogin);
 router.post("/auth/facebooklogin", facebookLogin);
 
-
 export default router;
-
