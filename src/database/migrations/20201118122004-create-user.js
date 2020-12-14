@@ -22,7 +22,7 @@ module.exports = {
       username: {
         type: Sequelize.STRING
       },
-      role:{
+      roleId: {
         type: Sequelize.STRING,
         defaultValue: "user",
       },

@@ -2,22 +2,6 @@ const request = require("supertest");
 import server from "../../src/index.js";
 const expect = require("chai").expect;
 describe("Login API",() => {
-
-    it('Should succeed if email is  in the database with valid credentials',(done) => {
-        request(server)
-           .post("/api/v1/auth/siginIn")
-           .send({   
-            "email": "dusaflora2@gmail.com",
-            "password": "tytyne12345"
-        })
-           .expect((res) => {
-              expect(res).to.have.status(200);
-              expect(res.token);
-           })
-           .end(done);
-    }); 
-
-
     it('Should fail if email is not verified in the database',(done) => {
         request(server)
            .post("/api/v1/auth/siginIn")
