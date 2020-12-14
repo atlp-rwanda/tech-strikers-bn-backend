@@ -7,6 +7,11 @@ import UserControllers from "../../controllers/user.controller.js";
 import authMiddleware from "../../middlewares/auth";
 import loginController from "../../controllers/login.controller.js"; 
 import validateUser from "../../validation/login.validation";
+import RoleValidation from "../../validation/role.validations";
+import UserRoleController from "../../controllers/role.controller";
+import RoleCheckMiddleware from "../../middlewares/superAdminCheck";
+const { isSuperAdmin } = RoleCheckMiddleware;
+const { roleAssignValidation, roleCreateValidation } = RoleValidation;
 const router = express.Router();
 const { signup, getUserInfo, upDateUser } = UserControllers;
 const { loginCallback } = AuthControllers;
@@ -20,6 +25,25 @@ router.get("/user", tokenAuth, getUserInfo);
 router.put("/user", tokenAuth, multerUploads, upDateUser);
 
 router.post("/user/signup", checkEmailExist, signup);
+const { assign, createRole, getRoles, updateRole, deleteRole, getRole} = UserRoleController;
+router.get("/user", (req, res) => {
+  res.status(200).json({ message: "successfully sent" });
+});
+
+router.put("/user", (req, res) => {
+  res.status(200).json({ message: "successfully sent" });
+});
+
+router.post("/user/signup", checkEmailExist, signup);
+router.post("/user/assignRole", isSuperAdmin, roleAssignValidation, assign);
+router.post("/user/createRole", isSuperAdmin, roleCreateValidation, createRole);
+router.get("/user/getRoles", isSuperAdmin, getRoles);
+router.delete("/user/deleteRole/:id", isSuperAdmin, deleteRole);
+router.patch("/user/updateRole/:id", isSuperAdmin,updateRole);
+router.get("/user/getRole/:id", isSuperAdmin, getRole);
+router.delete("/user", (req, res) => {
+  res.status(200).json({ message: "successfully sent" });
+});
 
 
 router.get(

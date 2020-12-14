@@ -6,11 +6,18 @@ export default(sequelize, DataTypes) => {
       email: DataTypes.STRING,
       username: DataTypes.STRING,
       password: DataTypes.STRING,
-      role: DataTypes.STRING,
       profilePicture: DataTypes.STRING,
+      roleId: DataTypes.INTEGER,
       provider: DataTypes.STRING,
       isVerified: DataTypes.BOOLEAN
     },{}
   );
+  Users.associate = models =>{
+    Users.belongsTo(models.userRoles, {
+      as: 'role',
+      foreignKey: 'roleId'
+    });
+  }
+
   return Users;
-  } 
+};
