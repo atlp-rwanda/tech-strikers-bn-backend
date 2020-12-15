@@ -13,7 +13,7 @@
     "undo": "npx sequelize-cli db:migrate:undo:all",
     "seed": "npx sequelize-cli db:seed:all",
     "undo-seed": "npx sequelize-cli db:seed:undo:all",
-    "test": "cross-env NODE_ENV=test nyc mocha -r regenerator-runtime -r @babel/register --timeout 60000 --exit ./test/**/*.js",
+    "test": "cross-env NODE_ENV=test nyc mocha -r regenerator-runtime -r @babel/register --timeout 10000 --exit ./test/**/*.js",
     "pretest": "cross-env NODE_ENV=test npm run drop-db && cross-env NODE_ENV=test npm run create-db && cross-env NODE_ENV=test npm run migrations && cross-env NODE_ENV=test npm run seed",
     "coverage": "nyc --reporter=lcov npm test",
     "admin:create": "babel-node src/database/superAdmin.js",

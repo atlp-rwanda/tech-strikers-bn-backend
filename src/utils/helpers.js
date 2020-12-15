@@ -1,6 +1,6 @@
 import bcrypt from "bcrypt";
 import DataURI from "datauri/parser";
-import path from 'path';
+import path from "path";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 
@@ -17,9 +17,9 @@ const decryptPassword = async (dataTodecrypt, dataBaseHash) => {
 };
 
 const verifyToken = (token) => {
-        const decoded=jwt.verify(token,process.env.ACCESS_TOKEN_SECRET,{expiresIn:"1d"});
-        return decoded;
-    }
+  const decoded = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, { expiresIn: "1d" });
+  return decoded;
+};
 
 const oauthCallback = (refreshToken, accessToken, profile, cb) => {
   if (profile) {
@@ -33,10 +33,7 @@ const oauthCallback = (refreshToken, accessToken, profile, cb) => {
   }
 };
 
-const base64FileStringGenerator = (req) => {
-  return dataUri.format(path.extname(req.file.originalname).toString(), req.file.buffer)
-  
-}
+const base64FileStringGenerator = (req) => dataUri.format(path.extname(req.file.originalname).toString(), req.file.buffer);
 
 export default {
   hashPassword,

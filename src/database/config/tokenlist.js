@@ -1,2 +1,2 @@
-const whitelist=[];
+const whitelist = [];
 export default whitelist;

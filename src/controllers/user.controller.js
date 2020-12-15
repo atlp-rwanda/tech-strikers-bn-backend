@@ -1,13 +1,13 @@
 import UserService from "../services/user.service.js";
-import customMessage from "../utils/customMessage.js";
 import helper from "../utils/helpers.js";
 import responses from "../utils/responses.js";
-import statusCode from "../utils/statusCode.js";
+import statusCode from "../utils/statusCode";
 import email from "../utils/email.js";
 import { jwtToken } from "../utils/util.jwt";
-import tokenUtil from "../utils/util.jwt";
 import cloudinary from "../utils/cloudinary";
 import userUpdateValidation from "../validation/userUpdate.validation";
+import customMessage from "../utils/customMessage";
+
 const {
   createUser,
   retrieveUserById,
@@ -38,7 +38,7 @@ export default class UserControllers {
    * @description this controller saves/signup a user in database
    * @param {object} req request
    * @param {object} res response
-   * * @param {object} next jump to error
+   * @param {object} next jump to error
    * @return {object} return json object with signup message
    */
   static async signup(req, res, next) {
@@ -68,8 +68,7 @@ export default class UserControllers {
       const { token } = req.params;
       const decoded = jwtToken.verifyToken(token);
       const user = await getUserByIdOrEmail(decoded.email);
-      if (user.dataValues.isVerified)
-        return errorResponse(res, badRequest, res.__(userVerification));
+      if (user.dataValues.isVerified) return errorResponse(res, badRequest, res.__(userVerification));
       const userUpdated = await updateUser(decoded);
       const { id, email } = userUpdated[1];
       return successResponse(res, ok, undefined, res.__(accountVerified));
@@ -90,8 +89,7 @@ export default class UserControllers {
       const { email } = req.body;
       const user = await getUserByIdOrEmail(email);
       if (!user) return errorResponse(res, badRequest, res.__(emailAssociate));
-      if (user.isVerified)
-        return errorResponse(res, badRequest, res.__(thisAccountVerified));
+      if (user.isVerified) return errorResponse(res, badRequest, res.__(thisAccountVerified));
       const token = jwtToken.generateToken(user);
       await sendConfirmationEmail(user, token);
       return successResponse(res, ok, token, res.__(resend), user);
@@ -100,6 +98,12 @@ export default class UserControllers {
     }
   }
 
+  /**
+   * @description this controller retrieves a user in database
+   * @param {object} req request
+   * @param {object} res response
+   * @return {object} return json object with signup message
+   */
   static async getUserInfo(req, res) {
     const userInfo = await retrieveUserById(req.user.id);
     if (userInfo != null) {
@@ -109,6 +113,12 @@ export default class UserControllers {
     }
   }
 
+  /**
+   * @description this controller updates a user info in database
+   * @param {object} req request
+   * @param {object} res response
+   * @return {object} return json object with signup message
+   */
   static async upDateUser(req, res) {
     const newProfileInfo = JSON.parse(JSON.stringify(req.body));
     const { error } = updateUserInfoValidation.validate(newProfileInfo);

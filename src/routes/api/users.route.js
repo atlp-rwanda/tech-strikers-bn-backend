@@ -2,7 +2,6 @@ import express from "express";
 import passport from "passport";
 import { multerUploads } from "../../middlewares/multer";
 import tokenAuth from "../../middlewares/tokenAuthentication";
-import { isVerified } from "../../middlewares/isVerified";
 import validateSignup from "../../validation/signup.validation ";
 import {
   validatePassword,

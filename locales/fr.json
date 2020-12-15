@@ -25,6 +25,9 @@
 	"Username is required": "Nom d'utilisateur est nécessaire",
 	"Username must be in the range of 6 to 15 characters": "Le nom d'utilisateur doit être compris entre 6 et 15 caractères",
 	"ConfirmPassword is required": "confirmer que le mot de passe est requis",
+	"Sign up": "Vous vous êtes inscrit avec succès",
+	"Duplicate Email": "Cet e-mail est en cours d'utilisation",
+	"Account Exist": "ce compte avec cet e-mail existe déjà",
 	"Password must be in the range of 6 to 15 characters": "Le mot de passe doit être compris entre 6 et 15 caractères",
 	"updatedSuccessfully": "Informations de profil mises à jour avec succès",
 	"updateFailed": "Mise à jour a échoué, essayez à nouveau plus tard.",
@@ -70,5 +73,10 @@
 	"errorOnUpdate": "Il n’y a pas une telle demande!",
 	"ErrorIfNonPending": "Seules les demandes ouvertes peuvent être mises à jour",
 	"errorOnDelete": "Il n’y a pas une telle demande!",
-	"username must be in the range of 6 to 15 characters": "username must be in the range of 6 to 15 characters"
+	"username must be in the range of 6 to 15 characters": "username must be in the range of 6 to 15 characters",
+	"tripRequestFailedWrongUserToken": "Vous n’êtes pas autorisé à faire une demande de voyage, s’il vous plaît première connexion",
+    "tripRequestDeniedWhenAnotherOpenRequest": "Demande refusée, vous avez une autre demande ouverte.",
+	"tripRequestSubmitted": "La demande de voyage a été soumise.",
+	"invalidDepartureDate": "La date de départ doit être postérieure à la date d'aujourd'hui",
+	"invalidReturnDate": "La date de retour doit être supérieure à la date de départ"
 }

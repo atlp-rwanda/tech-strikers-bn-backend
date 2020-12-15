@@ -19,20 +19,16 @@ const { successResponse, errorResponse } = responses;
 const { sendResetEmail } = email;
 
 /**
- * @class resetController
- * @classdesc deals with forget and reset password
+ * @description resetController
  */
-
 class resetController {
   /**
    * @description send reset link
    * @param {object} req  request
    * @param {object} res response
    * @param {object} next for jumping to error
-   * @return error json object with notFound message
-   * @return return json object with passwordReset message
+   * @return {object} json object with passwordReset message
    */
-
   static async forgetPassword(req, res, next) {
     try {
       const { email } = req.body;
@@ -45,19 +41,18 @@ class resetController {
       return next(new Error(e));
     }
   }
+
   /**
    * @description reset password
    * @param {object} req request
    * @param {*} res  response
    * @param {*} next checking error
-   * @return passwordMatch error
-   *
+   * @return {object} passwordMatch error
    */
   static async resetPassword(req, res, next) {
     try {
       const { password, confirmPassword } = req.body;
-      if (password !== confirmPassword)
-        return errorResponse(res, badRequest, res.__(passwordMatch));
+      if (password !== confirmPassword) return errorResponse(res, badRequest, res.__(passwordMatch));
       const { token } = req.params;
       const decoded = jwtToken.verifyToken(token);
       const hash = hashPassword(password);

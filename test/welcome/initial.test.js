@@ -11,6 +11,7 @@ chai.use(chaiHttp);
 const { expect } = chai;
 const should = chai.should();
 const { generateToken } = jwtToken;
+
 describe("Testing behaviour of verifyToken and create Token functions", () => {
   it("It should create  a token", (done) => {
     const token = generateToken({ email: "this@gmail.com" });

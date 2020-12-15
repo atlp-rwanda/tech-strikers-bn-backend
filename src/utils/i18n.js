@@ -4,10 +4,10 @@ import path from "path";
 const __dirname = path.resolve();
 
 i18n.configure({
-    locales: ["en", "fr", "ki"],
-    defaultLocale: "en",
-    directory: `${__dirname}/locales/`,
-    headers: "Accept-Language"
-  });
+  locales: ["en", "fr", "ki"],
+  defaultLocale: "en",
+  directory: `${__dirname}/locales/`,
+  headers: "Accept-Language"
+});
 
 export default i18n;

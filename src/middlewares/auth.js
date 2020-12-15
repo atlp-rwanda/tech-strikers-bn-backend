@@ -1,18 +1,21 @@
+import { async } from "regenerator-runtime";
 import UserServices from "../services/user.service";
-import customMessage from "../utils/customMessage";
+import helpers from "../utils/helpers";
 import responses from "../utils/responses";
 import statusCode from "../utils/statusCode";
+import customMessage from "../utils/customMessage";
 
-
-const { getUserByIdOrEmail,getUserByIdOrUsername} = UserServices;
+const { getUserByIdOrEmail, getUserByIdOrUsername } = UserServices;
 const { errorResponse } = responses;
 const { conflict } = statusCode;
-const { duplicateEmail,duplicateUsername } = customMessage;
+const { duplicateEmail, duplicateUsername } = customMessage;
+const { comparePassword } = helpers;
+
 const checkEmailExist = async (req, res, next) => {
   const user = await getUserByIdOrEmail(req.body.email);
 
   if (user) {
-    return errorResponse(res, conflict, duplicateEmail);
+    return errorResponse(res, conflict, res.__("Account Exist"));
   }
   return next();
 };
@@ -24,4 +27,12 @@ const checkUsernameExist = async (req, res, next) => {
   }
   return next();
 };
-export default { checkEmailExist, checkUsernameExist};
+export default { checkEmailExist, checkUsernameExist };
+// const loginCredentials = async (req, res, next) => {
+//   const user = await getUserByIdOrEmail(req.body.email);
+//   const boolPassword = user ? await comparePassword(req.body.password, user.password) : null;
+//   if (!user || !boolPassword) {
+//     return errorResponse(res, badRequest, "invalid email or password");
+//   }
+//   return next();
+// };

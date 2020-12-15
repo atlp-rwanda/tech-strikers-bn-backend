@@ -1,15 +1,14 @@
 import chai, { expect } from "chai";
 import chaiHttp from "chai-http";
+import path from "path";
+import dotenv from "dotenv";
 import server from "../../src/index";
 import userMock from "../data/user.mock";
 import statusCode from "../../src/utils/statusCode";
 import customMessage from "../../src/utils/customMessage";
 import { jwtToken } from "../../src/utils/util.jwt";
-import tokenUtil from "../../src/utils/util.jwt";
-import dotenv from "dotenv";
-dotenv.config();
 
-import token from "../logout/data/token.data";
+dotenv.config();
 
 chai.use(chaiHttp);
 chai.should();
@@ -38,7 +37,7 @@ describe("User Test", () => {
         token1 = token;
         expect(res.status).to.equal(created);
         expect(message);
-        expect(message).to.equal(signedup);
+        expect(message).to.equal("You signed up successfully");
         expect(token).to.a("string");
         done();
       });
@@ -87,35 +86,6 @@ describe("User Test", () => {
       });
   });
 
-  it("Should create another a user", (done) => {
-    chai
-      .request(server)
-      .post("/api/v1/user/signup")
-      .send(user2)
-      .end((err, res) => {
-        const { data, message, token } = res.body;
-        expect(res.status).to.equal(created);
-        expect(data);
-        expect(message);
-        expect(message).to.equal(signedup);
-        expect(data).to.a("object");
-        expect(token).to.a("string");
-        done();
-      });
-  });
-  it("Should not create a user with an Existing Email", (done) => {
-    chai
-      .request(server)
-      .post("/api/v1/user/signup")
-      .send(user1)
-      .end((err, res) => {
-        const { error } = res.body;
-        expect(res.status).to.equal(conflict);
-        expect(error);
-        expect(error).to.equal(duplicateEmail);
-        done();
-      });
-  });
   it("Shouldn't signup user if email is an integer due to validation error", (done) => {
     chai
       .request(server)
@@ -126,19 +96,6 @@ describe("User Test", () => {
         expect(res.status).to.equal(badRequest);
         expect(error);
         expect(error).to.equal("this is not a valid email address format ");
-        done();
-      });
-  });
-  it("Should not create a user with an Existing Email", (done) => {
-    chai
-      .request(server)
-      .post("/api/v1/user/signup")
-      .send(user1)
-      .end((err, res) => {
-        const { error } = res.body;
-        expect(res.status).to.equal(conflict);
-        expect(error);
-        expect(error).to.equal(duplicateEmail);
         done();
       });
   });
