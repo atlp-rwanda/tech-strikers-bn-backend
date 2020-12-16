@@ -35,4 +35,14 @@ export default class commentsController {
       return res.status(500).json({ message: res.__("Server Error")});
     }
   }
+
+  static async deleteComment (req, res) {
+    try {
+      const { id } = req.params;
+      const commentDeleted = await CommentService.commentDelete({ id: id });
+      return res.status(200).json({ message: res.__("Comment deleted")});
+    } catch (error) {
+      return res.status(500).json({ message: res.__("Server Error")});
+    }
+  }
 }

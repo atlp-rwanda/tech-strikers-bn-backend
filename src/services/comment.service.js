@@ -1,4 +1,4 @@
-import models from "../database/models/";
+import models from "../database/models";
 
 const { Comment } = models;
 
@@ -27,9 +27,22 @@ export default class CommentServices {
    */
   static async findByProp(prop) {
     try {
-      return Comment.findAll({where:prop}, { include: models.TripRequests });
+      return Comment.findAll({ where: prop }, { include: models.TripRequests });
+    } catch (err) {
+      return err;
     }
-    catch (err) {
+  }
+
+  /**
+   * @param {object} id whereCondition
+   * @returns {string} deleteComment
+   * @description it deletes a comment by id
+   */
+  static async commentDelete(id) {
+    try {
+      const deleteComment = await Comment.destroy({ where: id });
+      return deleteComment;
+    } catch (err) {
       return err;
     }
   }

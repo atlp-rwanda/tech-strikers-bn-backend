@@ -1,3 +1,5 @@
+const { isNull } = require("underscore");
+
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.bulkInsert(

@@ -12,7 +12,6 @@ export default (sequelize, DataTypes) => {
       isVerified: DataTypes.BOOLEAN
     }, {}
   );
-
   Users.associate = models => {
     Users.belongsTo(models.userRoles, {
       as: "role",
@@ -23,13 +22,13 @@ export default (sequelize, DataTypes) => {
       foreignKey: "userId",
       onDelete: "cascade",
       onUpdate: "cascade"
-    })
-  }
+    });
+  };
 
   Users.associate = models => {
     Users.hasOne(models.TripRequest, {
       foreignKey: "userId"
-    })
+    });
   };
   return Users;
 };
