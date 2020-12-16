@@ -19,5 +19,10 @@ export default(sequelize, DataTypes) => {
     });
   }
 
+  Users.associate = models => {
+    Users.hasOne(models.TripRequest, {
+      foreignKey: "userId"
+    })
+  };
   return Users;
 };

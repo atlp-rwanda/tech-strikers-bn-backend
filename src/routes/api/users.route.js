@@ -26,13 +26,13 @@ router.put("/user", tokenAuth, multerUploads, upDateUser);
 
 router.post("/user/signup", checkEmailExist, signup);
 const { assign, createRole, getRoles, updateRole, deleteRole, getRole} = UserRoleController;
-router.get("/user", (req, res) => {
+/* router.get("/user", (req, res) => {
   res.status(200).json({ message: "successfully sent" });
-});
+}); */
 
-router.put("/user", (req, res) => {
+/* router.put("/user", (req, res) => {
   res.status(200).json({ message: "successfully sent" });
-});
+}); */
 
 router.post("/user/signup", checkEmailExist, signup);
 router.post("/user/assignRole", isSuperAdmin, roleAssignValidation, assign);
@@ -41,9 +41,9 @@ router.get("/user/getRoles", isSuperAdmin, getRoles);
 router.delete("/user/deleteRole/:id", isSuperAdmin, deleteRole);
 router.patch("/user/updateRole/:id", isSuperAdmin,updateRole);
 router.get("/user/getRole/:id", isSuperAdmin, getRole);
-router.delete("/user", (req, res) => {
+/* router.delete("/user", (req, res) => {
   res.status(200).json({ message: "successfully sent" });
-});
+}); */
 
 
 router.get(

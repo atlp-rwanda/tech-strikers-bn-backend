@@ -30,5 +30,10 @@
 	"SUPER_ADMIN role cannot be updated": "Le rôle SUPER_ADMIN ne peut pas être mis à jour",
 	"You are not Super Admin to perform this action": "Vous n'êtes pas un super administrateur pour effectuer cette action",
 	"Please login": "Veuillez vous connecter",
-	"Unauthorized": "Non autorisé"
+	"Unauthorized": "Non autorisé",
+	"Invalid comment": "Commentaire invalide",
+	"Comment submitted": "Commentaire envoyé",
+	"Server Error": "Erreur ",
+	"Request not Found": "Requète non existante",
+	"Comment deleted": "Commentaire supprimé"
 }

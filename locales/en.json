@@ -32,5 +32,13 @@
 	"User with that email does not exist in the system": "User with that email does not exist in the system",
 	"Unauthorized": "Unauthorized",
 	"Please login": "Please login",
-	"You are not Super Admin to perform this action": "You are not Super Admin to perform this action"
+	"You are not Super Admin to perform this action": "You are not Super Admin to perform this action",
+	"tripRequestSubmitted": "Trip request submitted",
+	"tripRequestDeniedWhenAnotherOpenRequest": "Trip request has been denied due to another open request",
+	"tripRequestFailedWrongUserToken": "Wrong user token, please try again",
+	"Invalid comment": "Invalid comment",
+	"Comment submitted": "Comment submitted",
+	"Request not Found": "Request not Found",
+	"Server Error": "Server Error",
+	"Comment deleted": "Comment deleted"
 }
