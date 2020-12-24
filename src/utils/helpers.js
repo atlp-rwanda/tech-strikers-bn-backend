@@ -1,4 +1,8 @@
 import bcrypt from "bcrypt";
+import DataURI from "datauri/parser";
+import path from 'path';
+
+const dataUri = new DataURI();
 
 const hashPassword = (password) => {
   const hash = bcrypt.hashSync(password, 15);
@@ -21,8 +25,14 @@ const oauthCallback = (refreshToken, accessToken, profile, cb) => {
   }
 };
 
+const base64FileStringGenerator = (req) => {
+  return dataUri.format(path.extname(req.file.originalname).toString(), req.file.buffer)
+  
+}
+
 export default {
   hashPassword,
   oauthCallback,
-  decryptPassword
+  decryptPassword,
+  base64FileStringGenerator
 };

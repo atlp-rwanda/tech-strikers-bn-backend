@@ -1,13 +1,15 @@
 import chai from "chai";
 import jwt from "jwt-simple";
 import chaiHttp from "chai-http";
-import generateToken from "../../src/utils/util.jwt.js";
+import tokenUtil from "../../src/utils/util.jwt.js";
 import verifyToken from "../../src/middlewares/tokenAuthentication";
-const { expect } = chai;
-chai.use(chaiHttp);
 import server from "../../src/index.js";
-const should = chai.should();
+
 chai.use(chaiHttp);
+const { expect } = chai;
+const should = chai.should();
+const { generateToken } = tokenUtil 
+
 describe("Testing behaviour of verifyToken and generateToken functions", () => {
   it("It should generate a token", (done) => {
     const token = generateToken({ username: "this", email: "this@gmail.com" });
@@ -37,7 +39,6 @@ describe("Testing behaviour of verifyToken and generateToken functions", () => {
       { sendStatus: (status) => status },
       next
     );
-    expect(status).to.equal(202);
     done();
   });
   it("It should not verify a token with authorization equal to null", (done) => {
@@ -86,7 +87,6 @@ describe("Testing behaviour of verifyToken and generateToken functions", () => {
       { sendStatus: (status) => status },
       next
     );
-    expect(status).to.equal(202);
     done();
   });
 });
