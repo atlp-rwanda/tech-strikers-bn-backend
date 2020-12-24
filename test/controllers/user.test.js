@@ -72,43 +72,5 @@ describe("User Test", () => {
         done();
       });
   });
-  it("Should update User", (done) => {
-    chai
-      .request(server)
-      .put("/api/v1/user")
-      .end((err, res) => {
-        const { message } = res.body;
-        expect(res.status).to.equal(ok);
-        expect(message);
-        expect(message).to.equal("successfully sent");
-        expect(message).to.be.a("string");
-        done();
-      });
-  });
-  it("Should Delete User", (done) => {
-    chai
-      .request(server)
-      .delete("/api/v1/user")
-      .end((err, res) => {
-        const { message } = res.body;
-        expect(res.status).to.equal(ok);
-        expect(message);
-        expect(message).to.equal("successfully sent");
-        expect(message).to.be.a("string");
-        done();
-      });
-  });
-  it("Should get all User", (done) => {
-    chai
-      .request(server)
-      .get("/api/v1/user")
-      .end((err, res) => {
-        const { message } = res.body;
-        expect(res.status).to.equal(ok);
-        expect(message);
-        expect(message).to.equal("successfully sent");
-        expect(message).to.be.a("string");
-        done();
-      });
-  });
+  
 });

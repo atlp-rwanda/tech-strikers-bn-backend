@@ -1,4 +1,3 @@
-
 # Created by https://www.gitignore.io/api/node
 # Edit at https://www.gitignore.io/?templates=node
 
@@ -92,5 +91,10 @@ typings/
 
 # DynamoDB Local files
 .dynamodb/
+
 .dccache
 # End of https://www.gitignore.io/api/node
+
+
+# End of https://www.gitignore.io/api/node
+.env 
