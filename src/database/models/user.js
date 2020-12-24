@@ -1,4 +1,4 @@
-export default (sequelize, DataTypes) => {
+export default(sequelize, DataTypes) => {
   const Users = sequelize.define(
     "Users",
     {
@@ -7,9 +7,10 @@ export default (sequelize, DataTypes) => {
       username: DataTypes.STRING,
       password: DataTypes.STRING,
       role: DataTypes.STRING,
+      profilePicture: DataTypes.STRING,
       provider: DataTypes.STRING,
-    },
-    {}
+      isVerified: DataTypes.BOOLEAN
+    },{}
   );
   return Users;
-};
+  } 

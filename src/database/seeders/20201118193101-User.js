@@ -1,16 +1,24 @@
+const {hashPassword} = require("../../utils/hash");
+
 module.exports = {
-  up: (queryInterface, Sequelize) => queryInterface.bulkInsert(
+  up: async queryInterface=> queryInterface.bulkInsert(
     "Users",
     [
       {
-        fullname: "tytyne",
-        email: "tytyne@example.com",
+        fullname: "user one",
+        email: "user1@example.com",
+        username:"user1",
+        password: await hashPassword("tytyne12345"),
+        isVerified: true,
         createdAt: new Date(),
         updatedAt: new Date(),
       },
       {
-        fullname: "fofo",
-        email: "fofo@example.com",
+        fullname: "user two",
+        email: "user2@example.com",
+        username:"user2",
+        password: await hashPassword("fofo12345"),
+        isVerified: false,
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -18,5 +26,5 @@ module.exports = {
     {},
   ),
 
-  down: (queryInterface, Sequelize) => queryInterface.bulkDelete("Users", null, {}),
+  down:queryInterface => queryInterface.bulkDelete("Users", null, {}),
 };

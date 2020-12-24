@@ -1,5 +1,16 @@
 {
 	"successfully sent query": "Requète a été envoyée",
 	"successfully sent": "Envoyé",
-    "welcome": "Bienvenue sur Barefoot Nomad"
-    }
+	"welcome": "Bienvenue sur Barefoot Nomad",
+	"successfully logged in": "connecté avec succès",
+	"Email not found": "Email non trouvé",
+	"Your account has not been verified": "Votre compte n'a pas été vérifié",
+	"Wrong Password": "Mauvais mot de passe",
+	"Email is required": "Email est requis",
+	"Password is required": "Mot de passe requis",
+	"Password must be in the range of 6 to 15 characters": "Le mot de passe doit être compris entre 6 et 15 caractères",
+    "updatedSuccessfully": "Informations de profil mises à jour avec succès",
+    "updateFailed": "Mise à jour a échoué, essayez à nouveau plus tard.",
+    "userNameTaken": "Nom d’utilisateur a été pris",
+    "userNotFound": "Utilisateur non trouvé"   
+}

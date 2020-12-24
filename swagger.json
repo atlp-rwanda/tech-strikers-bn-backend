@@ -17,23 +17,23 @@
     }
   ],
   "schemes": ["http", "https"],
-  "consumes": ["application/json"],
+  "consumes": ["application/json", "form-data"],
   "produces": ["application/json"],
 
   "paths": {
-    "/api/user": {
+    "/api/v1/user": {
       "get": {
         "tags": ["user router"],
-        "description": "Get user information ",
+        "description": "Get user information by id",
         "parameters": [
           {
-            "name": "userId",
-            "in": "body",
-            "required": true,
+            "name": "Authorization",
+            "in": "headers",
+            "required": "true",
+            "description": "A login jwt token should be passed in the headers",
             "schema": {
-              "userId": {
-                "type": "string"
-              }
+              "type": "string",
+              "example": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQi"
             }
           }
         ],
@@ -41,70 +41,134 @@
           "200": {
             "description": "Display user information",
             "schema": {
-              "$ref": "#/components/schemas/User"
-            }
-          }
-        }
-      },
-
-      "post": {
-        "tags": ["user router"],
-        "description": "Create new user",
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/components/schemas/User"
-            }
-          }
-        ],
-
-        "responses": {
-          "201": {
-            "description": "User created ",
-            "schema": {
-              "$ref": "#/components/schemas/User"
+              "$ref": "#/components/schemas/User_info"
             }
           }
         }
       },
       "put": {
         "tags": ["user router"],
-        "description": "Update specific user",
+        "description": "Update profile information of user with id=userId.",
         "parameters": [
           {
-            "name": "body",
-            "in": "body",
-            "required": true,
+            "name": "Content-Type",
+            "in": "headers",
+            "required": "true",
+            "description": " A header that sets the input type of the body",
             "schema": {
-              "$ref": "#/components/schemas/User"
+              "type": "string",
+              "example": "form-data"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "headers",
+            "required": "true",
+            "description": "A jason-web-token generated on login and signup should be passed in request headers.",
+            "schema": {
+              "type": "string",
+              "example": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQi"
+            }
+          },
+          {
+            "name": "Accept-Language",
+            "in": "headers",
+            "required": false,
+            "description": "A header that sets language translation for responses.",
+            "schema": {
+              "type": "string",
+              "example": "ki"
+            }
+          },
+          {
+            "name": "fullname",
+            "in": "body",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "example":"Gorba Koks"
+            }
+          },
+          {
+            "name": "username",
+            "in": "body",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "example":"warrior"
+            }
+          },
+          {
+            "name": "password",
+            "in": "body",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "example":"password"
+            }
+          },
+          {
+            "name": "profilePicture",
+            "in": "body",
+            "required": false,
+            "description": "This should be a file of an imaage",
+            "schema": {
+              "type": "file",
+              "example":"C:/users/user_name/folder_name/image.type"
             }
           }
         ],
-
+        "consumes": [ "form-data"],
         "responses": {
-          "202": {
-            "description": "User updated successfully",
+          "200": {
+            "description": "A message is displayed if updating is successfull and in language specified in headers.",
             "schema": {
-              "$ref": "#/components/schemas/User"
+              "type": "string",
+              "example": "Imyirondoro yawe yahinduwe neza."
             }
           }
         }
       }
-    },
-    "/api/user/login": {
+    },    
+    "/api/v1/auth/siginIn": {
       "post": {
         "tags": ["user router"],
         "description": "user login",
         "parameters": [
           {
+            "name": "Content-Type",
+            "in": "headers",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "application/json"
+            }
+          },
+          {
+            "name": "Accept-Language",
+            "in": "headers",
+            "required": false,
+            "description": "A header that sets language translation for responses.",
+            "schema": {
+              "type": "string",
+              "example": "en"
+            }
+          },
+          {
             "name": "body",
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/components/schemas/User"
+              "properties": {
+                "email": {
+                  "type": "string",
+                  "example": "strikers668@gmail.vom"
+                },
+                "password": {
+                  "type": "string",
+                  "example": "password"
+                }
+              }
             }
           }
         ],
@@ -112,7 +176,16 @@
           "200": {
             "description": "login successfully",
             "schema": {
-              "$ref": "#/components/schemas/User"
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "successfully logged in"
+                },
+                "token": {
+                  "type": "string",
+                  "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoxLCJmdWxsbmFtZSI6InVzZXIgb25lIiwiZW1haWwiOiJ1c2Vy"
+                }
+              }
             }
           }
         }
@@ -191,6 +264,48 @@
           }
         },
         "required": ["username", "email", "password"]
+      },
+      "User_info": {
+        "properties": {
+          "id": {
+            "type": "number",
+            "example": "30"
+          },
+          "fullname": {
+            "type": "string",
+            "example":"Gorba Koks"
+          },
+          "email": {
+            "type": "string",
+            "example": "strikers668@gmail.vom"
+          },
+          "username": {
+            "type": "string",
+            "example": "Warrior"
+          },
+          "role": {
+            "type": "string",
+            "example": "user"
+          },
+          "provider": {
+            "type": "string",
+            "example": "google"
+          },
+          "profilePicture": {
+            "type": "string",
+            "example": "http://res.cloudinary.com/**/**/image_name.png"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date",
+            "example": "2020-12-10T12:15:58.809Z"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date",
+            "example": "2020-12-14T13:15:58.809Z"
+          }
+        }
       }
     }
   }

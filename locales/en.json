@@ -1,5 +1,16 @@
 {
 	"successfully sent query": "Successfully sent query",
 	"successfully sent": "Successfully sent",
-    "welcome": "Welcome to Barefoot Nomad"
-    }
+	"welcome": "Welcome to Barefoot Nomad",
+	"successfully logged in": "successfully logged in",
+	"Your account has not been verified": "Your account has not been verified",
+	"Password is required": "Password is required",
+	"Email is required": "Email is required",
+	"Email not found": "Email not found",
+	"Wrong Password": "Wrong Password",
+	"Password must be in the range of 6 to 15 characters": "Password must be in the range of 6 to 15 characters",
+    "updatedSuccessfully": "Profile information updated successfully",
+    "updateFailed": "Updating failed, try again later.",
+    "userNameTaken": "Username has been taken",
+    "userNotFound": "User not found"    
+}
