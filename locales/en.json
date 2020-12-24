@@ -8,5 +8,9 @@
 	"Email is required": "Email is required",
 	"Email not found": "Email not found",
 	"Wrong Password": "Wrong Password",
-	"Password must be in the range of 6 to 15 characters": "Password must be in the range of 6 to 15 characters"
+	"Password must be in the range of 6 to 15 characters": "Password must be in the range of 6 to 15 characters",
+    "updatedSuccessfully": "Profile information updated successfully",
+    "updateFailed": "Updating failed, try again later.",
+    "userNameTaken": "Username has been taken",
+    "userNotFound": "User not found"    
 }

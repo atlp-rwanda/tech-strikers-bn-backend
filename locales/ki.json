@@ -8,5 +8,9 @@
 	"Email is required": "Imeri irakenewe",
 	"Password is required": "Ijambobanga rirakenewe",
 	"Password must be in the range of 6 to 15 characters": " Ijambobanga rigomba kuba riri hagati yinyuguti 6 kugeza kuri 15",
-	"Your account has not been verified": "Konti yawe ntabwo yagenzuwe"
+    "Your account has not been verified": "Konti yawe ntabwo yagenzuwe",
+    "updatedSuccessfully": "Imyirondoro yawe yahinduwe neza.",
+    "updateFailed": "Guhindura imyorondoro ntibikunze, mugerageze mukanya.",
+    "userNameTaken": "Izina [userName] ryafashwe.",
+    "userNotFound": "Nta konti bihuye dufite!" 
 }

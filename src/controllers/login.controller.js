@@ -1,9 +1,11 @@
 import UserService from "../services/user.service";
-import { jwtToken } from "../utils/index"
-
+import tokenUtil from "../utils/util.jwt";
 import helpers from "../utils/helpers.js";
+
 const { decryptPassword } = helpers;
 const { getUserByIdOrEmail } = UserService;
+const { generateToken } = tokenUtil;
+
 export default class loginController{
   static async login(req, res, next){
        try{
@@ -12,12 +14,11 @@ export default class loginController{
         if(!user){
           return res.status(400).json({error: res.__("Email not found")}); 
           }
-       if(user.isVerified === false){
+       if(user.dataValues.isVerified === false){
           return res.status(400).json({ error: res.__("Your account has not been verified")});
         }
         const decodePassword = await decryptPassword(password,user.password);
-        const token  = jwtToken.createToken(user);
-        console.log(token);
+        const token  = generateToken(user.dataValues).token;
         if(!decodePassword) return res.status(400)
         .json({ 
           Error: res.__("Wrong Password")

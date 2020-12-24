@@ -14,6 +14,6 @@ const verifyToken = (req, res, next) => {
 
   req.user = user;
   // eslint-disable-next-line no-sequences
-  return next(), res.sendStatus(202);
+  return next();
 };
 export default verifyToken;

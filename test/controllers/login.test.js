@@ -7,7 +7,7 @@ describe("Login API",() => {
         request(server)
            .post("/api/v1/auth/siginIn")
            .send({   
-            "email": "dusaflora2@gmail.com",
+            "email": "user1@example.com",
             "password": "tytyne12345"
         })
            .expect((res) => {
@@ -34,7 +34,7 @@ describe("Login API",() => {
     it('Should not succeed if password is missing',(done) => {
         request(server)
            .post("/api/v1/auth/siginIn")
-           .send({   "email": "evalop@b@gmail.com"})
+           .send({   "email": "evalopb@gmail.com"})
            .expect(400)
            .expect((res) => {
               expect(res.body).to.have.own.property("error");

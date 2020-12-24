@@ -38,6 +38,10 @@ module.exports = {
       password: {
         type: Sequelize.STRING,
       },
+      profilePicture: {
+        type: Sequelize.STRING,
+        defaultValue: 'http://res.cloudinary.com/tech-strikers/image/upload/v1607003723/user_profile_pics/ai4c9mqyifpsetp48rik.png'
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
