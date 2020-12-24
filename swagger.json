@@ -17,94 +17,164 @@
     }
   ],
   "schemes": ["http", "https"],
-  "consumes": ["application/json"],
+  "consumes": ["application/json", "form-data"],
   "produces": ["application/json"],
 
   "paths": {
-    "/api/user": {
+    "/api/v1/user": {
       "get": {
         "tags": ["user router"],
-        "description": "Get user information ",
+        "description": "Get user information by id",
         "parameters": [
           {
-            "name": "userId",
-            "in": "body",
-            "required": true,
+            "name": "Authorization",
+            "in": "header",
+            "required": "true",
+            "description": "A login jwt token should be passed in the header",
             "schema": {
-              "userId": {
-                "type": "string"
-              }
+              "type": "string",
+              "example": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQi"
             }
           }
+          
         ],
         "responses": {
           "200": {
             "description": "Display user information",
             "schema": {
-              "$ref": "#/components/schemas/User"
+              "$ref": "#/components/schemas/User_info"
             }
           }
         }
-      },
-
-      "post": {
+      } ,
+      "put":{
         "tags": ["user router"],
-        "description": "Create new user",
+        "description": "Update profile information of user with id=userId.",
         "parameters": [
           {
-            "name": "body",
-            "in": "body",
-            "required": true,
+            "name": "Content-Type",
+            "in": "header",
+            "required": "true",
+            "description": " A header that sets the input type of the body",
             "schema": {
-              "$ref": "#/components/schemas/User"
+              "type": "string",
+              "example": "form-data"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": "true",
+            "description": "A jason-web-token generated on login and signup should be passed in request header.",
+            "schema": {
+              "type": "string",
+              "example": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQi"
+            }
+          },
+          {
+            "name": "Accept-Language",
+            "in": "header",
+            "required":true,
+            "description": "A header that sets language translation for responses.",
+            "schema": {
+              "type": "string",
+              "example": "ki"
+            }
+          },
+          {
+            "name": "fullname",
+            "in": "body",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "example":"Gorba Koks"
+            }
+          },
+          {
+            "name": "username",
+            "in": "body",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "example":"warrior"
+            }
+          },
+          {
+            "name": "password",
+            "in": "body",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "example":"password"
+            }
+          },
+          {
+            "name": "profilePicture",
+            "in": "body",
+            "required": false,
+            "description": "This should be a file of an imaage",
+            "schema": {
+              "type": "file",
+              "example":"C:/users/user_name/folder_name/image.type"
             }
           }
         ],
-
+        "consumes": [ "form-data"],
         "responses": {
-          "201": {
-            "description": "User created ",
+          "200": {
+            "description": "A message is displayed if updating is successfull and in language specified in header.",
             "schema": {
-              "$ref": "#/components/schemas/User"
+              "type": "string",
+              "example": "Imyirondoro yawe yahinduwe neza."
             }
           }
         }
-      },
-      "put": {
-        "tags": ["user router"],
-        "description": "Update specific user",
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/components/schemas/User"
-            }
-          }
-        ],
-
-        "responses": {
-          "202": {
-            "description": "User updated successfully",
-            "schema": {
-              "$ref": "#/components/schemas/User"
-            }
-          }
-        }
-      }
+      }  
     },
-    "/api/user/login": {
+    
+    
+  
+    "/api/v1/auth/siginIn": {
       "post": {
-        "tags": ["user router"],
+        "tags": [
+          "user router"
+        ],
         "description": "user login",
         "parameters": [
           {
+            "name": "Content-Type",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "application/json"
+            }
+          },
+          {
+            "name": "Accept-Language",
+            "in": "header",
+            "required":true,
+            "description": "A header that sets language translation for responses.",
+            "schema": {
+              "type": "string",
+              "example": "en"
+            }
+          },
+          {
             "name": "body",
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/components/schemas/User"
+              "properties": {
+                "email": {
+                  "type": "string",
+                  "example": "strikers668@gmail.vom"
+                },
+                "password": {
+                  "type": "string",
+                  "example": "password"
+                }
+              }
             }
           }
         ],
@@ -112,16 +182,40 @@
           "200": {
             "description": "login successfully",
             "schema": {
-              "$ref": "#/components/schemas/User"
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "successfully logged in"
+                },
+                "token": {
+                  "type": "string",
+                  "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoxLCJmdWxsbmFtZSI6InVzZXIgb25lIiwiZW1haWwiOiJ1c2Vy"
+                }
+              }
             }
           }
         }
       }
     },
-    "api/user/login/google":{
+    "api/user/login/google": {
       "get": {
-        "tags": ["user router"],
+        "tags": [
+          "user router"
+        ],
+      
         "description": "user login with google",
+        "parameters":[
+          {
+            "name": "Accept-Language",
+            "in": "header",
+            "required":true,
+            "description": "A header that sets language translation for responses.",
+            "schema": {
+              "type": "string",
+              "example": "en"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "login successfully"
@@ -129,10 +223,24 @@
         }
       }
     },
-    "api/user/login/facebook":{
+    "api/user/login/facebook": {
       "get": {
-        "tags": ["user router"],
+        "tags": [
+          "user router"
+        ],
         "description": "user login with facebook",
+        "parameters":[
+          {
+            "name": "Accept-Language",
+            "in": "header",
+            "required":true,
+            "description": "A header that sets language translation for responses.",
+            "schema": {
+              "type": "string",
+              "example": "en"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "login successfully"
@@ -142,9 +250,23 @@
     },
     "/api/v1/user/signup": {
       "post": {
-        "tags": ["user router"],
-        "description": "user signuo",
+        "tags": [
+          "user router"
+        ],
+        "description": "user signup",
         "parameters": [
+
+            {
+              "name": "Accept-Language",
+              "in": "header",
+              "required":true,
+              "description": "A header that sets language translation for responses.",
+              "schema": {
+                "type": "string",
+                "example": "en"
+              }
+            },
+         
           {
             "name": "body",
             "in": "body",
@@ -158,7 +280,163 @@
           "201": {
             "description": "Signer Up successfully",
             "schema": {
+              "type":"array",
               "$ref": "#/components/schemas/User"
+            }
+          }
+        }
+      }
+    },
+
+  
+    "/api/v1/user/confirmation/{token}": {
+      "post": {
+        "tags": [
+          "user router"
+        ],
+        "description": "user email confirmation",
+        "parameters": [
+
+          {
+            "name": "Accept-Language",
+            "in": "header",
+            "required":true,
+            "description": "A header that sets language translation for responses.",
+            "schema": {
+              "type": "string",
+              "example": "en"
+            }
+          },
+          {
+            "name": "token",
+            "in": "path",
+            "required": true,
+            "description": "token from email account",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The account has been verified. Please log in.",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        }
+      }
+    },
+
+    "/api/v1/user/resend": {
+      "post": {
+        "tags": [
+          "user router"
+        ],
+        "description": "resend confirmation email",
+        "parameters": [
+
+          {
+            "name": "Accept-Language",
+            "in": "header",
+            "required":true,
+            "description": "A header that sets language translation for responses.",
+            "schema": {
+              "type": "string",
+              "example": "en"
+            }
+          },
+          {
+            "name": "email",
+            "in": "body",
+            "required": true,
+            "description": "email used in registration",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "confirmation email resend succesfully!",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        }
+      }
+    },
+
+    "/api/v1/auth/forgot_password": {
+      "post": {
+        "tags": [
+          "user router"
+        ],
+        "description": "user forget password",
+        "parameters": [
+
+          {
+            "name": "Accept-Language",
+            "in": "header",
+            "required":true,
+            "description": "A header that sets language translation for responses.",
+            "schema": {
+              "type": "string",
+              "example": "en"
+            }
+          },
+          {
+            "name": "email",
+            "in": "body",
+            "required": true,
+            "description": "email used in registration",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "password reset link has been succesfully sent inbox",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/reset_password/{token}": {
+      "post": {
+        "tags": [
+          "user router"
+        ],
+        "description": "user forget password",
+        "parameters": [
+
+          {
+            "name": "Accept-Language",
+            "in": "header",
+            "required":true,
+            "description": "A header that sets language translation for responses.",
+            "schema": {
+              "type": "string",
+              "example": "en"
+            }
+          },
+          {
+            "name": "token",
+            "in": "path",
+            "required": true,
+            "description": "token from email account",
+            "type": "string"
+          },
+          {
+            "name": "password",
+            "in": "body",
+            "required": true,
+            "description": "new password",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Password is updated successfully",
+            "schema": {
+              "$ref": "#/components/schemas/UserPassword"
             }
           }
         }
@@ -175,22 +453,119 @@
           },
           "email": {
             "type": "string",
-            "example":"strikers668@gmail.vom"
+            "example": "strikers668@gmail.vom"
           },
           "password": {
             "type": "string",
-            "example":"kaka"
+            "example": "kaka"
           },
           "role": {
             "type": "string",
-            "example":"user"
+            "example": "user"
+          },
+          "fullname": {
+            "type": "string",
+            "example": "Gorba Koks"
+          }
+        },
+        "required": ["username", "email", "password"]
+      },
+      "User_info": {
+        "properties": {
+          "id": {
+            "type": "number",
+            "example": "30"
           },
           "fullname": {
             "type": "string",
             "example":"Gorba Koks"
+          },
+          "email": {
+            "type": "string",
+            "example": "strikers668@gmail.vom"
+          },
+          "username": {
+            "type": "string",
+            "example": "Warrior"
+          },
+          "role": {
+            "type": "string",
+            "example": "user"
+          },
+          "provider": {
+            "type": "string",
+            "example": "google"
+          },
+          "profilePicture": {
+            "type": "string",
+            "example": "http://res.cloudinary.com/**/**/image_name.png"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date",
+            "example": "2020-12-10T12:15:58.809Z"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date",
+            "example": "2020-12-14T13:15:58.809Z"
           }
         },
-        "required": ["username", "email", "password"]
+        "required": [
+          "fullname",
+          "username",
+          "email",
+          "password"
+        ]
+      },
+
+      "UserPassword": {
+        "properties": {
+          "password": {
+            "type": "string",
+            "example": "flora123"
+          },
+          "confirmPassword": {
+            "type": "string",
+            "example": "flora123"
+          }
+        },
+        "required": [
+          "password",
+          "confirmPassword"
+        ]
+      }
+    }
+  },
+
+
+
+  "definitions": {
+    "User": {
+      "properties": {
+        "username": {
+          "type": "string",
+          "required": true
+        },
+        "email": {
+          "type": "string",
+          "required": true
+        },
+        "password": {
+          "type": "string",
+          "required": true
+        },
+       
+        "role": {
+          "type": "string",
+          "default": "user",
+          "required": true
+        },
+        "fullname": {
+          "type": "string",
+          "required": true
+        }
+       
       }
     }
   }

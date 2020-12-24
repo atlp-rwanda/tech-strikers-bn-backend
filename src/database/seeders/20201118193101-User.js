@@ -1,4 +1,4 @@
-const {hashPassword} = require("../../utils/hash");
+const {hashPassword}=require("../../utils/hash");
 
 module.exports = {
   up: async queryInterface=> queryInterface.bulkInsert(
@@ -6,10 +6,10 @@ module.exports = {
     [
       {
         fullname: "tytyne dusa",
-        email: "dusaflora2@gmail.com",
+        email:"dusaflora2@gmail.com",
         username:"tytyne",
+        isVerified:false,
         password: await hashPassword("tytyne12345"),
-        isVerified: true,
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -17,8 +17,8 @@ module.exports = {
         fullname: "fofo dudu",
         email: "fofo3@example.com",
         username:"fofo",
+        isVerified:true,
         password: await hashPassword("fofo12345"),
-        isVerified: false,
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -28,3 +28,4 @@ module.exports = {
 
   down:queryInterface => queryInterface.bulkDelete("Users", null, {}),
 };
+

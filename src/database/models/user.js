@@ -7,6 +7,8 @@ export default(sequelize, DataTypes) => {
       username: DataTypes.STRING,
       password: DataTypes.STRING,
       role: DataTypes.STRING,
+      profilePicture: DataTypes.STRING,
+      isVerified:DataTypes.BOOLEAN,
       provider: DataTypes.STRING,
       isVerified: DataTypes.BOOLEAN
     },{}

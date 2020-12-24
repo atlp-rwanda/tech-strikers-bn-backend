@@ -1,15 +1,15 @@
-import { Users } from "../database/models";
+
 import validator from "validator";
-validator.isEmail('foo@bar.com');
+
 export default async (req, res, next) => {
     const { fullname, email, role, username, password} = req.body;
-    /*if(!validator.isEmail){
-        return res.status(400).send({error: "Incorrect Email"}); 
-    } */
+   
     if(!email){
         return res.status(400).send({error: res.__("Email is required")});
     }
-    
+    if(!validator.isEmail(email)){
+        return res.status(400).send({error: "this is not a valid email address format "}); 
+     }
     if(!password){
         return res.status(400).send({error: res.__("Password is required")});
     }
