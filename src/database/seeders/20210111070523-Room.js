@@ -2,7 +2,7 @@
 
 module.exports = {
   up: async (queryInterface, Sequelize) => queryInterface.bulkInsert(
-    "Rooms",
+    "Room",
     [
       {
         accommodation_id:1,
@@ -28,11 +28,23 @@ module.exports = {
         createdAt: new Date(),
         updatedAt: new Date(),
       },
+      {
+        accommodation_id:1,
+        booked:false,
+        roomNumber:44,
+        cost:300,
+        totalBedroom:1,
+        type:'vip',
+        amenities:['wifi','erty'],
+        image:['nsnss.png','mmaa.png'],
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
     ],
     {},
   ),
   
 
-  down: async (queryInterface, Sequelize) => queryInterface.bulkDelete("Rooms", null, {}),
+  down: async (queryInterface, Sequelize) => queryInterface.bulkDelete("Room", null, {}),
 
 };
