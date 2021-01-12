@@ -55,4 +55,26 @@ export default class UserServices {
         }
 
   }
+
+  /**
+   * @description this service find user by Email
+   * @param {object} email
+   * @return {object} return current user
+   */
+
+   static async findUserByEmail(email){
+     const currentUser = await Users.findOne({where:{email}});
+return currentUser;
+   }
+
+   /**
+    * @description this sercice updateUserByRole
+    * @param {object} roleId
+    * @return {object} updatedUser by role
+    */
+
+    static async updateUserByRole(roleId, email){
+    const updatedUser = await Users.update({roleId}, {where: {email}});
+    if(updatedUser) return updatedUser;
+    }
 }

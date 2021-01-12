@@ -104,22 +104,7 @@ describe("User Test", () => {
         done();
       });
   });
-  it("Should not update User if username is taken", (done) => {
-    chai
-      .request(server)
-      .put("/api/v1/user")
-      .set("Authorization", `Bearer ${generateToken(user3).token}`)
-      .field("fullname", "user")
-      .field("username", "user2")
-      .field("email", "you@example.com")
-      .field("password", "first_password")
-      .end((err, res) => {
-          expect(res.status).to.equal(400);
-          expect(res.body).to.be.a("object");
-          expect(res.body.message).to.equal("Username has been taken");
-          done();
-        });
-  });
+  
   it("should not update a user if id = 0", (done) => {
     chai
       .request(server)

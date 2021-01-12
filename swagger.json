@@ -236,7 +236,385 @@
           }
         }
       }
+    },
+    "/api/v1/user/createRole": {
+      "post": {
+        "tags": ["Super admin router"],
+        "description": "User admin can create new role in the system",
+        "parameters": [
+          {
+            "name": "Content-Type",
+            "in": "headers",
+            "required": "true",
+            "description": " A header that sets the input type of the body",
+            "schema": {
+              "type": "string",
+              "example": "form-data"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "headers",
+            "required": true,
+            "description": "A login jwt token should be passed in the headers to verify if it is SUPER_ADMIN",
+            "schema": {
+              "type": "string",
+              "example": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQi"
+            }
+          },
+          {
+            "name": "Accept-Language",
+            "in": "headers",
+            "required": false,
+            "description": "A header that sets language translation for responses.",
+            "schema": {
+              "type": "string",
+              "example": "fr"
+            }
+          },
+          {
+            "name": "name",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example":"Travel Administrator"
+            }
+          },
+          {
+            "name": "description",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example":"This role helps for administating travels of company employees"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Role must be created if the role exist in the system.",
+            "schema": {
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Role is created in the system"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/user/assignRole": {
+      "post": {
+        "tags": ["Super admin router"],
+        "description": "User admin can assign the existing role to any existing user with his/her email address",
+        "parameters": [
+          {
+            "name": "Content-Type",
+            "in": "headers",
+            "required": "true",
+            "description": " A header that sets the input type of the body",
+            "schema": {
+              "type": "string",
+              "example": "form-data"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "headers",
+            "required": true,
+            "description": "A login jwt token should be passed in the headers to verify if it is SUPER_ADMIN",
+            "schema": {
+              "type": "string",
+              "example": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQi"
+            }
+          },
+          {
+            "name": "Accept-Language",
+            "in": "headers",
+            "required": false,
+            "description": "A header that sets language translation for responses.",
+            "schema": {
+              "type": "string",
+              "example": "fr"
+            }
+          },
+          {
+            "name": "email",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example":"user1@example.com"
+            }
+          },
+          {
+            "name": "userRole",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example":"Travel Administrator"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Role must be assigned if the role already exist in the system and is assigned to the existing email in the systme.",
+            "schema": {
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "role is successifully assigned"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/user/getRoles": {
+      "get": {
+        "tags": ["Super admin router"],
+        "description": "Admin should get all the roles available in the system",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "headers",
+            "required": "true",
+            "description": "A login jwt token should be passed in the headers",
+            "schema": {
+              "type": "string",
+              "example": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQi"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "All availble roles must be fetched and display on the page for admin to see them.",
+            "schema": {
+              "properties": {
+                "roles": [
+                  {
+                    "id": {
+                      "type": "integer",
+                      "example": 1
+                    },
+                    "name": {
+                      "type": "string",
+                      "example": "Manager"
+                    },
+                    "description": {
+                      "type": "string",
+                      "example": "This is for managing trips"
+                    },
+                    "createdAt": {
+                      "type": "string",
+                      "example": "2021-01-03T17:12:06.142Z"
+                    },
+                    "updatedAt": {
+                      "type": "string",
+                      "example": "2021-01-03T17:12:06.142Z"
+                    }
+                  },
+                  {
+                    "id": {
+                      "type": "integer",
+                      "example": 2
+                    },
+                    "name": {
+                      "type": "string",
+                      "example": "Travel Administrator"
+                    },
+                    "description": {
+                      "type": "string",
+                      "example": "This is for administtrating travels"
+                    },
+                    "createdAt": {
+                      "type": "string",
+                      "example": "2021-01-03T17:12:06.142Z"
+                    },
+                    "updatedAt": {
+                      "type": "string",
+                      "example": "2021-01-03T17:12:06.142Z"
+                    }
+                  }
+                  
+                ]
+              }
+            }
+          }
+        }
+      } 
+    },
+    "/api/v1/user/deleteRole/1": {
+      "delete": {
+        "tags": ["Super admin router"],
+        "description": "Admin can be able to delete any role in the system using its id.",
+        "parameters": [
+          {
+            "name": "Content-Type",
+            "in": "headers",
+            "required": "true",
+            "description": " A header that sets the input type of the body",
+            "schema": {
+              "type": "string",
+              "example": "form-data"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "headers",
+            "required": true,
+            "description": "A jason-web-token generated on login and signup should be passed in request headers.",
+            "schema": {
+              "type": "string",
+              "example": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQi"
+            }
+          },
+          {
+            "name": "Accept-Language",
+            "in": "headers",
+            "required": false,
+            "description": "A header that sets language translation for responses.",
+            "schema": {
+              "type": "string",
+              "example": "ki"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A message is displayed if deletion is successfull and in language specified in headers.",
+            "schema": {
+              "type": "string",
+              "example": "uruhare rwasibwe neza."
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/user/updateRole/1": {
+      "put": {
+        "tags": ["Super admin router"],
+        "description": "Admin can be able to update any role in the system using its id.",
+        "parameters": [
+          {
+            "name": "Content-Type",
+            "in": "headers",
+            "required": "true",
+            "description": " A header that sets the input type of the body",
+            "schema": {
+              "type": "string",
+              "example": "form-data"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "headers",
+            "required": true,
+            "description": "A jason-web-token generated on login and signup should be passed in request headers.",
+            "schema": {
+              "type": "string",
+              "example": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQi"
+            }
+          },
+          {
+            "name": "Accept-Language",
+            "in": "headers",
+            "required": false,
+            "description": "A header that sets language translation for responses.",
+            "schema": {
+              "type": "string",
+              "example": "en"
+            }
+          },
+          {
+            "name": "name",
+            "in": "body",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "example":"Travel Admin (updated)"
+            }
+          },
+          {
+            "name": "description",
+            "in": "body",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "example":"This is the role that is updated and responsible for administrating travels"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A message is displayed if the update is successfull and in language specified in headers.",
+            "schema": {
+              "type": "string",
+              "example": "The is role updated successfully"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/user/getRole/2": {
+      "get": {
+        "tags": ["Super admin router"],
+        "description": "Admin should get all the roles available in the system",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "headers",
+            "required": "true",
+            "description": "A login jwt token should be passed in the headers",
+            "schema": {
+              "type": "string",
+              "example": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQi"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "All availble roles must be fetched and display on the page for admin to see them.",
+            "schema": {
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "role was fetched successfully"
+                },
+                "roleToFetch": {
+                  "id": {
+                    "type": "integer",
+                  "example": 2
+                  },
+                  "name": {
+                    "type": "string",
+                    "example": "Senior Travel Administrator (Updated)"
+                  },
+                  "description": {
+                   "type": "string",
+                  "example": "this role is for administrating travels"
+                  },
+                  "createdAt": {
+                   "type": "string",
+                  "example": "2021-01-03T17:12:06.142Z"
+                  },
+                  "updatedAt":{
+                    "type": "string",
+                    "example": "2021-01-03T17:25:15.160Z"
+                  } 
+                }    
+              }
+            }
+          }
+        }
+      } 
     }
+  
   },
   "components": {
     "schemas": {
