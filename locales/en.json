@@ -32,5 +32,16 @@
 	"User with that email does not exist in the system": "User with that email does not exist in the system",
 	"Unauthorized": "Unauthorized",
 	"Please login": "Please login",
-	"You are not Super Admin to perform this action": "You are not Super Admin to perform this action"
+	"You are not Super Admin to perform this action": "You are not Super Admin to perform this action",
+	"tripRequestFailedWrongUserToken": "You are unauthorized to make a trip request, please first login.",
+	"role is successfully assigned": "role is successfully assigned",
+	"Request submitted": "Request submitted",
+	"There is no such request!": "There is no such request!",
+	"Request updated!": "Request updated!",
+	"Request deleted": "Request deleted",
+	"errorOnCreate": "Request is not processed, try again!",
+	"errorOnGet": "No requests available!",
+	"errorOnUpdate": "There is no such request!",
+	"ErrorIfNonPending": "Only open requests can be updated",
+	"errorOnDelete": "There is no such request!" 
 }

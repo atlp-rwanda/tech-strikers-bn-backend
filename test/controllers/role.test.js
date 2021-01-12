@@ -1,21 +1,17 @@
 import models  from "../../src/database/models";
-const { userRoles } = models;
-const { Users } = models;
-import helpers from "../../src/utils/helpers"
-import roleService from "../../src/services/role.service"
 import chai, { expect } from "chai";
 import chaiHttp from "chai-http";
 import server from "../../src/index";
-import userMock from "../data/user.mock";
 import roleMock from "../data/role.mock"
-import path from "path"
 import statusCode from "../../src/utils/statusCode";
 import customMessage from "../../src/utils/customMessage";
 import dotenv from "dotenv";
-dotenv.config();
 
+dotenv.config();
 chai.use(chaiHttp);
 chai.should();
+
+const { userRoles } = models;
 const { created, ok, conflict,notFound, forbidden,unAuthorized } = statusCode;
 const { signedup, duplicateEmail } = customMessage;
 let adminToken;
@@ -43,7 +39,7 @@ it("SuperAdmin role should be created", (done)=>{
     const createAdminRole = async () =>{
         const role = {
             name: "SUPER_ADMIN",
-            description: "This is the super Admin or IT stuff responsible for assigning roles to other users",
+            description: "This is the super Admin or IT staff responsible for assigning roles to other users",
             createdAt : new Date(),
             updatedAt: new Date()
         }
@@ -113,7 +109,7 @@ it("Super Admin should be able to create role in the system", (done) => {
                 expect(res.status).to.equal(ok);
                 expect(res.body).to.a("object");
                 expect(message);
-                expect(message).to.equal("role is successifully assigned");
+                expect(message).to.equal("role is successfully assigned");
                 done();
             })
             });
@@ -184,9 +180,11 @@ it("Super Admin should be able to create role in the system", (done) => {
                     it("SUPER_ADMIN role should not be updated", (done) => {
                         chai
                             .request(server)
-                            .patch("/api/v1/user/updateRole/1")
+                            .patch("/api/v1/user/updateRole/3")
                             .set("Authorization", `Bearer ${adminToken}`)
-                            .send({  "name": "SUPER_ADMIN (updated )", "description": "This is the super Admin or IT stuff responsible for assigning roles to other users(updated)"})
+                            .send({  
+                                "name": "SUPER_ADMIN (updated )", 
+                                "description": "This is the super Admin or IT staff responsible for assigning roles to other users(updated)"})
                             .end((err, res) => {
                                 expect(res.status).to.equal(forbidden);
                                 expect(res.body).to.a("object");
@@ -210,7 +208,7 @@ it("Super Admin should be able to create role in the system", (done) => {
                     it("SUPER_ADMIN role should not be a deleted", (done) => {
                         chai
                             .request(server)
-                            .delete("/api/v1/user/deleteRole/1")
+                            .delete("/api/v1/user/deleteRole/3")
                             .set("Authorization", `Bearer ${adminToken}`)
                             .end((err, res) => {
                                 expect(res.status).to.equal(forbidden);

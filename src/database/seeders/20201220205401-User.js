@@ -24,6 +24,25 @@ module.exports = {
         createdAt: new Date(),
         updatedAt: new Date(),
       },
+      {
+        fullname: "user three",
+        email: "user3@example.com",
+        username: "user3",
+        password: await hashPassword("password2"),
+        isVerified: true,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        fullname: "user four",
+        email: "user4@example.com",
+        username: "user4",
+        password: await hashPassword("password4"),
+        isVerified: true,
+        createdAt: new Date(),
+        updatedAt: new Date()
+        
+      }
     ],
     {},
   ),

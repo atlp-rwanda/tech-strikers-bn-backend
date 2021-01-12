@@ -1,6 +1,7 @@
 import AuthServices from "../services/auth.service";
-import generateToken from "../utils/util.jwt";
+import tokenUtil from "../utils/util.jwt";
 
+const { generateToken } = tokenUtil;
 /**
  * @class AuthControllers
  * @classdesc This controller deals with social media auth

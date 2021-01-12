@@ -8,7 +8,7 @@ export default {
               email: "admin@gmail.com",
               password: password,
               isVerified: true,
-              roleId: 1,
+              roleId: 3,
               createdAt: new Date(),
               updatedAt: new Date()
                  },

@@ -1,4 +1,3 @@
-
 import { readdirSync } from "fs";
 import { basename as _basename, join } from "path";
 import Sequelize from "sequelize";
@@ -6,7 +5,9 @@ import envConfigs from "../config/config";
 
 const basename = _basename(__filename);
 let env;
-if (process.env.NODE_ENV === "test") { env = "test"; } else {
+if (process.env.NODE_ENV === "test") {
+  env = "test";
+} else {
   env = "development";
 }
 
@@ -18,7 +19,12 @@ if (config.url) {
   sequelize = new Sequelize(config.url, config);
   console.log("DB connected");
 } else {
-  sequelize = new Sequelize(config.database, config.username, config.password, config);
+  sequelize = new Sequelize(
+    config.database,
+    config.username,
+    config.password,
+    config
+  );
 }
 
 const connectDb = async () => {
@@ -33,7 +39,8 @@ connectDb();
 
 readdirSync(__dirname)
   .filter(
-    (file) => file.indexOf(".") !== 0 && file !== basename && file.slice(-3) === ".js"
+    (file) =>
+      file.indexOf(".") !== 0 && file !== basename && file.slice(-3) === ".js"
   )
   .forEach((file) => {
     const model = require(join(__dirname, file)).default(
@@ -49,4 +56,5 @@ Object.keys(db).forEach((modelName) => {
 });
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
+
 export default db;

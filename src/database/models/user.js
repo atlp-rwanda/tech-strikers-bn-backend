@@ -17,6 +17,12 @@ export default(sequelize, DataTypes) => {
       as: 'role',
       foreignKey: 'roleId'
     });
+
+    Users.hasOne(models.TripRequest, {
+      foreignKey: "userId",
+      onDelete: "cascade",
+      onUpdate: "cascade"
+    })
   }
 
   return Users;
