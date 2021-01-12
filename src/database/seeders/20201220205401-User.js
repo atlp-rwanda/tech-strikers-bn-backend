@@ -9,6 +9,7 @@ module.exports = {
         email: "user1@example.com",
         username:"user1",
         password: await hashPassword("tytyne12345"),
+        roleId: null,
         isVerified: true,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -18,10 +19,30 @@ module.exports = {
         email: "user2@example.com",
         username:"user2",
         password: await hashPassword("fofo12345"),
+        roleId: null,
         isVerified: false,
         createdAt: new Date(),
         updatedAt: new Date(),
       },
+      {
+        fullname: "user three",
+        email: "user3@example.com",
+        username: "user3",
+        password: await hashPassword("password2"),
+        isVerified: true,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        fullname: "user four",
+        email: "user4@example.com",
+        username: "user4",
+        password: await hashPassword("password4"),
+        isVerified: true,
+        createdAt: new Date(),
+        updatedAt: new Date()
+        
+      }
     ],
     {},
   ),

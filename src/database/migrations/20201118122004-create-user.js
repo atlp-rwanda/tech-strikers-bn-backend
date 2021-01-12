@@ -17,9 +17,9 @@ module.exports = {
         type: Sequelize.STRING,
         defaultValue: "local",
       },
-      role:{
-        type: Sequelize.STRING,
-        defaultValue: "user",
+      roleId: {
+        type: Sequelize.INTEGER,
+        defaultValue: null,
       },
       isVerified: {
         type: Sequelize.BOOLEAN,

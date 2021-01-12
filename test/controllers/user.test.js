@@ -2,7 +2,6 @@ import chai, { expect } from "chai";
 import chaiHttp from "chai-http";
 import server from "../../src/index";
 import userMock from "../data/user.mock";
-import path from "path"
 import statusCode from "../../src/utils/statusCode";
 import customMessage from "../../src/utils/customMessage";
 import tokenUtil from "../../src/utils/util.jwt"
@@ -109,14 +108,13 @@ describe("User Test", () => {
       .request(server)
       .put("/api/v1/user")
       .set("Authorization", `Bearer ${generateToken(user3).token}`)
-      .field("fullname", "user")
       .field("username", "user2")
-      .field("email", "you@example.com")
       .field("password", "first_password")
+      .field("fullname", "user two")
       .end((err, res) => {
           expect(res.status).to.equal(400);
           expect(res.body).to.be.a("object");
-          expect(res.body.message).to.equal("Username has been taken");
+          expect(res.body.error).to.equal("Username has been taken");
           done();
         });
   });
@@ -129,7 +127,7 @@ describe("User Test", () => {
       .field("password", "first_password")
       .end((err, res) => {
         expect(res.status).to.equal(400)
-        expect(res.body.message).to.equal("Updating failed, try again later.")
+        expect(res.body.error).to.equal("Updating failed, try again later.")
         done();
       })
   });
@@ -138,9 +136,9 @@ describe("User Test", () => {
       .request(server)
       .put("/api/v1/user")
       .set("Authorization", `Bearer ${generateToken(user4).token}`)
-      .field("fullname", "username")
       .field("username", "user two")
       .field("email", "you@example.com")
+      .field("fullname", "user name")
       // for  attach, to test uploading profile picture replace the image path with any image on your local machine
 
       //.attach("profilePicture", path.resolve(__dirname, "C:/Users/herve_/OneDrive/Desktop/update.jpg"))
@@ -169,7 +167,7 @@ describe("User Test", () => {
       .set("Authorization", `Bearer ${generateToken(user0).token}`)
       .end((err, res) => {
         expect(res.status).to.equal(404);
-        expect(res.body.message).to.equal("User not found");
+        expect(res.body.error).to.equal("User not found");
         done();
       });
   });

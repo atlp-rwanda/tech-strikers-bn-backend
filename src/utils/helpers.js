@@ -1,7 +1,10 @@
 import bcrypt from "bcrypt";
 import DataURI from "datauri/parser";
 import path from 'path';
+import jwt from "jsonwebtoken";
+import dotenv from "dotenv";
 
+dotenv.config();
 const dataUri = new DataURI();
 
 const hashPassword = (password) => {
@@ -12,6 +15,11 @@ const decryptPassword = async (dataTodecrypt, dataBaseHash) => {
   const deHashedPassword = await bcrypt.compare(dataTodecrypt, dataBaseHash);
   return deHashedPassword;
 };
+
+const verifyToken = (token) => {
+        const decoded=jwt.verify(token,process.env.ACCESS_TOKEN_SECRET,{expiresIn:"1d"});
+        return decoded;
+    }
 
 const oauthCallback = (refreshToken, accessToken, profile, cb) => {
   if (profile) {
@@ -34,5 +42,6 @@ export default {
   hashPassword,
   oauthCallback,
   decryptPassword,
-  base64FileStringGenerator
+  base64FileStringGenerator,
+  verifyToken
 };

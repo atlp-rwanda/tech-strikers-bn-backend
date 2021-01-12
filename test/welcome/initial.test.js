@@ -1,5 +1,5 @@
 import chai from "chai";
-import jwt from "jwt-simple";
+import jwt from "jsonwebtoken";
 import chaiHttp from "chai-http";
 import tokenUtil from "../../src/utils/util.jwt.js";
 import verifyToken from "../../src/middlewares/tokenAuthentication";
@@ -19,26 +19,9 @@ describe("Testing behaviour of verifyToken and generateToken functions", () => {
     done();
   });
   it("It should not generate a token", (done) => {
-    const token = generateToken();
+    const token = generateToken({});
     expect(token).to.a("object");
     token.should.have.property("message");
-    done();
-  });
-  it("It should verify a token", (done) => {
-    const payload = {},
-      next = () => true,
-      token = jwt.encode(payload, process.env.ACCESS_TOKEN_SECRET);
-    const auth = `Bearer ${token}`;
-    const status = verifyToken(
-      {
-        headers: {
-          authorization: auth,
-        },
-      },
-      // eslint-disable-next-line no-shadow
-      { sendStatus: (status) => status },
-      next
-    );
     done();
   });
   it("It should not verify a token with authorization equal to null", (done) => {
@@ -50,7 +33,7 @@ describe("Testing behaviour of verifyToken and generateToken functions", () => {
         },
       },
       // eslint-disable-next-line no-shadow
-      { sendStatus: (status) => status },
+      { sendStatus: (code) => code },
       next
     );
     expect(status).to.equal(403);
@@ -58,7 +41,7 @@ describe("Testing behaviour of verifyToken and generateToken functions", () => {
   });
   it("It should not verify a token with authorization equal to false token ", (done) => {
     const next = () => true,
-      token = jwt.encode({}, process.env.ACCESS_TOKEN_SECRET);
+      token = jwt.sign({}, process.env.ACCESS_TOKEN_SECRET, {expiresIn: "1d"});
     const status = verifyToken(
       {
         headers: {
@@ -66,7 +49,7 @@ describe("Testing behaviour of verifyToken and generateToken functions", () => {
         },
       },
       // eslint-disable-next-line no-shadow
-      { sendStatus: (status) => status },
+      { sendStatus: (code) => code },
       next
     );
     expect(status).to.equal(401);
@@ -75,7 +58,7 @@ describe("Testing behaviour of verifyToken and generateToken functions", () => {
   it("It should verify a token", (done) => {
     const payload = { username: "this", email: "this@gmail.com" },
       next = () => true,
-      token = jwt.encode(payload, process.env.ACCESS_TOKEN_SECRET);
+      token = jwt.sign(payload, process.env.ACCESS_TOKEN_SECRET, {expiresIn: "1d"});
     const auth = `Bearer ${token}`;
     const status = verifyToken(
       {
@@ -87,6 +70,7 @@ describe("Testing behaviour of verifyToken and generateToken functions", () => {
       { sendStatus: (status) => status },
       next
     );
+    expect(status).to.equal(true);
     done();
   });
 });

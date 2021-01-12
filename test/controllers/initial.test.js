@@ -1,5 +1,5 @@
 import chai from "chai";
-import jwt from "jwt-simple";
+import jwt from "jsonwebtoken";
 import chaiHttp from "chai-http";
 import tokenUtil from "../../src/utils/util.jwt.js";
 import verifyToken from "../../src/middlewares/tokenAuthentication";
@@ -19,7 +19,7 @@ describe("Testing behaviour of verifyToken and generateToken functions", () => {
   it("It should verify a token", (done) => {
     const payload = { username: "this", email: "this@gmail.com" },
       next = () => true,
-      token = jwt.encode(payload, process.env.ACCESS_TOKEN_SECRET);
+      token = jwt.sign(payload, process.env.ACCESS_TOKEN_SECRET, {expiresIn: "24h"});
     const auth = `Bearer ${token}`;
     const status = verifyToken(
       {
