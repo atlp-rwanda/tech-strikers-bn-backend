@@ -29,7 +29,7 @@ module.exports = {
         updatedAt: new Date(),
       },
       {
-        accommodation_id:1,
+        accommodation_id:2,
         booked:false,
         roomNumber:44,
         cost:300,
