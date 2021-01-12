@@ -1,5 +1,5 @@
 import AuthServices from "../services/auth.service";
-import generateToken from "../utils/util.jwt";
+import {jwtToken} from "../utils/util.jwt";
 
 /**
  * @class AuthControllers
@@ -22,7 +22,7 @@ export default class AuthControllers {
             updatedAt,
             ...user
           } = userData[0].dataValues;
-          const token = generateToken(user);
+          const token = jwtToken.generateToken(user);
           res.status(200).json({
             message: "User log in successful",
             token,

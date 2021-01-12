@@ -32,5 +32,6 @@
 	"User with that email does not exist in the system": "User with that email does not exist in the system",
 	"Unauthorized": "Unauthorized",
 	"Please login": "Please login",
-	"You are not Super Admin to perform this action": "You are not Super Admin to perform this action"
+	"You are not Super Admin to perform this action": "You are not Super Admin to perform this action",
+	"User logged in successfully": "User logged in successfully"
 }

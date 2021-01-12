@@ -9,6 +9,7 @@ import loginController from "../../controllers/login.controller.js";
 import validateUser from "../../validation/login.validation";
 import RoleValidation from "../../validation/role.validations";
 import UserRoleController from "../../controllers/role.controller";
+import BookingController from "../../controllers/booking.controller";
 import RoleCheckMiddleware from "../../middlewares/superAdminCheck";
 const { isSuperAdmin } = RoleCheckMiddleware;
 const { roleAssignValidation, roleCreateValidation } = RoleValidation;
@@ -77,5 +78,6 @@ router.get(
 
 router.post("/user/signup", signup);
 router.post("/auth/siginIn",validateUser,login);
+
 
 export default router;

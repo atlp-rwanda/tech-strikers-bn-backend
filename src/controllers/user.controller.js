@@ -4,7 +4,7 @@ import helper from "../utils/helpers.js";
 import responses from "../utils/responses.js";
 import statusCode from "../utils/statusCode.js";
 import email from "../utils/email.js";
-import tokenUtil from "../utils/util.jwt";
+import {jwtToken} from "../utils/util.jwt";
 import cloudinary from "../utils/cloudinary"
 
 const { createUser, retrieveUserById, upDateUserInfo } = UserService;
@@ -14,7 +14,7 @@ const { created } = statusCode;
 const { successResponse } = responses;
 const { sendConfirmationEmail } = email;
 const { uploadProfilePic } = cloudinary;
-const { generateToken } = tokenUtil;
+
 /**
  * @description this controller deals with user services
  */
@@ -31,7 +31,7 @@ export default class UserControllers {
     formData.password = hashPassword(textPassword);
     formData.role = "user";
     const user = await createUser(formData);
-    const { token } = generateToken(user);
+    const { token } = jwtToken.generateToken(user);
     await sendConfirmationEmail(user);
     return successResponse(res, created, token, signedup, user);
   }

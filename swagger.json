@@ -685,6 +685,31 @@
           }
         }
       }
-    }
+      
+    },
+      "Book": {
+        "properties": {
+          "checkin": {
+            "type": "string",
+            "example": "2021-01-01"
+          },
+          "checkout": {
+            "type": "string",
+            "example":"2021-01-02"
+          },
+          "tripId": {
+            "type": "number",
+            "example":1
+          },
+          "accommodationId": {
+            "type": "number",
+            "example":1
+          },
+          "roomId": {
+            "type": "number",
+            "example":1
+          }
+        }
+      }
   }
 }

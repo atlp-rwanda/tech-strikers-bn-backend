@@ -17,7 +17,10 @@ export default(sequelize, DataTypes) => {
       as: 'role',
       foreignKey: 'roleId'
     });
-  }
-
+  
+    Users.hasMany(models.TripRequest, {
+      foreignKey: "userId",
+    });
+  };
   return Users;
 };
