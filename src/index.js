@@ -43,7 +43,7 @@ app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerDoc));
 */
 // production error handler
 // no stacktraces leaked to user
-app.use((err, req, res, next) => {
+/* app.use((err, req, res, next) => {
   res.status(err.status || 500);
   res.json({
     errors: {
@@ -51,7 +51,7 @@ app.use((err, req, res, next) => {
       error: {},
     },
   });
-});
+}); */
 // finally, let's start our server...
 
 app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerDoc));

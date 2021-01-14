@@ -184,7 +184,7 @@ it("Super Admin should be able to create role in the system", (done) => {
                     it("SUPER_ADMIN role should not be updated", (done) => {
                         chai
                             .request(server)
-                            .patch("/api/v1/user/updateRole/1")
+                            .patch("/api/v1/user/updateRole/3")
                             .set("Authorization", `Bearer ${adminToken}`)
                             .send({  "name": "SUPER_ADMIN (updated )", "description": "This is the super Admin or IT stuff responsible for assigning roles to other users(updated)"})
                             .end((err, res) => {
@@ -210,7 +210,7 @@ it("Super Admin should be able to create role in the system", (done) => {
                     it("SUPER_ADMIN role should not be a deleted", (done) => {
                         chai
                             .request(server)
-                            .delete("/api/v1/user/deleteRole/1")
+                            .delete("/api/v1/user/deleteRole/3")
                             .set("Authorization", `Bearer ${adminToken}`)
                             .end((err, res) => {
                                 expect(res.status).to.equal(forbidden);
