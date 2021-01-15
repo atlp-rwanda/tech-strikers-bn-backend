@@ -3,20 +3,24 @@ import passport from "passport";
 import { multerUploads } from "../../middlewares/multer"
 import tokenAuth from "../../middlewares/tokenAuthentication"
 import AuthControllers from "../../controllers/auth.controller";
-import UserControllers from "../../controllers/user.controller.js";
+import UserControllers from "../../controllers/user.controller";
 import authMiddleware from "../../middlewares/auth";
-import loginController from "../../controllers/login.controller.js"; 
+import {isVerified} from "../../middlewares/isVerified"
+import loginController from "../../controllers/login.controller"; 
 import validateUser from "../../validation/login.validation";
 import RoleValidation from "../../validation/role.validations";
 import UserRoleController from "../../controllers/role.controller";
 import RoleCheckMiddleware from "../../middlewares/superAdminCheck";
 const { isSuperAdmin } = RoleCheckMiddleware;
 const { roleAssignValidation, roleCreateValidation } = RoleValidation;
+import validateSignup from "../../validation/signup.validator"
+import resetController from "../../controllers/resetController"
+import{validatePassword,validateEmail} from "../../validation/reset.validator"
 const router = express.Router();
-const { signup, getUserInfo, upDateUser } = UserControllers;
-const { loginCallback } = AuthControllers;
-const { checkEmailExist } = authMiddleware;
+const { signup, getUserInfo, upDateUser,resend,confirmation } = UserControllers;
 const { login } = loginController;
+const { checkEmailExist,checkUsernameExist } = authMiddleware;
+
 
 //route that retrieves user information by id
 router.get("/user", tokenAuth, getUserInfo);
@@ -44,7 +48,16 @@ router.get("/user/getRole/:id", isSuperAdmin, getRole);
 /* router.delete("/user", (req, res) => {
   res.status(200).json({ message: "successfully sent" });
 }); */
+router.put("/user", tokenAuth,multerUploads, upDateUser);
+router.post("/user/signup",validateSignup,[checkEmailExist,checkUsernameExist],signup);
+router.post("/user/resend",resend)
+router.post("/user/confirmation/:token",confirmation);
 
+router.delete("/user", (req, res) => {
+  res.status(200).json({ message: "successfully sent" });
+});
+router.post("/auth/forgot_password",validateEmail,resetController.forgetPassword)
+router.post("/reset_password/:token",validatePassword,resetController.resetPassword)
 
 router.get(
   "/user/login/google",
@@ -75,7 +88,6 @@ router.get(
 );
 
 
-router.post("/user/signup", signup);
 router.post("/auth/siginIn",validateUser,login);
 
 export default router;
