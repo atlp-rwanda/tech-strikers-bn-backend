@@ -9,6 +9,9 @@ import tokenUtil from "../../src/utils/util.jwt"
 import dotenv from "dotenv";
 dotenv.config();
 
+import token from "../logout/data/token.data";
+
+
 chai.use(chaiHttp);
 chai.should();
 
@@ -122,6 +125,7 @@ describe("User Test", () => {
     chai
       .request(server)
       .put("/api/v1/user")
+
       .set("Authorization", `Bearer ${generateToken(user4).token}`)
       .field("fullname", "username")
       .field("username", "user two")

@@ -1,5 +1,6 @@
 import express from "express";
-import api from "./api/index.js";
+import dotenv from "dotenv";
+import api from "./api/index";
 
 const router = express.Router();
 const apiVersion = process.env.API_VERSION;
