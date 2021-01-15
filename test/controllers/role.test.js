@@ -19,7 +19,8 @@ chai.should();
 const { created, ok, conflict,notFound, forbidden,unAuthorized } = statusCode;
 const { signedup, duplicateEmail } = customMessage;
 let adminToken;
-const { superAdmin, simpleUser } = roleMock;
+let travelAdmin;
+const { superAdmin, simpleUser, anotherUser} = roleMock;
 
 describe("Role setting Tests", ()=>{
     it("Should create a user", (done) => {
@@ -101,6 +102,21 @@ it("Super Admin should be able to create role in the system", (done) => {
           done();
         })
         });
+    it("Super Admin should be able to create Travel Administrator Role in the system", (done) => {
+        chai
+            .request(server)
+            .post("/api/v1/user/createRole")
+            .set("Authorization", `Bearer ${adminToken}`)
+            .send({  "name": "Travel Administrator", "description": "This for administrating travals"})
+            .end((err, res) => {
+                const { message } = res.body;
+                expect(res.status).to.equal(created);
+                expect(res.body).to.a("object");
+                expect(message);
+                expect(message).to.equal("Role is created in the system");
+                done();
+            })
+            });
 
     it("Super Admin should be able to assign role to existing user with his email", (done) => {
         chai
@@ -147,7 +163,7 @@ it("Super Admin should be able to create role in the system", (done) => {
                     .request(server)
                     .patch("/api/v1/user/updateRole/2")
                     .set("Authorization", `Bearer ${adminToken}`)
-                    .send({  "name": "Travel administrator (updated)", "description": "This for administrating travals"})
+                    .send({  "name": "Travel Administrator", "description": "This for administrating travals"})
                     .end((err, res) => {
                         expect(res.status).to.equal(ok);
                         expect(res.body).to.a("object");
@@ -231,4 +247,63 @@ it("Super Admin should be able to create role in the system", (done) => {
                         })
                         });
 
+        it("Super Admin should assign someone to be Travel Administrator using existing email", (done) => {
+            chai
+                .request(server)
+                .post("/api/v1/user/assignRole")
+                .set("Authorization", `Bearer ${adminToken}`)
+                .send({  
+                    "email": "ntirandth@gmail.com",
+                    "userRole": "Travel Administrator"
+                })
+                .end((err, res) => {
+                    const { message } = res.body;
+                    expect(res.status).to.equal(ok);
+                    expect(res.body).to.a("object");
+                    expect(message);
+                    expect(message).to.equal("role is successifully assigned");
+                    done();
+                })
+                });
+
+
+            it('Should login Travel administrator and generate a token',(done) => {
+                chai
+                .request(server)
+                    .post("/api/v1/auth/siginIn")
+                    .send({ 
+                    "email": "ntirandth@gmail.com",
+                    "password": "kdkdMhe23"
+                    })
+                    .end((err,res) => {
+                    const { token }  = res.body;
+                    travelAdmin= token;
+                        expect(token).to.a ("string")
+                        done()
+                    })
+            });       
+
+        it("Travel Administrator be able to create accommodation in the system", (done) => {
+            chai
+                .request(server)
+                .post("/api/v1/createAccommodation")
+                .set("Authorization", `Bearer ${travelAdmin}`)
+                .send({  "accommodationType": "Hotel", 
+                "accommodationName":"Serena hotel",
+                "location": "kigali-Rwanda",
+                "facilities": "swimming poll_Parking",
+                "description":"This the beautiful hotel sls..s.kkkk",
+                "photoUrl": "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/S"
+            })
+                .end((err, res) => {
+                    const { message } = res.body;
+                    expect(res.status).to.equal(created);
+                    expect(res.body).to.a("object");
+                    expect(message);
+                    expect(message).to.equal("Accommodation created successfully");
+                    done();
+                })
+                });
+
+        
 })

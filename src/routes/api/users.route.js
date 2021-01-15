@@ -14,7 +14,13 @@ import checkblockedtoken from "../../middlewares/blacklist";
 import tokenlist from "../../controllers/list.controllers";
 
 const router = express.Router();
-const { isSuperAdmin } = RoleCheckMiddleware;
+import CrudAccommodations from "../../controllers/add.accommodation";
+import AccommodationValidation from "../../validation/crud.accommodation.validations"
+import CrudRoom from "../../controllers/room.controller"
+const { createAccommodationValidations, createRoomValidations } = AccommodationValidation
+const { addRoom,getRooms, deleteRooms,updateRooms} = CrudRoom; 
+const { addAccommodation, GetAllAccommodations, deleteAccommodation, updateAccommodation} = CrudAccommodations;
+const { isSuperAdmin, isTravelAdministator} = RoleCheckMiddleware;
 const { roleAssignValidation, roleCreateValidation } = RoleValidation;
 const { checklisted } = checkblockedtoken
 const { listed } = tokenlist
@@ -30,16 +36,16 @@ router.get("/user",checklisted, tokenAuth, getUserInfo);
 // this route uses form-data for inputs
 router.put("/user",checklisted, tokenAuth, multerUploads, upDateUser);
 
-router.post("/user/signup",checklisted, checkEmailExist, signup);
+//router.post("/user/signup",checklisted, checkEmailExist, signup);
 const { assign, createRole, getRoles, updateRole, deleteRole, getRole} = UserRoleController;
 
-router.post("/user/signup", checklisted,checkEmailExist, signup);
-router.post("/user/assignRole",checklisted, isSuperAdmin, roleAssignValidation, assign);
-router.post("/user/createRole",checklisted, isSuperAdmin, roleCreateValidation, createRole);
-router.get("/user/getRoles", checklisted,isSuperAdmin, getRoles);
-router.delete("/user/deleteRole/:id", checklisted,isSuperAdmin, deleteRole);
-router.patch("/user/updateRole/:id", checklisted,isSuperAdmin,updateRole);
-router.get("/user/getRole/:id", checklisted,isSuperAdmin, getRole);
+router.post("/user/signup", checkEmailExist, signup);
+router.post("/user/assignRole",checklisted,isSuperAdmin, roleAssignValidation, assign);
+router.post("/user/createRole",checklisted,isSuperAdmin, roleCreateValidation, createRole);
+router.get("/user/getRoles",checklisted,isSuperAdmin, getRoles);
+router.delete("/user/deleteRole/:id",checklisted,isSuperAdmin, deleteRole);
+router.patch("/user/updateRole/:id",checklisted,isSuperAdmin,updateRole);
+router.get("/user/getRole/:id",checklisted,isSuperAdmin, getRole);
 
 router.post("/user/logout", checklisted, listed);
 
@@ -72,7 +78,15 @@ router.get(
 );
 
 
-router.post("/user/signup", signup);
+//router.post("/user/signup", signup);
 router.post("/auth/siginIn",validateUser,login);
 
+router.post("/createAccommodation",isTravelAdministator,createAccommodationValidations,addAccommodation)
+router.get("/getallaccommodations",isTravelAdministator, GetAllAccommodations)
+router.delete("/deleteAccommodation/:id", isTravelAdministator, deleteAccommodation)
+router.patch("/apdateaccommodation/:id", isTravelAdministator, updateAccommodation)
+router.post("/accommodation/:id/createRoom", isTravelAdministator, createRoomValidations,addRoom )
+router.get("/accommodation/:id/getRooms", isTravelAdministator, getRooms)
+router.delete("/accommodation/:id/deleteRoom",isTravelAdministator, deleteRooms)
+router.patch("/accommodation/:id/updateRoom", isTravelAdministator, updateRooms)
 export default router;

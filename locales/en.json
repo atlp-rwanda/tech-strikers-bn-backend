@@ -40,5 +40,21 @@
 	"Comment submitted": "Comment submitted",
 	"Request not Found": "Request not Found",
 	"Server Error": "Server Error",
-	"Comment deleted": "Comment deleted"
+	"Comment deleted": "Comment deleted",
+	"Accommodation created successfully": "Accommodation created successfully",
+	"Room deleted successfully": "Room deleted successfully",
+	"undefineddeleted successfully": "undefineddeleted successfully",
+	"The accommodation with that id doesn't exist": "The accommodation with that id doesn't exist",
+	"Accomodation successfully updated": "Accomodation successfully updated",
+	"This accommodation doesn't exist": "This accommodation doesn't exist",
+	"Room updated successfully": "Room updated successfully",
+	"No rooms available in [Ituze lodge(updated)]": "No rooms available in [Ituze lodge(updated)]",
+	"No rooms available in [Serena hotel]": "No rooms available in [Serena hotel]",
+	"Room you need to delete doesn't exist": "Room you need to delete doesn't exist",
+	"Accommodation deleted successfully": "Accommodation deleted successfully",
+	"No available accommodations": "No available accommodations",
+	"You are not Travel administrator": "You are not Travel administrator",
+	"Accommodation type is required": "Accommodation type is required",
+	"RoomType is required": "RoomType is required"
 }
+

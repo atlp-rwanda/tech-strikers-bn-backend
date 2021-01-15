@@ -21,5 +21,15 @@ export default {
                      username: "warrior",
                      isVerified: true
                    },
-       
+
+
+       anotherUser: {
+                    fullname: "Thierry Ntirandekura",
+                     email: "taiga12@gmail.com",
+                     password: "Mn078!!ye6",
+                     roleId: null,
+                     username: "MasterCode",
+                     isVerified: true
+       }
+
 }
