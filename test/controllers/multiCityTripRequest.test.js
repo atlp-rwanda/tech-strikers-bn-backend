@@ -1,7 +1,7 @@
 import chai, { expect } from "chai";
 import chaiHttp from "chai-http";
 import server from "../../src/index";
-import { jwtToken } from "../../src/utils/util.jwt";
+import { jwtToken } from "../../src/utils/util.jwt"
 
 chai.use(chaiHttp);
 chai.should();
@@ -10,6 +10,8 @@ const { generateToken } = jwtToken
 
 const testUser1 = generateToken({id:4, fullname: "user four", email: "user4@example.com"})
 const testUser2 = generateToken({id:5, fullname: "user five", email: "user5@example.com"})
+const testUser3 = generateToken({id:9,fullname: "user six", email: "user6@example.com",roleId:1});
+const testUser4 = generateToken({id:8,fullname: "user height", email: "user8@example.com"});
 
 describe("Trip request route supoorting multi city trip", () => {
     it("Should not retrieve trip requests if non has been made", (done) => {
@@ -90,13 +92,43 @@ describe("Trip request route supoorting multi city trip", () => {
                     "trip1": {"originId": 2, "destinationId": 3},
                     "trip2": {"originId": 3, "destinationId": 4}
                 },
-                "departureDate": "2021-02-10",
+                "departureDate": "2021-02-01",
                 "returnDate": "2020-12-29",
                 "reason": "Saint Valentine's Day vacation"
             }
         ).end((err, res) => {
             expect(res.status).to.equal(422)
             expect(res.body.error).to.equal('\"returnDate\" must be greater than\ "ref:departureDate\"')
+            done();
+        })
+    });
+    it("Should aprove or reject Trip request", (done) => {
+        chai.request(server)
+        .put("/api/v1/tripRequestsDecision/2")
+        .set("Authorization", `Bearer ${testUser3}`)
+        .send({"status":"Approved"})
+         .end((err, res) => {
+            expect(res.status).to.equal(200) 
+            expect(res.body).to.be.a("object");           
+            done();
+        })
+    });
+    it("Should not  aprove or reject Trip request if user is not Manager", (done) => {
+        chai.request(server)
+        .put("/api/v1/tripRequestsDecision/2")
+        .set("Authorization", `Bearer ${testUser3}`)
+        .send({"status":"Approved"})
+         .end((err, res) => {
+            expect(res.status).to.equal(400)                        
+            done();
+        })
+    });
+    it("Should not  aprove or reject Trip request if user no user login", (done) => {
+        chai.request(server)
+        .put("/api/v1/tripRequestsDecision/2")        
+        .send({"status":"Approved"})
+         .end((err, res) => {
+            expect(res.status).to.equal(401)                      
             done();
         })
     });

@@ -1,25 +1,31 @@
 class AccommodationValidation {
     static async createAccommodationValidations (req, res, next){
-        const accommodationFormData = JSON.parse(JSON.stringify(req.body));
-        
-        if(!accommodationFormData.accommodationType){
+        const { accommodationType, accommodationName, location, facilities, description, photoUrl} = req.body;
+        /*if(!validator.isEmail){
+            return res.status(400).send({error: "Incorrect Email"}); 
+        } */
+        if(!accommodationType){
             return res.status(400).send({error: res.__("Accommodation type is required")});
         }
         
-        if(!accommodationFormData.accommodationName){
+        if(!accommodationName){
             return res.status(400).send({error: res.__("Accommodation name is required")});
         }
     
-        if(!accommodationFormData.location){
+        if(!location){
             return res.status(400).send({error: res.__("Location is required")});
         }
     
-        if(!accommodationFormData.facilities){
+        if(!facilities){
             return res.status(400).send({error: res.__("facilities are required")});
         }
     
-        if(!accommodationFormData.description){
+        if(!description){
             return res.status(400).send({error: res.__("description is required")});
+        }
+    
+        if(!photoUrl){
+            return res.status(400).send({error: res.__("photo url is required")});
         }
     
         return next();
@@ -27,7 +33,7 @@ class AccommodationValidation {
 
 
         static async createRoomValidations(req, res, next){
-            const { roomType,roomNumber,price, facilities} = req.body
+            const { roomType,roomNumber,price } = req.body
             if(!roomType){
                 return res.status(400).send({error: res.__("RoomType is required")});
             }
@@ -38,9 +44,6 @@ class AccommodationValidation {
         
             if(!price){
                 return res.status(400).send({error: res.__("Price is required")});
-            }
-            if(!facilities){
-                return res.status(400).send({error: res.__("Facilities are required")});
             }
         
             return next();

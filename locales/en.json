@@ -132,5 +132,6 @@
 	"Accommodation deleted successfully": "Accommodation deleted successfully",
 	"Room you need to delete doesn't exist": "Room you need to delete doesn't exist",
 	"Kabuga3 already exist, update the existing one": "Kabuga3 already exist, update the existing one",
-	" You are not  Travel administrator to manipulate accommodations": " You are not  Travel administrator to manipulate accommodations"
+	" You are not  Travel administrator to manipulate accommodations": " You are not  Travel administrator to manipulate accommodations",
+	"Trip request has been Approved": "Trip request has been Approved"
 }

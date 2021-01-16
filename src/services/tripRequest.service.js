@@ -22,5 +22,16 @@ export default class tripRequestService {
             });
         return response;
     }
+    static async getTripRequest(id) {
+        const response = await TripRequest.findOne({
+             where: {id:id},
+             include: Trips
+            });
+        return response;
+    }
+    static async  AproveOrReject(data,id){
+      const updaterequest=await TripRequest.update(data,{where:{id:id}});
+      return updaterequest;
+    }
     
 }
