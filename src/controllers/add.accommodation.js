@@ -1,32 +1,25 @@
 import models from "../database/models/index"
 const { Accommodation, Rooms } = models
-
+import helper from "../utils/helpers";
+import CloudinaryUtils from "../utils/cloudinary";
+const { uploadAccommodationPic } = CloudinaryUtils 
+const { base64FileStringGenerator } = helper;
 class CrudAccommodation {
-    static async addAccommodation (req, res){
-const { 
-    accommodationType,
-    accommodationName,
-    location,
-    description,
-    facilities,
-    photoUrl,
-    } = req.body
-
-//create accommodation
-    const accommodationInfo = await Accommodation.create({
-    accommodationType,
-    accommodationName,
-    location,
-    description,
-    facilities,
-    photoUrl,
-    });
-
-return res.status(201).json({
-    message: res.__("Accommodation created successfully"),
-     accommodationInfo,
-})
-    
+    static async createAccommodation (req, res){
+        const accommodationFormData = JSON.parse(JSON.stringify(req.body));
+        if (req.file) {
+          const accommodationImage = await uploadAccommodationPic(base64FileStringGenerator(req).content, "accommodationImages")
+          accommodationFormData.photoUrl = accommodationImage.url;
+        } 
+        
+        //create accommodation
+         const accommodationInfo = await Accommodation.create(accommodationFormData);
+        
+        return res.status(201).json({
+            message: res.__("Accommodation created successfully"),
+             accommodationInfo,
+        })
+         
 }
 
 static async GetAllAccommodations (req, res){
@@ -69,28 +62,26 @@ static async updateAccommodation (req, res) {
     if (!accomodationExist) {
       return res
         .status(404)
-        .json({ message: res.__("The accommodation with that id doesn't exist") });
+        .json({ message: res.__("Accommodation with that id doesn't exist") });
     }
-    await Accommodation.update(
-      {
-        accommodationType: req.body.accommodationType || accomodationExist.accommodationType,
-        accommodationName: req.body.accommodationName || accomodationExist.accommodationName,
-        description: req.body.description || accomodationExist.description,
-        photoUrl: req.body.photoUrl || accomodationExist.photoUrl,
-        facilities: req.body.facilities || accomodationExist.facilities,
-        location: req.body.location || accomodationExist.location
-        
-      },
+
+    const accommodationUpdateFormData = JSON.parse(JSON.stringify(req.body));
+        if (req.file) {
+          const accommodationUpdateImage = await uploadAccommodationPic(base64FileStringGenerator(req).content, "accommodationImages")
+          accommodationUpdateFormData.photoUrl = accommodationUpdateImage.url;
+        } 
+
+       console.log(accommodationUpdateFormData)
+ const updatedInfo =  await Accommodation.update(accommodationUpdateFormData,
       {
         where: {
           id
         }
       }
     );
-
     return res
     .status(200)
-    .json({ message: res.__('Accomodation successfully updated') });
+    .json({ message: res.__('Accomodation successfully updated')});
   }
 
 

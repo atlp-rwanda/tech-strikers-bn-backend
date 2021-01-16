@@ -24,4 +24,15 @@ const uploadProfilePic = async (pictureFileString, upload_preset_value) => {
     return uploaded_pic_url    
 }
 
-export default { uploadProfilePic };
+const uploadAccommodationPic = async (pictureString, upload_preset_value) =>{
+    const uploaded_picture = await cloudinary.v2.uploader.upload(
+        pictureString,
+        {
+            upload_preset: upload_preset_value
+        }
+    );
+
+    return uploaded_picture
+}
+
+export default { uploadProfilePic, uploadAccommodationPic };

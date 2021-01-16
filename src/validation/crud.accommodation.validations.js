@@ -1,30 +1,28 @@
 class AccommodationValidation {
     static async createAccommodationValidations (req, res, next){
-        const { accommodationType, accommodationName, location, facilities, description, photoUrl} = req.body;
-        /*if(!validator.isEmail){
-            return res.status(400).send({error: "Incorrect Email"}); 
-        } */
-        if(!accommodationType){
+        const accommodationFormData = JSON.parse(JSON.stringify(req.body));
+        
+        if(!accommodationFormData.accommodationType){
             return res.status(400).send({error: res.__("Accommodation type is required")});
         }
         
-        if(!accommodationName){
+        if(!accommodationFormData.accommodationName){
             return res.status(400).send({error: res.__("Accommodation name is required")});
         }
     
-        if(!location){
+        if(!accommodationFormData.location){
             return res.status(400).send({error: res.__("Location is required")});
         }
     
-        if(!facilities){
+        if(!accommodationFormData.facilities){
             return res.status(400).send({error: res.__("facilities are required")});
         }
     
-        if(!description){
+        if(!accommodationFormData.description){
             return res.status(400).send({error: res.__("description is required")});
         }
     
-        if(!photoUrl){
+        if(!accommodationFormData.photoUrl){
             return res.status(400).send({error: res.__("photo url is required")});
         }
     

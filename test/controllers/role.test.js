@@ -22,7 +22,7 @@ let adminToken;
 let travelAdmin;
 const { superAdmin, simpleUser, anotherUser} = roleMock;
 
-describe("Role setting Tests", ()=>{
+describe("Role setting Tests & Crud_Accommodation Test", ()=>{
     it("Should create a user", (done) => {
         chai
           .request(server)
@@ -305,5 +305,24 @@ it("Super Admin should be able to create role in the system", (done) => {
                 })
                 });
 
-        
+        it("Travel Administrator be able to create a Room in the existing accommodation", (done) => {
+            chai
+                .request(server)
+                .post("/api/v1/accommodation/1/createRoom")
+                .set("Authorization", `Bearer ${travelAdmin}`)
+                .send({
+                "roomType": "Music Room 63",
+                "facilities": "Tv show",
+                "roomNumber":3,
+                "price":"400$"
+            })
+                .end((err, res) => {
+                    const { message } = res.body;
+                    expect(res.status).to.equal(created);
+                    expect(res.body).to.a("object");
+                    expect(message);
+                    expect(message).to.equal(`[Music Room 63] is created in [Serena hotel]`);
+                    done();
+                })
+                })
 })
