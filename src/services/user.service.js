@@ -77,4 +77,40 @@ return currentUser;
     const updatedUser = await Users.update({roleId}, {where: {email}});
     if(updatedUser) return updatedUser;
     }
+
+  static async getUserByIdOrUsername(value) {
+    let user;
+    if (typeof value === "string") {
+      user = await Users.findOne({ where: { username: value } });
+      return user;
+    }
+    return await Users.findOne({ where: { id: value } });
+  }
+
+
+  static async getUserByEmail(value) {
+    const user = await Users.findOne({ where: { email: value } });
+      return user;
+   
+  }
+  static async updateUser(decoded){
+    const User = await Users.update({isVerified:true}, {
+      where: { id: decoded.userId },
+      returning: true,
+      plain: true,
+      })
+    return User
+  }
+  static async updatePassword(hash,decoded){
+    const User = await Users.update(
+      { password: hash },
+      {
+      where: { id: decoded.userId },
+      returning: true,
+      plain: true,
+      }
+  );
+    return User
+  }
+
 }
