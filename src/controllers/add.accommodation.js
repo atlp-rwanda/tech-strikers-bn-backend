@@ -49,7 +49,7 @@ static async deleteAccommodation(req,res){
     if (!deletedAccoommodation) {
       return res
         .status(404)
-        .json({ message: res.__(`The accommodation with that id doesn't exist`) });
+        .json({ message: res.__(`Accommodation with that id doesn't exist`) });
     }
     return res
       .status(200)
