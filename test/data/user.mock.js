@@ -52,5 +52,4 @@ export default {
     email: "klf89416@cdd.com",
     password: "Password1",
   }
-
 };

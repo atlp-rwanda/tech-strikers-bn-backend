@@ -16,15 +16,9 @@ let token1;
 let token2;
 
 const userTest = { fullname: "user test", username: "usertest", email: "1" };
-const { user1, user2, user5, user3, user4, user0 } = userMock;
-const { created, ok, conflict, badRequest } = statusCode;
-const {
-  signedup,
-  duplicateEmail,
-  accountVerified,
-  resend,
-  thisAccountVerified,
-} = customMessage;
+const { created, ok, conflict,badRequest} = statusCode;
+const{ signedup,duplicateEmail,accountVerified,resend, thisAccountVerified} = customMessage;
+const { user1, user2, user3, user4 } = userMock;
 
 describe("User Test", () => {
   it("Should create a user", (done) => {
@@ -32,9 +26,9 @@ describe("User Test", () => {
       .request(server)
       .post("/api/v1/user/signup")
       .send(user1)
-      .end((err, res) => {
-        const { token, message } = res.body;
-        token1 = token;
+      .end((err,res)=>{
+        const {token,message} = res.body;
+        token1=token;
         expect(res.status).to.equal(created);
         expect(message);
         expect(message).to.equal("You signed up successfully");
@@ -43,41 +37,36 @@ describe("User Test", () => {
       });
   }).timeout(6000);
 
-  it("should be able to confirm a user", (done) => {
-    chai
-      .request(server)
-      .post(`/api/v1/user/confirmation/${token1}`)
-      .send()
-      .end((err, res) => {
-        const { message } = res.body;
-        expect(res.status).to.equal(ok);
-        expect(message);
-        expect(message).to.equal(accountVerified);
-        done();
-      });
+
+
+  it("should be able to confirm a user",done=>{
+    chai.request(server).post(`/api/v1/user/confirmation/${token1}`).send()
+    .end((err,res)=>{
+      const {message} = res.body;
+      expect(res.status).to.equal(ok);
+      expect(message);
+      expect(message).to.equal(accountVerified);
+      done();
+    });
   });
 
-  it("should be able to resend confirmation email", (done) => {
-    chai
-      .request(server)
-      .post(`/api/v1/user/resend`)
-      .send({ email: "user2@example.com" })
-      .end((err, res) => {
-        const { message, token } = res.body;
-        expect(res.status).to.equal(ok);
-        expect(message);
-        expect(message).to.equal(resend);
-        expect(token).to.a("string");
-        done();
-      });
+  it("should be able to resend confirmation email",done=>{
+    chai.request(server).post(`/api/v1/user/resend`)
+    .send({email: "user2@example.com"}) 
+    .end((err,res)=>{
+      const {message, token } = res.body;
+      expect(res.status).to.equal(ok);
+      expect(message);
+      expect(message).to.equal(resend);
+      expect(token).to.a("string");
+      done();
+    });
   });
-  it("should not be able to resend confirmation email", (done) => {
-    chai
-      .request(server)
-      .post(`/api/v1/user/resend`)
-      .send({ email: "user1@example.com" })
-      .end((err, res) => {
-        const { error } = res.body;
+    it("should not be able to resend confirmation email",done=>{
+      chai.request(server).post(`/api/v1/user/resend`)
+      .send({email: "user1@example.com"}) 
+      .end((err,res)=>{
+        const {  error } = res.body;
         expect(res.status).to.equal(badRequest);
         expect(error);
         expect(error).to.equal(thisAccountVerified);
@@ -96,6 +85,20 @@ describe("User Test", () => {
         expect(res.status).to.equal(badRequest);
         expect(error);
         expect(error).to.equal("this is not a valid email address format ");
+        done();
+      });
+  });
+
+  it("Should not create a user with an Existing Email", (done) => {
+    chai
+      .request(server)
+      .post("/api/v1/user/signup")
+      .send(user1)
+      .end((err, res) => {
+        const { error } = res.body;
+        expect(res.status).to.equal(conflict);
+        expect(error);
+        expect(error).to.equal(duplicateEmail);
         done();
       });
   });

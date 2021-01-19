@@ -492,7 +492,7 @@
     },
     "/api/v1/user/createRole": {
       "post": {
-        "tags": ["Super admin router"],
+        "tags": ["Role setting"],
         "description": "User admin can create new role in the system",
         "parameters": [
           {
@@ -561,7 +561,7 @@
     },
     "/api/v1/user/assignRole": {
       "post": {
-        "tags": ["Super admin router"],
+        "tags": ["Role setting"],
         "description": "User admin can assign the existing role to any existing user with his/her email address",
         "parameters": [
           {
@@ -630,7 +630,7 @@
     },
     "/api/v1/user/getRoles": {
       "get": {
-        "tags": ["Super admin router"],
+        "tags": ["Role setting"],
         "description": "Admin should get all the roles available in the system",
         "parameters": [
           {
@@ -701,9 +701,9 @@
         }
       }
     },
-    "/api/v1/user/deleteRole/1": {
+    "/api/v1/user/deleteRole/{id}": {
       "delete": {
-        "tags": ["Super admin router"],
+        "tags": ["Role setting"],
         "description": "Admin can be able to delete any role in the system using its id.",
         "parameters": [
           {
@@ -748,9 +748,9 @@
         }
       }
     },
-    "/api/v1/user/updateRole/1": {
+    "/api/v1/user/updateRole/{id}": {
       "patch": {
-        "tags": ["Super admin router"],
+        "tags": ["Role setting"],
         "description": "Admin can be able to update any role in the system using its id.",
         "parameters": [
           {
@@ -813,9 +813,9 @@
         }
       }
     },
-    "/api/v1/user/getRole/2": {
+    "/api/v1/user/getRole/{id}": {
       "get": {
-        "tags": ["Super admin router"],
+        "tags": ["Role setting"],
         "description": "Admin should get all the roles available in the system",
         "parameters": [
           {
@@ -859,6 +859,634 @@
                     "type": "string",
                     "example": "2021-01-03T17:25:15.160Z"
                   }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/createAccommodation": {
+      "post": {
+        "tags": ["Accommodations"],
+        "description": "Travel Administrator should be able to create accommodation in the system",
+        "parameters": [
+          {
+            "name": "Content-Type",
+            "in": "headers",
+            "required": "true",
+            "description": " A header that sets the input type of the body",
+            "schema": {
+              "type": "string",
+              "example": "form-data"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "headers",
+            "required": true,
+            "description": "A login jwt token should be passed in the headers to verify if it Travel Administrator",
+            "schema": {
+              "type": "string",
+              "example": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQi"
+            }
+          },
+          {
+            "name": "Accept-Language",
+            "in": "headers",
+            "required": false,
+            "description": "A header that sets language translation for responses.",
+            "schema": {
+              "type": "string",
+              "example": "en"
+            }
+          },
+          {
+            "name": "accommodationType",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "Hotel"
+            }
+          },
+          {
+            "name": "accommodationName",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "Serena hotel"
+            }
+          },
+          {
+            "name": "photoUrl",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "file",
+              "example": "https://kdkdkdkkfdfdkdjfkfjdkdjdf.png"
+            }
+          },
+          {
+            "name": "description",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "This hotel intends to jkd host every dkd sfl "
+            }
+          },
+          {
+            "name": "location",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "Kigali-Rwanda"
+            }
+          },
+          {
+            "name": "facilities",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "Swimming pool"
+            }
+          }
+
+        ],
+        "responses": {
+          "200": {
+            "description": "Accommodation is created if no data missing in the formData",
+            "schema": {
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Accommodation created successfully"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+
+    "/api/v1/getallaccommodations": {
+      "get": {
+        "tags": ["Accommodations"],
+        "description": "Admin should get all accommodations available in the system",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "headers",
+            "required": "true",
+            "description": "A login jwt token should be passed in the headers",
+            "schema": {
+              "type": "string",
+              "example": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQi"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "All availble accommodations must be fetched and display on the page for admin to see them.",
+            "schema": {
+              "properties": {
+                "accommodations": [
+                  {
+                    "id": {
+                      "type": "integer",
+                      "example": 1
+                    },
+                    "accommodationType": {
+                      "type": "string",
+                      "example": "Hotel"
+                    },
+                    "accommodationName": {
+                      "type": "string",
+                      "example": "Serena hotel"
+                    },
+                    "description": {
+                      "type": "string",
+                      "example": "This is for hosting ls guest for l.slll"
+                    },
+                    "location": {
+                      "type": "string",
+                      "example": "kigali-Rwanda"
+                    },
+                    "photoUrl": {
+                      "type": "string",
+                      "example": "http://res.cloudinary.com/dev-ltd/image/upload/v1611300129/AccommImages/xwlp0zbdmjj3r9hupuhs.png"
+                    },
+                    "facilities": {
+                      "type": "string",
+                      "example": "swimming pool"
+                    },
+                    "createdAt": {
+                      "type": "string",
+                      "example": "2021-01-03T17:12:06.142Z"
+                    },
+                    "updatedAt": {
+                      "type": "string",
+                      "example": "2021-01-03T17:12:06.142Z"
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/deleteAccommodation/{id}": {
+      "delete": {
+        "tags": ["Accommodations"],
+        "description": "Travel Admin can be able to delete an accommodation in the system using its id.",
+        "parameters": [
+          {
+            "name": "Content-Type",
+            "in": "headers",
+            "required": "true",
+            "description": " A header that sets the input type of the body",
+            "schema": {
+              "type": "string",
+              "example": "form-data"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "headers",
+            "required": true,
+            "description": "A jason-web-token generated on login and signup should be passed in request headers.",
+            "schema": {
+              "type": "string",
+              "example": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQi"
+            }
+          },
+          {
+            "name": "Accept-Language",
+            "in": "headers",
+            "required": false,
+            "description": "A header that sets language translation for responses.",
+            "schema": {
+              "type": "string",
+              "example": "ki"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A message is displayed if deletion is successfull and in language specified in headers.",
+            "schema": {
+              "type": "string",
+              "example": "Accommodation deleted successfully."
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/updateaccommodation/{id}": {
+      "patch": {
+        "tags": ["Accommodations"],
+        "description": "Travel Admin can be able to update any accommodation in the system using its id.",
+        "parameters": [
+          {
+            "name": "Content-Type",
+            "in": "headers",
+            "required": "true",
+            "description": " A header that sets the input type of the body",
+            "schema": {
+              "type": "string",
+              "example": "form-data"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "headers",
+            "required": true,
+            "description": "A login jwt token should be passed in the headers to verify if it Travel Administrator",
+            "schema": {
+              "type": "string",
+              "example": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQi"
+            }
+          },
+          {
+            "name": "Accept-Language",
+            "in": "headers",
+            "required": false,
+            "description": "A header that sets language translation for responses.",
+            "schema": {
+              "type": "string",
+              "example": "en"
+            }
+          },
+          {
+            "name": "accommodationType",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "Hotel(Updated)"
+            }
+          },
+          {
+            "name": "accommodationName",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "Serena hotel(updated)"
+            }
+          },
+          {
+            "name": "photoUrl",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "file",
+              "example": "https://kdkdkdkkfdfdkdjfkfjdkdjdf.png"
+            }
+          },
+          {
+            "name": "description",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "This hotel intends to jkd host every dkd sfl "
+            }
+          },
+          {
+            "name": "location",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "Kigali-Rwanda"
+            }
+          },
+          {
+            "name": "facilities",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "Swimming pool"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A message is displayed if the update is successfull and in language specified in headers.",
+            "schema": {
+              "type": "string",
+              "example": "Accomodation successfully updated"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/accommodation/{id}/createRoom": {
+      "post": {
+        "tags": ["Rooms"],
+        "description": "Travel Administrator should be able to create a room in a specific accommodation in the system",
+        "parameters": [
+          {
+            "name": "Content-Type",
+            "in": "headers",
+            "required": "true",
+            "description": " A header that sets the input type of the body",
+            "schema": {
+              "type": "string",
+              "example": "form-data"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "headers",
+            "required": true,
+            "description": "A login jwt token should be passed in the headers to verify if it Travel Administrator",
+            "schema": {
+              "type": "string",
+              "example": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQi"
+            }
+          },
+          {
+            "name": "Accept-Language",
+            "in": "headers",
+            "required": false,
+            "description": "A header that sets language translation for responses.",
+            "schema": {
+              "type": "string",
+              "example": "en"
+            }
+          },
+          {
+            "name": "roomType",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "Worship Room"
+            }
+          },
+          {
+            "name": "facilities",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "Radio and Tv"
+            }
+          },
+          {
+            "name": "roomNumber",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "example": 2
+            }
+          },
+          {
+            "name": "price",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "$100"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Accommodation is created if no data missing in the formData",
+            "schema": {
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "[Worship Room] is created in [Serena hotel]"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/accommodation/{id}/getRooms": {
+      "get": {
+        "tags": ["Rooms"],
+        "description": "Travel Admin should get all rooms  available in existing accommodation the system",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "headers",
+            "required": "true",
+            "description": "A login jwt token should be passed in the headers",
+            "schema": {
+              "type": "string",
+              "example": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQi"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "All availble rooms must be fetched and display on the page for admin to see them.",
+            "schema": {
+              "properties": {
+                "rooms": [
+                  {
+                    "id": {
+                      "type": "integer",
+                      "example": 4
+                    },
+                    "userId": {
+                      "type": "string",
+                      "example": "null"
+                    },
+                    "accommodationId": {
+                      "type": "integer",
+                      "example": 1
+                    },
+                    "roomType": {
+                      "type": "string",
+                      "example": "Karate room"
+                    },
+                    "roomNumber": {
+                      "type": "integer",
+                      "example": 2
+                    },
+                    "facilities": {
+                      "type": "string",
+                      "example": "swimming pool"
+                    },
+                    "createdAt": {
+                      "type": "string",
+                      "example": "2021-01-03T17:12:06.142Z"
+                    },
+                    "updatedAt": {
+                      "type": "string",
+                      "example": "2021-01-03T17:12:06.142Z"
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/accommodation/{id}/deleteRoom": {
+      "post": {
+        "tags": ["Rooms"],
+        "description": "Travel Administrator should be able to delete a room in a specific accommodation in the system using id in req.body",
+        "parameters": [
+          {
+            "name": "Content-Type",
+            "in": "headers",
+            "required": "true",
+            "description": " A header that sets the input type of the body",
+            "schema": {
+              "type": "string",
+              "example": "form-data"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "headers",
+            "required": true,
+            "description": "A login jwt token should be passed in the headers to verify if it Travel Administrator",
+            "schema": {
+              "type": "string",
+              "example": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQi"
+            }
+          },
+          {
+            "name": "Accept-Language",
+            "in": "headers",
+            "required": false,
+            "description": "A header that sets language translation for responses.",
+            "schema": {
+              "type": "string",
+              "example": "en"
+            }
+          },
+          {
+            "name": "id",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "example": 2
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Accommodation is created if no data missing in the formData",
+            "schema": {
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Room deleted successfully"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/accommodation/{id}/updateRoom": {
+      "post": {
+        "tags": ["Rooms"],
+        "description": "Travel Administrator should be able to update a room in a specific accommodation in the system using id in req.body",
+        "parameters": [
+          {
+            "name": "Content-Type",
+            "in": "headers",
+            "required": "true",
+            "description": " A header that sets the input type of the body",
+            "schema": {
+              "type": "string",
+              "example": "form-data"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "headers",
+            "required": true,
+            "description": "A login jwt token should be passed in the headers to verify if it Travel Administrator",
+            "schema": {
+              "type": "string",
+              "example": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQi"
+            }
+          },
+          {
+            "name": "Accept-Language",
+            "in": "headers",
+            "required": false,
+            "description": "A header that sets language translation for responses.",
+            "schema": {
+              "type": "string",
+              "example": "en"
+            }
+          },
+          {
+            "name": "id",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "example": 2
+            }
+          },
+          {
+            "name": "roomType",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "Worship Room(updated)"
+            }
+          },
+          {
+            "name": "facilities",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "Radio and Tv(updated)"
+            }
+          },
+          {
+            "name": "roomNumber",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "example": 2
+            }
+          },
+          {
+            "name": "price",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "$100"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Accommodation is created if no data missing in the formData",
+            "schema": {
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Room updated successfully"
                 }
               }
             }
@@ -1249,8 +1877,9 @@
           "description": "Display one way trip details"
         }
       }
-    }}
-   } ,
+},
+    
+    
     "components": {
       "schemas": {
         "User": {
@@ -1444,4 +2073,6 @@
       }
     }
   }
+}
+}
   

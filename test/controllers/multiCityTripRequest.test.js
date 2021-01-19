@@ -90,7 +90,7 @@ describe("Trip request route supoorting multi city trip", () => {
                     "trip1": {"originId": 2, "destinationId": 3},
                     "trip2": {"originId": 3, "destinationId": 4}
                 },
-                "departureDate": "2021-02-01",
+                "departureDate": "2021-02-10",
                 "returnDate": "2020-12-29",
                 "reason": "Saint Valentine's Day vacation"
             }

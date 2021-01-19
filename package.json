@@ -4,7 +4,7 @@
   "description": "A Social platform for the creative at heart",
   "main": "src/index.js",
   "scripts": {
-    "prestart": "npm run migrations && npm run seed",
+    "prestart": "npm run migrations",
     "start": "babel-node src/index.js",
     "dev": "nodemon --exec babel-node  src/index.js",
     "create-db": "npx sequelize-cli db:create",
@@ -17,7 +17,8 @@
     "pretest": "cross-env NODE_ENV=test npm run drop-db && cross-env NODE_ENV=test npm run create-db && cross-env NODE_ENV=test npm run migrations && cross-env NODE_ENV=test npm run seed",
     "coverage": "nyc --reporter=lcov npm test",
     "admin:create": "babel-node src/database/superAdmin.js",
-    "role:create": "babel-node src/database/superAdminRole.js"
+    "role:create": "babel-node src/database/superAdminRole.js",
+    "heroku-postbuild": "npm run role:create && npm run admin:create"
   },
   "author": "Andela Simulations Programme",
   "license": "MIT",
@@ -27,6 +28,7 @@
     "@babel/node": "^7.12.6",
     "@babel/preset-env": "^7.12.1",
     "@babel/register": "^7.12.1",
+    "@hapi/joi": "^17.1.1",
     "@sendgrid/mail": "^7.4.0",
     "@types/regenerator-runtime": "^0.13.0",
     "bcrypt": "^5.0.0",
