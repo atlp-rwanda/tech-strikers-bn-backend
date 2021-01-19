@@ -10,6 +10,7 @@ const { duplicateEmail } = customMessage;
 
 const checkEmailExist = async (req, res, next) => {
   const user = await getUserByIdOrEmail(req.body.email);
+
   if (user) {
     return errorResponse(res, conflict, duplicateEmail);
   }

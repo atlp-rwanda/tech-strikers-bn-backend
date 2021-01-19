@@ -35,5 +35,15 @@
 	"Comment submitted": "Commentaire envoyé",
 	"Server Error": "Erreur ",
 	"Request not Found": "Requète non existante",
-	"Comment deleted": "Commentaire supprimé"
+	"Comment deleted": "Commentaire supprimé",
+	"role is successfully assigned": "rôle est attribué avec succès",
+	"There is no such request!": "Il n’y a pas une telle demande!",
+	"Request submitted": "Demande soumise",
+	"Request updated!": " Demande mise à jour !",
+	"Request deleted": "Demande supprimée!",
+	"errorOnCreate": "La demande n’est pas traitée, réessayer !",
+	"errorOnGet": "Aucune demande disponible!",
+	"errorOnUpdate": "Il n’y a pas une telle demande!",
+	"ErrorIfNonPending": "Seules les demandes ouvertes peuvent être mises à jour",
+	"errorOnDelete": "Il n’y a pas une telle demande!" 
 }

@@ -3,6 +3,8 @@ export default {
   duplicateEmail: "This Email is in use",
     logout: "You loged out successfully",
     loged:"You arleady Logged Out",
-    flogin:"Please Login"    
-  };
-
+    flogin:"Please Login",
+  onCreate: "Request submitted",
+  onUpdate: "Request updated!",
+  onDelete: "Request deleted",
+};

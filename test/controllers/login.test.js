@@ -1,6 +1,8 @@
-const request = require("supertest");
 import server from "../../src/index.js";
+const request = require("supertest");
 const expect = require("chai").expect;
+
+let token;
 describe("Login API",() => {
 
     it('Should fail if email is not verified in the database',(done) => {
@@ -15,7 +17,19 @@ describe("Login API",() => {
            })
            .end(done);
     }); 
-
+    it('Should login user if verified ',(done) => {
+      request(server)
+         .post("/api/v1/auth/siginIn")
+         .send({   
+          "email": "user1@example.com",
+          "password": "tytyne12345",
+      })
+         .end((err,res) => {
+            token = res.body.token;
+         expect(res.body.token).to.be.a("string");
+         done();
+         });
+  });
     it('Should not succeed if password is missing',(done) => {
         request(server)
            .post("/api/v1/auth/siginIn")
@@ -54,3 +68,5 @@ describe("Login API",() => {
 
 
 });
+
+export default { token }

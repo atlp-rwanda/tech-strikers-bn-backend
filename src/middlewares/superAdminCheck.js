@@ -1,23 +1,7 @@
-import jwt from "jsonwebtoken";
-import { userRoles } from "../database/models";
 import RoleService from "../services/role.service";
 
     class RoleCheckMiddleware {
        static async isSuperAdmin(req, res, next){
-        const authHeader = req.headers.authorization;
-        if (!authHeader) {
-          return res.status(403). json({
-              message: res.__("Please login")
-            });;
-        }
-        const token = authHeader.split(" ")[1];
-        const user = jwt.decode(token, process.env.ACCESS_TOKEN_SECRET, {expiresIn: "12h"});
-        if (!user) {
-          return res.status(401). json({message: res.__("Unauthorized")});
-        }
-      
-        req.user = user;
-        // eslint-disable-next-line no-sequences
          const { roleId }  = req.user;
          if(roleId === null){
           return res.status(400)
@@ -33,6 +17,5 @@ import RoleService from "../services/role.service";
     }
     
     export default RoleCheckMiddleware;
+   
     
-
-

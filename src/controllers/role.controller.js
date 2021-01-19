@@ -15,7 +15,6 @@ const { userRoles } = models;
 class UserRoleController{
 static async assign(req, res){
 const { email, userRole } = req.body;
-console.log(email);
 const role = await RoleService.findRoleByName(userRole);
 if(!role) return res.status(notFound)
 .json({
@@ -31,7 +30,7 @@ if(!userExist) return res.status(notFound)
 const roleId = role.id;
 const updateRole = await UserService.updateUserByRole (roleId, email);
 if(updateRole) return res.status (ok)
-.json({message: res.__("role is successifully assigned")
+.json({message: res.__("role is successfully assigned")
 });
 }
 

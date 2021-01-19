@@ -27,6 +27,15 @@
 	"SUPER_ADMIN role cannot be updated": "Uruhare rwa SUPER_ADMIN ntirushobora kuvugururwa",
 	"the role with that Id does not exist": "uruhare ruriko iyo Id ntikibaho nirubaho",
 	"You are not Super Admin to perform this action": "You are not Super Admin to perform this action",
-	"Please login": "Nyamuneka injira",
-	"Unauthorized": "Ntimwemerewe"
+	"Please login": "Banza winjire muri konti yawe!",
+	"Unauthorized": "Ntimwemerewe",
+	"Request submitted": "Ubusabe bwawe bwoherejwe!",
+	"There is no such request!": "Ubwo busabe bw'urugendo ntabuhari!",
+	"Request updated!": "Ubusabe bwawe bwahinduwe neza!",
+	"Request deleted": "Ubusabe bwasibywe!",
+	"errorOnCreate": "Ubusabe ntibukunze, mwongere mugerageze!",
+	"errorOnGet": "Nta busabe nabumwe buhari!",
+	"errorOnUpdate": "Ubwo busabe bw'urugendo ntabuhari!",
+	"ErrorIfNonPending": "Ubusabe ntibucyemerewe guhindurwa!",
+	"errorOnDelete": "Ubwo busabe bw'urugendo ntabuhari!"
 }
