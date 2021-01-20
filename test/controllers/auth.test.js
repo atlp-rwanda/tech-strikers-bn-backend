@@ -16,6 +16,7 @@ describe("SOCIAL MEDIA AUTH ROUTES", () => {
       .get(googleURL)
       .end((err, res) => {
         expect(res).to.have.status(200);
+
         expect(res.redirects[0]).to.contain(
           "https://accounts.google.com/o/oauth2/v2/auth?response"
         );

@@ -2,9 +2,9 @@ import { config } from "dotenv";
 import helpers from "../utils/helpers";
 import roleService from "../services/role.service";
 import models from "./models/index";
-const { Users } = models;
 
 config();
+const { Users } = models;
 const { hashPassword } = helpers;
 
  const createAdminUser = async() => {

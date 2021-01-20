@@ -10,11 +10,13 @@ import morgan from "morgan";
 import swaggerDoc from "../swagger.json";
 import routes from "./routes/index.js";
 import i18n from "./utils/i18n";
+require("./config/passport").default(passport);
+
 dotenv.config();
 
-require("./config/passport").default(passport);
 const __dirname = path.resolve();
 const app = express();
+
 app.use(bodyparser.json());
 app.use(cors());
 app.use(morgan("dev"));
@@ -32,16 +34,12 @@ app.get("/home", (req, res, next) => res.status(200).json({
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(routes);
-app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerDoc));
-app.use(routes)
-
-/// catch 404 and forward to error handler
-/*app.use((req, res, next) => {
+app.use((req, res, next) => {
   const err = new Error("Not Found");
   err.status = 404;
   next(err);
 });
-*/
+
 // production error handler
 // no stacktraces leaked to user
 /* app.use((err, req, res, next) => {

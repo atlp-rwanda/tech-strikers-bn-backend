@@ -11,7 +11,7 @@ module.exports = {
         type: Sequelize.STRING,
       },
       username: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
       },
       provider: {
         type: Sequelize.STRING,
@@ -23,18 +23,19 @@ module.exports = {
       },
       isVerified: {
         type: Sequelize.BOOLEAN,
-        defaultValue: false
+        defaultValue: false,
       },
       email: {
         type: Sequelize.STRING,
-        unique: true
+        unique: true,
       },
       password: {
         type: Sequelize.STRING,
       },
       profilePicture: {
         type: Sequelize.STRING,
-        defaultValue: 'http://res.cloudinary.com/tech-strikers/image/upload/v1607003723/user_profile_pics/ai4c9mqyifpsetp48rik.png'
+        defaultValue:
+          "http://res.cloudinary.com/tech-strikers/image/upload/v1607003723/user_profile_pics/ai4c9mqyifpsetp48rik.png",
       },
       createdAt: {
         allowNull: false,

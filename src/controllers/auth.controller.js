@@ -1,6 +1,6 @@
 import AuthServices from "../services/auth.service";
-import{jwtToken} from "../utils/util.jwt"
-
+import { jwtToken } from "../utils/util.jwt";
+import tokenUtil from "../utils/util.jwt";
 /**
  * @class AuthControllers
  * @classdesc This controller deals with social media auth
@@ -22,10 +22,11 @@ export default class AuthControllers {
             updatedAt,
             ...user
           } = userData[0].dataValues;
-          const token =jwtToken.generateToken(user);
-      
-          return res.status(200).json({ 
-            message: res.__("User logged in successfully"), token
+          const token = jwtToken.generateToken(user);
+
+          return res.status(200).json({
+            message: res.__("User logged in successfully"),
+            token,
           });
         })
         .catch((err) => {

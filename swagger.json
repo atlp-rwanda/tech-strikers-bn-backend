@@ -36,7 +36,6 @@
               "example": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQi"
             }
           }
-          
         ],
         "responses": {
           "200": {
@@ -46,8 +45,8 @@
             }
           }
         }
-      } ,
-      "put":{
+      },
+      "put": {
         "tags": ["user router"],
         "description": "Update profile information of user with id=userId.",
         "parameters": [
@@ -74,7 +73,7 @@
           {
             "name": "Accept-Language",
             "in": "header",
-            "required":true,
+            "required": true,
             "description": "A header that sets language translation for responses.",
             "schema": {
               "type": "string",
@@ -87,7 +86,7 @@
             "required": false,
             "schema": {
               "type": "string",
-              "example":"Gorba Koks"
+              "example": "Gorba Koks"
             }
           },
           {
@@ -96,7 +95,7 @@
             "required": false,
             "schema": {
               "type": "string",
-              "example":"warrior"
+              "example": "warrior"
             }
           },
           {
@@ -105,7 +104,7 @@
             "required": false,
             "schema": {
               "type": "string",
-              "example":"password"
+              "example": "password"
             }
           },
           {
@@ -115,30 +114,30 @@
             "description": "This should be a file of an imaage",
             "schema": {
               "type": "file",
-              "example":"C:/users/user_name/folder_name/image.type"
+              "example": "C:/users/user_name/folder_name/image.type"
             }
           }
         ],
-        "consumes": [ "form-data"],
+        "consumes": ["form-data"],
         "responses": {
           "200": {
             "description": "A message is displayed if updating is successfull and in language specified in header.",
             "schema": {
-              "type": "string",
-              "example": "Imyirondoro yawe yahinduwe neza."
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Imyirondoro yawe yahinduwe neza."
+                }
+              }
             }
           }
         }
-      }  
+      }
     },
-    
-    
-  
+
     "/api/v1/auth/siginIn": {
       "post": {
-        "tags": [
-          "user router"
-        ],
+        "tags": ["user router"],
         "description": "user login",
         "parameters": [
           {
@@ -153,7 +152,7 @@
           {
             "name": "Accept-Language",
             "in": "header",
-            "required":true,
+            "required": true,
             "description": "A header that sets language translation for responses.",
             "schema": {
               "type": "string",
@@ -199,16 +198,14 @@
     },
     "api/user/login/google": {
       "get": {
-        "tags": [
-          "user router"
-        ],
-      
+        "tags": ["user router"],
+
         "description": "user login with google",
-        "parameters":[
+        "parameters": [
           {
             "name": "Accept-Language",
             "in": "header",
-            "required":true,
+            "required": true,
             "description": "A header that sets language translation for responses.",
             "schema": {
               "type": "string",
@@ -225,15 +222,13 @@
     },
     "api/user/login/facebook": {
       "get": {
-        "tags": [
-          "user router"
-        ],
+        "tags": ["user router"],
         "description": "user login with facebook",
-        "parameters":[
+        "parameters": [
           {
             "name": "Accept-Language",
             "in": "header",
-            "required":true,
+            "required": true,
             "description": "A header that sets language translation for responses.",
             "schema": {
               "type": "string",
@@ -322,18 +317,17 @@
         "tags": ["user router"],
         "description": "user signup",
         "parameters": [
+          {
+            "name": "Accept-Language",
+            "in": "header",
+            "required": true,
+            "description": "A header that sets language translation for responses.",
+            "schema": {
+              "type": "string",
+              "example": "en"
+            }
+          },
 
-            {
-              "name": "Accept-Language",
-              "in": "header",
-              "required":true,
-              "description": "A header that sets language translation for responses.",
-              "schema": {
-                "type": "string",
-                "example": "en"
-              }
-            },
-         
           {
             "name": "body",
             "in": "body",
@@ -347,7 +341,7 @@
           "201": {
             "description": "Signer Up successfully",
             "schema": {
-              "type":"array",
+              "type": "array",
               "$ref": "#/components/schemas/User"
             }
           }
@@ -355,19 +349,15 @@
       }
     },
 
-  
     "/api/v1/user/confirmation/{token}": {
       "post": {
-        "tags": [
-          "user router"
-        ],
+        "tags": ["user router"],
         "description": "user email confirmation",
         "parameters": [
-
           {
             "name": "Accept-Language",
             "in": "header",
-            "required":true,
+            "required": true,
             "description": "A header that sets language translation for responses.",
             "schema": {
               "type": "string",
@@ -395,16 +385,13 @@
 
     "/api/v1/user/resend": {
       "post": {
-        "tags": [
-          "user router"
-        ],
+        "tags": ["user router"],
         "description": "resend confirmation email",
         "parameters": [
-
           {
             "name": "Accept-Language",
             "in": "header",
-            "required":true,
+            "required": true,
             "description": "A header that sets language translation for responses.",
             "schema": {
               "type": "string",
@@ -432,16 +419,13 @@
 
     "/api/v1/auth/forgot_password": {
       "post": {
-        "tags": [
-          "user router"
-        ],
+        "tags": ["user router"],
         "description": "user forget password",
         "parameters": [
-
           {
             "name": "Accept-Language",
             "in": "header",
-            "required":true,
+            "required": true,
             "description": "A header that sets language translation for responses.",
             "schema": {
               "type": "string",
@@ -468,16 +452,13 @@
     },
     "/api/v1/reset_password/{token}": {
       "post": {
-        "tags": [
-          "user router"
-        ],
+        "tags": ["user router"],
         "description": "user forget password",
         "parameters": [
-
           {
             "name": "Accept-Language",
             "in": "header",
-            "required":true,
+            "required": true,
             "description": "A header that sets language translation for responses.",
             "schema": {
               "type": "string",
@@ -550,7 +531,7 @@
             "required": true,
             "schema": {
               "type": "string",
-              "example":"Travel Administrator"
+              "example": "Travel Administrator"
             }
           },
           {
@@ -559,7 +540,7 @@
             "required": true,
             "schema": {
               "type": "string",
-              "example":"This role helps for administating travels of company employees"
+              "example": "This role helps for administating travels of company employees"
             }
           }
         ],
@@ -619,7 +600,7 @@
             "required": true,
             "schema": {
               "type": "string",
-              "example":"user1@example.com"
+              "example": "user1@example.com"
             }
           },
           {
@@ -628,7 +609,7 @@
             "required": true,
             "schema": {
               "type": "string",
-              "example":"Travel Administrator"
+              "example": "Travel Administrator"
             }
           }
         ],
@@ -713,13 +694,12 @@
                       "example": "2021-01-03T17:12:06.142Z"
                     }
                   }
-                  
                 ]
               }
             }
           }
         }
-      } 
+      }
     },
     "/api/v1/user/deleteRole/1": {
       "delete": {
@@ -769,7 +749,7 @@
       }
     },
     "/api/v1/user/updateRole/1": {
-      "put": {
+      "patch": {
         "tags": ["Super admin router"],
         "description": "Admin can be able to update any role in the system using its id.",
         "parameters": [
@@ -809,7 +789,7 @@
             "required": false,
             "schema": {
               "type": "string",
-              "example":"Travel Admin (updated)"
+              "example": "Travel Admin (updated)"
             }
           },
           {
@@ -818,7 +798,7 @@
             "required": false,
             "schema": {
               "type": "string",
-              "example":"This is the role that is updated and responsible for administrating travels"
+              "example": "This is the role that is updated and responsible for administrating travels"
             }
           }
         ],
@@ -861,120 +841,445 @@
                 "roleToFetch": {
                   "id": {
                     "type": "integer",
-                  "example": 2
+                    "example": 2
                   },
                   "name": {
                     "type": "string",
                     "example": "Senior Travel Administrator (Updated)"
                   },
                   "description": {
-                   "type": "string",
-                  "example": "this role is for administrating travels"
+                    "type": "string",
+                    "example": "this role is for administrating travels"
                   },
                   "createdAt": {
-                   "type": "string",
-                  "example": "2021-01-03T17:12:06.142Z"
+                    "type": "string",
+                    "example": "2021-01-03T17:12:06.142Z"
                   },
-                  "updatedAt":{
+                  "updatedAt": {
                     "type": "string",
                     "example": "2021-01-03T17:25:15.160Z"
-                  } 
-                }    
+                  }
+                }
               }
             }
           }
         }
-      } 
-    }
-  
-  },
-  "components": {
-    "schemas": {
-      "User": {
-        "properties": {
-          "username": {
-            "type": "string",
-            "example": "Warrior"
+      }
+    },
+    "/api/v1/trip/one-way": {
+      "get": {
+        "tags": ["One way trip routes"],
+        "description": "Get one way trip details ",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "headers",
+            "required": true,
+            "description": "A jason-web-token generated on login and signup should be passed in request headers.",
+            "schema": {
+              "type": "string",
+              "example": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQi"
+            }
           },
-          "email": {
-            "type": "string",
-            "example":"strikers668@gmail.vom"
-          },
-          "password": {
-            "type": "string",
-            "example":"kaka"
-          },
-          "role": {
-            "type": "string",
-            "example":"user"
-          },
-          "fullname": {
-            "type": "string",
-            "example":"Gorba Koks"
+          {
+            "name": "Accept-Language",
+            "in": "headers",
+            "required": false,
+            "description": "This header sets the translation language for responses.",
+            "schema": {
+              "type": "string",
+              "example": "fr"
+            }
           }
-        },
-        "required": ["username", "email", "password"]
-      },
-      "UserPassword": {
-        "properties": {
-          "password": {
-            "type": "string",
-            "example": "flora123"
-          },
-          "confirmPassword": {
-            "type": "string",
-            "example": "flora123"
+        ],
+        "responses": {
+          "200": {
+            "description": "Display one way trip details",
+            "schema": {
+              "$ref": "#/components/schemas/oneWayTripRequestDetails"
+            }
           }
-        },
-        "required": [
-          "password",
-          "confirmPassword"
-        ]
+        }
       },
-    
-      "User_info": {
-        "properties": {
-          "id": {
-            "type": "number",
-            "example": "30"
+      "post": {
+        "tags": ["One way trip routes"],
+        "description": "Create one way trip request",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "headers",
+            "required": true,
+            "description": "A jason-web-token generated on login and signup should be passed in request headers.",
+            "schema": {
+              "type": "string",
+              "example": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQi"
+            }
           },
-          "fullname": {
-            "type": "string",
-            "example":"Gorba Koks"
+          {
+            "name": "Accept-Language",
+            "in": "headers",
+            "required": false,
+            "description": "This header sets the translation language for responses.",
+            "schema": {
+              "type": "string",
+              "example": "fr"
+            }
           },
-          "email": {
-            "type": "string",
-            "example": "strikers668@gmail.vom"
+          {
+            "name": "Content-Type",
+            "in": "headers",
+            "required": true,
+            "description": "This header sets the content-type to application/json",
+            "schema": {
+              "type": "string",
+              "example": "application/json"
+            }
           },
-          "username": {
-            "type": "string",
-            "example": "Warrior"
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "example": {
+                "tripType": "one-way",
+                "departureDate": "2020-12-20",
+                "returnDate": "2020-01-12",
+                "originId": 1,
+                "destinationId": 3,
+                "reason": "Going for Christmas holidays"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "one way trip request created ",
+            "schema": {
+              "type": "object",
+              "example": {
+                "message": "Request submitted"
+              }
+            }
           },
-          "role": {
-            "type": "string",
-            "example": "user"
-          },
-          "provider": {
-            "type": "string",
-            "example": "google"
-          },
-          "profilePicture": {
-            "type": "string",
-            "example": "http://res.cloudinary.com/**/**/image_name.png"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date",
-            "example": "2020-12-10T12:15:58.809Z"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date",
-            "example": "2020-12-14T13:15:58.809Z"
+          "400": {
+            "description": "When submitting one way trip request fails",
+            "schema": {
+              "type": "object",
+              "example": {
+                "message": "Request is not processed, try again!"
+              }
+            }
           }
         }
       }
-      
+    },
+    "/api/v1/trip/one-way/{id}": {
+      "get": {
+        "tags": ["One way trip routes"],
+        "description": "Get one way trip request by id ",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "headers",
+            "required": true,
+            "description": "A jason-web-token generated on login and signup should be passed in request headers.",
+            "schema": {
+              "type": "string",
+              "example": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQi"
+            }
+          },
+          {
+            "name": "Accept-Language",
+            "in": "headers",
+            "required": false,
+            "description": "This header sets the translation language for responses.",
+            "schema": {
+              "type": "string",
+              "example": "fr"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Display one way trip details",
+            "schema": {
+              "type": "object",
+              "example": {
+                "id": 1,
+                "tripType": "one-way",
+                "departureDate": "2021-12-01",
+                "returnDate": null,
+                "reason": "christmas holidays",
+                "userId": 3,
+                "status": "pending",
+                "createdAt": "2021-11-30T19:14:37.053Z",
+                "updatedAt": "2021-11-30T19:14:37.053Z",
+                "User": {
+                  "type": "object",
+                  "example": {
+                    "id": 3,
+                    "fullname": "user three",
+                    "email": "user3@example.com",
+                    "username": "user3",
+                    "password": "$2b$10$Fwzc52oitlsCJgV3bKzWmuJc7vOnBAVeTWOTSbREUgY8MzYYGdyqG",
+                    "profilePicture": "http://res.cloudinary.com/tech-strikers/image/upload/***/**/picture-name.png",
+                    "roleId": null,
+                    "provider": "local",
+                    "isVerified": true,
+                    "createdAt": "2021-11-30T19:14:37.053Z",
+                    "updatedAt": "2021-11-30T19:14:37.053Z"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": ["One way trip routes"],
+        "description": "Update specific one way trip request by id",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "headers",
+            "required": true,
+            "description": "A jason-web-token generated on login and signup should be passed in request headers.",
+            "schema": {
+              "type": "string",
+              "example": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQi"
+            }
+          },
+          {
+            "name": "Accept-Language",
+            "in": "headers",
+            "required": false,
+            "description": "This header sets the translation language for responses.",
+            "schema": {
+              "type": "string",
+              "example": "fr"
+            }
+          },
+          {
+            "name": "Content-Type",
+            "in": "headers",
+            "required": true,
+            "description": "This header sets the content-type to application/json",
+            "schema": {
+              "type": "string",
+              "example": "application/json"
+            }
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "example": {
+                "tripType": "one-way",
+                "departureDate": "2020-12-20",
+                "returnDate": "2020-01-12",
+                "originId": 1,
+                "destinationId": 3,
+                "reason": "Going for Christmas holidays"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "one way trip request updated successfully",
+            "schema": {
+              "type": "object",
+              "example": {
+                "message": "Request updated!"
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": ["One way trip routes"],
+        "description": "delete one way trip request by id ",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "headers",
+            "required": true,
+            "description": "A jason-web-token generated on login and signup should be passed in request headers.",
+            "schema": {
+              "type": "string",
+              "example": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQi"
+            }
+          },
+          {
+            "name": "Accept-Language",
+            "in": "headers",
+            "required": false,
+            "description": "This header sets the translation language for responses.",
+            "schema": {
+              "type": "string",
+              "example": "fr"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Oneway trip request has been deleted",
+            "schema": {
+              "type": "object",
+              "example": {
+                "message": "Request deleted"
+              }
+            }
+          }
+        }
+      }
+    },
+    "components": {
+      "schemas": {
+        "User": {
+          "properties": {
+            "username": {
+              "type": "string",
+              "example": "Warrior"
+            },
+            "email": {
+              "type": "string",
+              "example": "strikers668@gmail.vom"
+            },
+            "password": {
+              "type": "string",
+              "example": "kaka"
+            },
+            "roleId": {
+              "type": "string",
+              "example": "user"
+            },
+            "fullname": {
+              "type": "string",
+              "example": "Gorba Koks"
+            }
+          },
+          "required": ["username", "email", "password"]
+        },
+        "UserPassword": {
+          "properties": {
+            "password": {
+              "type": "string",
+              "example": "flora123"
+            },
+            "confirmPassword": {
+              "type": "string",
+              "example": "flora123"
+            }
+          },
+          "required": ["password", "confirmPassword"]
+        },
+
+        "User_info": {
+          "properties": {
+            "id": {
+              "type": "number",
+              "example": "30"
+            },
+            "fullname": {
+              "type": "string",
+              "example": "Gorba Koks"
+            },
+            "email": {
+              "type": "string",
+              "example": "strikers668@gmail.vom"
+            },
+            "username": {
+              "type": "string",
+              "example": "Warrior"
+            },
+            "role": {
+              "type": "string",
+              "example": "user"
+            },
+            "provider": {
+              "type": "string",
+              "example": "google"
+            },
+            "profilePicture": {
+              "type": "string",
+              "example": "http://res.cloudinary.com/**/**/image_name.png"
+            },
+            "createdAt": {
+              "type": "string",
+              "format": "date",
+              "example": "2020-12-10T12:15:58.809Z"
+            },
+            "updatedAt": {
+              "type": "string",
+              "format": "date",
+              "example": "2020-12-14T13:15:58.809Z"
+            }
+          }
+        },
+        "oneWayTripRequestDetails": {
+          "type": "array",
+          "example": [
+            {
+              "id": 1,
+              "tripType": "one-way",
+              "departureDate": "2021-12-01",
+              "returnDate": null,
+              "reason": "christmas holidays",
+              "userId": 3,
+              "status": "pending",
+              "createdAt": "2021-11-30T19:14:37.053Z",
+              "updatedAt": "2021-11-30T19:14:37.053Z",
+              "User": {
+                "type": "object",
+                "example": {
+                  "id": 3,
+                  "fullname": "user three",
+                  "email": "user3@example.com",
+                  "username": "user3",
+                  "password": "$2b$10$Fwzc52oitlsCJgV3bKzWmuJc7vOnBAVeTWOTSbREUgY8MzYYGdyqG",
+                  "profilePicture": "http://res.cloudinary.com/tech-strikers/image/upload/***/**/picture-name.png",
+                  "roleId": null,
+                  "provider": "local",
+                  "isVerified": true,
+                  "createdAt": "2021-11-30T19:14:37.053Z",
+                  "updatedAt": "2021-11-30T19:14:37.053Z"
+                }
+              }
+            },
+            {
+              "id": 2,
+              "tripType": "one-way",
+              "departureDate": "2021-12-01",
+              "returnDate": null,
+              "reason": "christmas holidays",
+              "userId": 4,
+              "status": "pending",
+              "createdAt": "2021-11-30T19:14:37.053Z",
+              "updatedAt": "2021-11-30T19:14:37.053Z",
+              "User": {
+                "type": "object",
+                "example": {
+                  "id": 4,
+                  "fullname": "user four",
+                  "email": "user4@example.com",
+                  "username": "user4",
+                  "password": "$2b$10$Fwzc52oitlsCJgV3bKzWmuJc7vOnBAVeTWOTSbREUgY8MzYYGdyqG",
+                  "profilePicture": "http://res.cloudinary.com/tech-strikers/image/upload/***/**/picture-name.png",
+                  "roleId": null,
+                  "provider": "local",
+                  "isVerified": true,
+                  "createdAt": "2021-11-30T19:14:37.053Z",
+                  "updatedAt": "2021-11-30T19:14:37.053Z"
+                }
+              }
+            }
+          ]
+        }
+      }
     }
   }
 }
