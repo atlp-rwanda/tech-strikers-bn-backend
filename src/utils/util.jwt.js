@@ -1,16 +1,21 @@
 import jwt from "jsonwebtoken";
+import dotenv from "dotenv";
+dotenv.config();
 
-const generateToken = (user) => {
-  if (!user || !process.env.ACCESS_TOKEN_SECRET) {
-    return { message: "Something went wrong!" };
-  }
-  const accessToken = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, {expiresIn:"24h"});
-  return { token: accessToken };
+export const jwtToken={
+    generateToken({id,email,roleId}){
+        return jwt.sign(
+            {id,email,roleId},
+            process.env.ACCESS_TOKEN_SECRET,
+            {expiresIn:"1d"}
+        )
+    },
+    verifyToken(token){
+        let decoded;
+        jwt.verify(token,process.env.ACCESS_TOKEN_SECRET, ( err, user) => {
+          decoded = user
+        })
+        return decoded
+
+    }
 };
-
-const decodeToken = (token) => {
-  const decoded=jwt.verify(token,process.env.ACCESS_TOKEN_SECRET);
-  return decoded;
-}
-
-export default { generateToken, decodeToken };

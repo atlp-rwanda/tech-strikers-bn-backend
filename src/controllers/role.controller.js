@@ -11,62 +11,65 @@ const {ok,
     conflict,
     serverError
 } = statusCode;
+
 const { userRoles } = models;
+
 class UserRoleController{
-static async assign(req, res){
-const { email, userRole } = req.body;
-console.log(email);
-const role = await RoleService.findRoleByName(userRole);
-if(!role) return res.status(notFound)
-.json({
-  message: res.__("The role doesn't exist in the system")
-});
+  static async assign(req, res){
+  const { email, userRole } = req.body;
+  //const user=await getUserByIdOrEmail(decoded.email)
+   //if(user.dataValues.isVerified) 
 
-const userExist = await UserService.findUserByEmail(email);
-if(!userExist) return res.status(notFound)
-.json({
-  message: res.__("User with that email does not exist in the system")
-});
+  const role = await RoleService.findRoleByName(userRole);
+  if(!role) return res.status(notFound)
+  .json({
+    message: res.__("The role doesn't exist in the system")
+  });
 
-const roleId = role.id;
-const updateRole = await UserService.updateUserByRole (roleId, email);
-if(updateRole) return res.status (ok)
-.json({message: res.__("role is successifully assigned")
-});
-}
+  const userExist = await UserService.findUserByEmail(email);
+  if(!userExist) return res.status(notFound)
+    .json({
+      message: res.__("User with that email does not exist in the system")
+    });
+  const roleId = role.id;
+  const updateRole = await UserService.updateUserByRole (roleId, email);
+  if(updateRole) return res.status (ok)
+    .json({message: res.__("role is successifully assigned")
+    });
+  }
 
 static async createRole(req, res){
     const { name } = req.body;
-const roleName = await await RoleService.findRoleByName(name);
-if(roleName) return res.status(badRequest)
-.json({
-  message: res.__("That role already exist in the system")
-});
+  const roleName = await RoleService.findRoleByName(name);
+  if(roleName) return res.status(badRequest)
+    .json({
+      message: res.__("That role already exist in the system")
+    });
 
-const createRole = await userRoles.create({
-    name: req.body.name,
-    description: req.body.description,
-    createdAt: new Date(),
-    updatedAt: new Date()
-});
-if(createRole) return res.status(created)
-.json({
-  message: res.__("Role is created in the system")
-});
-return res.status(serverError).json({ msg: 'Server error' });
+  const createRole = await userRoles.create({
+     name: req.body.name,
+     description: req.body.description,
+     createdAt: new Date(),
+     updatedAt: new Date()
+  });
+  if(createRole) return res.status(created)
+    .json({
+      message: res.__("Role is created in the system")
+    });
+  return res.status(serverError).json({ msg: 'Server error' });
 
 }
 
 static async getRoles (req, res){
-const roles = await userRoles.findAll({attribute: ["id", "name", "description"]});
-if(!roles) return res.status(notFound)
-.json({
-  message: res.__("No roles available in the system")
-});
-if(roles) return res.status(ok)
-.json({
-  message: res.__("roles are fetched successfully"), roles
-});
+  const roles = await userRoles.findAll({attribute: ["id", "name", "description"]});
+  if(!roles) return res.status(notFound)
+    .json({
+      message: res.__("No roles available in the system")
+    });
+  if(roles) return res.status(ok)
+    .json({
+      message: res.__("roles are fetched successfully"), roles
+    });
 }
 
 static async updateRole(req, res) {

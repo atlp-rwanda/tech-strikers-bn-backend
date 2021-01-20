@@ -2,6 +2,10 @@ import express from "express";
 import passport from "passport";
 import { multerUploads } from "../../middlewares/multer";
 import tokenAuth from "../../middlewares/tokenAuthentication";
+import {isVerified} from "../../middlewares/isVerified"
+import validateSignup from "../../validation/signup.validation "
+import{validatePassword,validateEmail} from "../../validation/reset.validation"
+import resetController from "../../controllers/reset.controller"
 import AuthControllers from "../../controllers/auth.controller";
 import authMiddleware from "../../middlewares/auth";
 import loginController from "../../controllers/login.controller.js"; 
@@ -19,9 +23,9 @@ const { isSuperAdmin } = RoleCheckMiddleware;
 const { roleAssignValidation, roleCreateValidation } = RoleValidation;
 const { checklisted } = checkblockedtoken
 const { listed } = tokenlist
-const { signup, getUserInfo, upDateUser } = UserControllers;
-const { loginCallback } = AuthControllers;
-const { checkEmailExist } = authMiddleware;
+const { signup, getUserInfo, upDateUser,resend,confirmation } = UserControllers;
+const { assign, createRole, getRoles, updateRole, deleteRole, getRole} = UserRoleController;
+const { checkEmailExist,checkUsernameExist } = authMiddleware;
 const { login } = loginController;
 
 //route that retrieves user information by id
@@ -29,9 +33,9 @@ router.get("/user",checklisted, tokenAuth, getUserInfo);
 
 // this route uses form-data for inputs
 router.put("/user",checklisted, tokenAuth, multerUploads, upDateUser);
-const { assign, createRole, getRoles, updateRole, deleteRole, getRole} = UserRoleController;
 
-router.post("/user/signup",UserValidation, checkEmailExist, signup);
+
+router.post("/user/signup",validateSignup,[checkEmailExist,checkUsernameExist],signup);
 router.post("/user/assignRole",checklisted, isSuperAdmin, roleAssignValidation, assign);
 router.post("/user/createRole",checklisted, isSuperAdmin, roleCreateValidation, createRole);
 router.get("/user/getRoles", checklisted,isSuperAdmin, getRoles);
@@ -69,7 +73,10 @@ router.get(
 );
 
 
-router.post("/user/signup", signup);
 router.post("/auth/siginIn",validateUser,login);
+router.post("/user/resend",resend)
+router.post("/user/confirmation/:token",confirmation);
+router.post("/auth/forgot_password",validateEmail,resetController.forgetPassword)
+router.post("/reset_password/:token",validatePassword,resetController.resetPassword)
 
 export default router;

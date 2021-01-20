@@ -80,6 +80,7 @@ it('Should login Super Admin and generate a token',(done) => {
        .send({ "email": "admin@gmail.com", "password": "superAdmin"})
        .end((err,res) => {
         const { token }  = res.body;
+        console.log(token)
         adminToken = token;
          expect(token).to.a ("string")
          done()

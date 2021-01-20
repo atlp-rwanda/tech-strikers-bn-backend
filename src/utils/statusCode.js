@@ -7,5 +7,6 @@ export default {
     notFound: 404,
     conflict: 409,
     serverError: 500,
+    unprocessableEntity: 422
   };
   

@@ -7,7 +7,7 @@ describe("Login API",() => {
         request(server)
            .post("/api/v1/auth/siginIn")
            .send({   
-            "email": "fofo3@example.com",
+            "email": "user2@example.com",
             "password": "fofo12345",
         })
            .expect((res) => {

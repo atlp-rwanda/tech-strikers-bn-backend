@@ -30,12 +30,13 @@
             "name": "Authorization",
             "in": "header",
             "required": "true",
-            "description": "A login jwt token should be passed in the headers",
+            "description": "A login jwt token should be passed in the header",
             "schema": {
               "type": "string",
               "example": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQi"
             }
           }
+          
         ],
         "responses": {
           "200": {
@@ -45,14 +46,14 @@
             }
           }
         }
-      },
-      "put": {
+      } ,
+      "put":{
         "tags": ["user router"],
         "description": "Update profile information of user with id=userId.",
         "parameters": [
           {
             "name": "Content-Type",
-            "in": "headers",
+            "in": "header",
             "required": "true",
             "description": " A header that sets the input type of the body",
             "schema": {
@@ -62,9 +63,9 @@
           },
           {
             "name": "Authorization",
-            "in": "headers",
+            "in": "header",
             "required": "true",
-            "description": "A jason-web-token generated on login and signup should be passed in request headers.",
+            "description": "A jason-web-token generated on login and signup should be passed in request header.",
             "schema": {
               "type": "string",
               "example": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQi"
@@ -72,8 +73,8 @@
           },
           {
             "name": "Accept-Language",
-            "in": "headers",
-            "required": false,
+            "in": "header",
+            "required":true,
             "description": "A header that sets language translation for responses.",
             "schema": {
               "type": "string",
@@ -121,23 +122,28 @@
         "consumes": [ "form-data"],
         "responses": {
           "200": {
-            "description": "A message is displayed if updating is successfull and in language specified in headers.",
+            "description": "A message is displayed if updating is successfull and in language specified in header.",
             "schema": {
               "type": "string",
               "example": "Imyirondoro yawe yahinduwe neza."
             }
           }
         }
-      }
-    },    
+      }  
+    },
+    
+    
+  
     "/api/v1/auth/siginIn": {
       "post": {
-        "tags": ["user router"],
+        "tags": [
+          "user router"
+        ],
         "description": "user login",
         "parameters": [
           {
             "name": "Content-Type",
-            "in": "headers",
+            "in": "header",
             "required": true,
             "schema": {
               "type": "string",
@@ -146,8 +152,8 @@
           },
           {
             "name": "Accept-Language",
-            "in": "headers",
-            "required": false,
+            "in": "header",
+            "required":true,
             "description": "A header that sets language translation for responses.",
             "schema": {
               "type": "string",
@@ -191,10 +197,25 @@
         }
       }
     },
-    "api/user/login/google":{
+    "api/user/login/google": {
       "get": {
-        "tags": ["user router"],
+        "tags": [
+          "user router"
+        ],
+      
         "description": "user login with google",
+        "parameters":[
+          {
+            "name": "Accept-Language",
+            "in": "header",
+            "required":true,
+            "description": "A header that sets language translation for responses.",
+            "schema": {
+              "type": "string",
+              "example": "en"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "login successfully"
@@ -202,10 +223,24 @@
         }
       }
     },
-    "api/user/login/facebook":{
+    "api/user/login/facebook": {
       "get": {
-        "tags": ["user router"],
+        "tags": [
+          "user router"
+        ],
         "description": "user login with facebook",
+        "parameters":[
+          {
+            "name": "Accept-Language",
+            "in": "header",
+            "required":true,
+            "description": "A header that sets language translation for responses.",
+            "schema": {
+              "type": "string",
+              "example": "en"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "login successfully"
@@ -287,6 +322,18 @@
         "tags": ["user router"],
         "description": "user signup",
         "parameters": [
+
+            {
+              "name": "Accept-Language",
+              "in": "header",
+              "required":true,
+              "description": "A header that sets language translation for responses.",
+              "schema": {
+                "type": "string",
+                "example": "en"
+              }
+            },
+         
           {
             "name": "body",
             "in": "body",
@@ -300,7 +347,163 @@
           "201": {
             "description": "Signer Up successfully",
             "schema": {
+              "type":"array",
               "$ref": "#/components/schemas/User"
+            }
+          }
+        }
+      }
+    },
+
+  
+    "/api/v1/user/confirmation/{token}": {
+      "post": {
+        "tags": [
+          "user router"
+        ],
+        "description": "user email confirmation",
+        "parameters": [
+
+          {
+            "name": "Accept-Language",
+            "in": "header",
+            "required":true,
+            "description": "A header that sets language translation for responses.",
+            "schema": {
+              "type": "string",
+              "example": "en"
+            }
+          },
+          {
+            "name": "token",
+            "in": "path",
+            "required": true,
+            "description": "token from email account",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The account has been verified. Please log in.",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        }
+      }
+    },
+
+    "/api/v1/user/resend": {
+      "post": {
+        "tags": [
+          "user router"
+        ],
+        "description": "resend confirmation email",
+        "parameters": [
+
+          {
+            "name": "Accept-Language",
+            "in": "header",
+            "required":true,
+            "description": "A header that sets language translation for responses.",
+            "schema": {
+              "type": "string",
+              "example": "en"
+            }
+          },
+          {
+            "name": "email",
+            "in": "body",
+            "required": true,
+            "description": "email used in registration",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "confirmation email resend succesfully!",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        }
+      }
+    },
+
+    "/api/v1/auth/forgot_password": {
+      "post": {
+        "tags": [
+          "user router"
+        ],
+        "description": "user forget password",
+        "parameters": [
+
+          {
+            "name": "Accept-Language",
+            "in": "header",
+            "required":true,
+            "description": "A header that sets language translation for responses.",
+            "schema": {
+              "type": "string",
+              "example": "en"
+            }
+          },
+          {
+            "name": "email",
+            "in": "body",
+            "required": true,
+            "description": "email used in registration",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "password reset link has been succesfully sent inbox",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/reset_password/{token}": {
+      "post": {
+        "tags": [
+          "user router"
+        ],
+        "description": "user forget password",
+        "parameters": [
+
+          {
+            "name": "Accept-Language",
+            "in": "header",
+            "required":true,
+            "description": "A header that sets language translation for responses.",
+            "schema": {
+              "type": "string",
+              "example": "en"
+            }
+          },
+          {
+            "name": "token",
+            "in": "path",
+            "required": true,
+            "description": "token from email account",
+            "type": "string"
+          },
+          {
+            "name": "password",
+            "in": "body",
+            "required": true,
+            "description": "new password",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Password is updated successfully",
+            "schema": {
+              "$ref": "#/components/schemas/UserPassword"
             }
           }
         }
@@ -712,6 +915,23 @@
         },
         "required": ["username", "email", "password"]
       },
+      "UserPassword": {
+        "properties": {
+          "password": {
+            "type": "string",
+            "example": "flora123"
+          },
+          "confirmPassword": {
+            "type": "string",
+            "example": "flora123"
+          }
+        },
+        "required": [
+          "password",
+          "confirmPassword"
+        ]
+      },
+    
       "User_info": {
         "properties": {
           "id": {
@@ -754,6 +974,7 @@
           }
         }
       }
+      
     }
   }
 }
