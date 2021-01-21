@@ -59,5 +59,16 @@
 	"Updated Successfully": "Mis à jour avec succés",
 	"Update Failed": "Mise à jour a échoué",
 	"Username has been taken": "Le nom d'utilisateur a été pris",
-	"email": "email"
+	"email": "email",
+	"role is successfully assigned": "rôle est attribué avec succès",
+	"There is no such request!": "Il n’y a pas une telle demande!",
+	"Request submitted": "Demande soumise",
+	"Request updated!": " Demande mise à jour !",
+	"Request deleted": "Demande supprimée!",
+	"errorOnCreate": "La demande n’est pas traitée, réessayer !",
+	"errorOnGet": "Aucune demande disponible!",
+	"errorOnUpdate": "Il n’y a pas une telle demande!",
+	"ErrorIfNonPending": "Seules les demandes ouvertes peuvent être mises à jour",
+	"errorOnDelete": "Il n’y a pas une telle demande!",
+	"username must be in the range of 6 to 15 characters": "username must be in the range of 6 to 15 characters"
 }

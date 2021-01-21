@@ -1,5 +1,5 @@
-
 import jwt from "jsonwebtoken";
+import tokenUtil from "../utils/util.jwt";
 
 const verifyToken = (req, res, next) => {
   const authHeader = req.headers.authorization;
@@ -7,19 +7,17 @@ const verifyToken = (req, res, next) => {
     return res.sendStatus(403);
   }
   const token = authHeader.split(" ")[1];
-  if (!token) { return res.sendStatus(401) }
-
+  if (!token) {
+    return res.sendStatus(401);
+  }
 
   jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
-
     if (!user) {
       return res.sendStatus(401);
     }
 
-    req.user = user
-  })
-
-
+    req.user = user;
+  });
 
   // eslint-disable-next-line no-sequences
   return next();

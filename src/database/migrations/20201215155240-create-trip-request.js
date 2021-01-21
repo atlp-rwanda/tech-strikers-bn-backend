@@ -1,15 +1,15 @@
-'use strict';
+"use strict";
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('TripRequests', {
+    await queryInterface.createTable("TripRequests", {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
       },
       tripType: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
       },
       departureDate: {
         type: Sequelize.DATEONLY,
@@ -18,26 +18,26 @@ module.exports = {
         type: Sequelize.DATEONLY,
       },
       reason: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
       },
       userId: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
       },
       status: {
         type: Sequelize.STRING,
-        defaultValue: "open"
+        defaultValue: "pending",
       },
       createdAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
       },
       updatedAt: {
         allowNull: false,
-        type: Sequelize.DATE
-      }
+        type: Sequelize.DATE,
+      },
     });
   },
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('TripRequests');
-  }
+    await queryInterface.dropTable("TripRequests");
+  },
 };
