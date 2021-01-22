@@ -11,8 +11,8 @@ describe("i18n API", () => {
     chai
       .request(server)
       .get("/home")
-      .set("Accept-Language","en")
-      .end((err, res)=>{
+      .set("Accept-Language", "en")
+      .end((err, res) => {
         expect(res).to.have.status(200);
         expect(res.body.message).to.equal("Welcome to Barefoot Nomad");
         done();
@@ -22,8 +22,8 @@ describe("i18n API", () => {
     chai
       .request(server)
       .get("/home")
-      .set("Accept-Language","fr")
-      .end((err, res)=>{
+      .set("Accept-Language", "fr")
+      .end((err, res) => {
         expect(res).to.have.status(200);
         expect(res.body.message).to.equal("Bienvenue sur Barefoot Nomad");
         done();
@@ -33,11 +33,11 @@ describe("i18n API", () => {
     chai
       .request(server)
       .get("/home")
-      .set("Accept-Language","ki")
-      .end((err, res)=>{
+      .set("Accept-Language", "ki")
+      .end((err, res) => {
         expect(res).to.have.status(200);
         expect(res.body.message).to.equal("Murakaza neza kuri Barefoot Nomad");
         done();
       });
   });
-})
+});

@@ -15,8 +15,8 @@ export default {
     username: "warrior4",
   },
   user3: {
-      id: 1,
-      email: "user1@example.com",
+    id: 1,
+    email: "user1@example.com"
   },
   user4: {
     id: 2,
@@ -27,22 +27,30 @@ export default {
     email: "user0@example.com"
   },
   user5: {
-  id: 3,
-  fullname: "super Admin",
-  email: "admin@gmail.com",
-  username: "superAdmin00",
-  password: "superAdmin",
-  profilePicture: "http://res.cloudinary.com/tech-strikers/image/upload/v1607003723/user_profile_pics/ai4c9mqyifpsetp48rik.png",
-  roleId: 3,
-  provider: "local",
-  isVerified: true,
-  }, 
-  password:{
-    password:"tytyne12345",
-    confirmPassword:"tytyne12345"
+    fullname: "super Admin",
+    email: "admin@gmail.com",
+    username: "superAdmin00",
+    password: "superAdmin",
+    profilePicture: "http://res.cloudinary.com/tech-strikers/image/upload/v1607003723/user_profile_pics/ai4c9mqyifpsetp48rik.png",
+    roleId: 3,
+    provider: "local",
+    isVerified: true,
   },
-  user6:{email:"lele@gmail.com"},
-  password1:{password:"tytyne1234",confirmPassword:"tytyne12345"},
-  password2:{password:"123",confirmPassword:"123"},
-  password3:{password:"tytyne1234",confirmPassword:"tytyne1234"}  
+  password: {
+    password: "tytyne12345",
+    confirmPassword: "tytyne12345"
+  },
+  user6: { email: "lele@gmail.com" },
+  password1: { password: "tytyne1234", confirmPassword: "tytyne12345" },
+  password2: { password: "123", confirmPassword: "123" },
+  password3: { password: "tytyne1234", confirmPassword: "tytyne1234" },
+  user1Login: {
+    email: "klf89416@cdd.com",
+    password: "Password1!",
+  },
+  user1LoginWrongPassword: {
+    email: "klf89416@cdd.com",
+    password: "Password1",
+  }
+
 };

@@ -1,15 +1,20 @@
-/* eslint-disable curly */
-/* eslint-disable nonblock-statement-body-position */
-/* eslint-disable prefer-destructuring */
-/* eslint-disable require-jsdoc */
 import UserService from "../services/user.service";
 import { jwtToken } from "../utils/util.jwt";
 import helpers from "../utils/helpers.js";
 
 const { decryptPassword } = helpers;
 const { getUserByIdOrEmail } = UserService;
-
+/**
+ * @description
+ */
 export default class loginController {
+  /**
+ * @description
+ * @param {object} req
+ * @param {object} res
+ * @param {object} next
+ * @return {object}
+ */
   static async login(req, res, next) {
     try {
       const { email, password } = req.body;
@@ -24,10 +29,11 @@ export default class loginController {
       }
       const decodePassword = await decryptPassword(password, user.password);
       const token = jwtToken.generateToken(user);
-      if (!decodePassword)
+      if (!decodePassword) {
         return res.status(400).json({
           Error: res.__("Wrong Password"),
         });
+      }
 
       return res.status(200).json({
         message: res.__("User logged in successfully"),

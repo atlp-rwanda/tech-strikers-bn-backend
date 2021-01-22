@@ -1137,6 +1137,80 @@
         }
       }
     },
+    "/api/v1/return_trip": {
+      "post": {
+        "tags": ["One way trip routes"],
+        "description": "Create return trip request",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "headers",
+            "required": true,
+            "description": "A jason-web-token generated on login and signup should be passed in request headers.",
+            "schema": {
+              "type": "string",
+              "example": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJ1c2VyMUBleGFtcGxlLmNvbSIsInJvbGVJZCI6bnVsbCwiaWF0IjoxNjExMjk1NzM1LCJleHAiOjE2MTEzODIxMzV9.zCvXNQCi4lbUxOkgrBbN_EBRrXsm7lc-GVHdS_IqtMg"
+            }
+          },
+          {
+            "name": "Accept-Language",
+            "in": "headers",
+            "required": false,
+            "description": "This header sets the translation language for responses.",
+            "schema": {
+              "type": "string",
+              "example": "fr"
+            }
+          },
+          {
+            "name": "Content-Type",
+            "in": "headers",
+            "required": true,
+            "description": "This header sets the content-type to application/json",
+            "schema": {
+              "type": "string",
+              "example": "application/json"
+            }
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "example": {
+                "tripType": "one-way",
+                "departureDate": "2021-12-20",
+                "returnDate": "20201-01-30",
+                "originId": 1,
+                "destinationId": 3,
+                "reason": "Going for Christmas holidays"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "return trip request created ",
+            "schema": {
+              "type": "object",
+              "example": {
+                "message": "Request submitted"
+              }
+            }
+          },
+          "400": {
+            "description": "When submitting return trip request fails",
+            "schema": {
+              "type": "object",
+              "example": {
+                "message": "Request is not processed, try again!"
+              }
+            }
+          }
+        }
+      }
+    },
     "components": {
       "schemas": {
         "User": {

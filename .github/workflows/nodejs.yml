@@ -40,14 +40,14 @@ jobs:
           TEST_DATABASE_URL: ${{ secrets.TEST_DATABASE_URL }}
           REDIS_URL: ${{ secrets.REDIS_URL }}
           API_VERSION: ${{ secrets.API_VERSION }}
+          APP_URL: ${{ secrets.APP_URL }}
+          SENDGRID_API_KEY: ${{ secrets.SENDGRID_API_KEY }}
+          EMAIL_SENDER: ${{ secrets.EMAIL_SENDER }}
+          ACCESS_TOKEN_SECRET: ${{ secrets.ACCESS_TOKEN_SECRET }}
           GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
           GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
           FACEBOOK_CLIENT_ID: ${{ secrets.FACEBOOK_CLIENT_ID }}
           FACEBOOK_CLIENT_SECRET: ${{ secrets.FACEBOOK_CLIENT_SECRET }}
-
-          SENDGRID_API_KEY: ${{ secrets.SENDGRID_API_KEY }}
-          EMAIL_SENDER: ${{ secrets.EMAIL_SENDER }}
-          ACCESS_TOKEN_SECRET: ${{ secrets.ACCESS_TOKEN_SECRET }}
           SUPER_ADMIN_PASSWORD: ${{ secrets.SUPER_ADMIN_PASSWORD }}
 
         # Save coverage report in Coveralls

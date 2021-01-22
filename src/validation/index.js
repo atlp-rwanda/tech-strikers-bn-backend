@@ -16,7 +16,8 @@ const validator = (identifier, data) => {
             minDomainAtoms: 2,
           })
           .required(),
-        password: Joi.string().trim().min(8).max(15).required(),
+        password: Joi.string().trim().min(8).max(15)
+          .required(),
 
         username: Joi.string().trim().min(5).required(),
       };
@@ -29,8 +30,6 @@ const validator = (identifier, data) => {
   return Joi.validate(data, schema, options);
 };
 
-const validationErrors = (error) => {
-  return error.details[0].message;
-};
+const validationErrors = (error) => error.details[0].message;
 
 export { validator, validationErrors };

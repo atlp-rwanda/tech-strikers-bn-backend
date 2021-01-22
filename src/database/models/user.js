@@ -1,4 +1,4 @@
-export default(sequelize, DataTypes) => {
+export default (sequelize, DataTypes) => {
   const Users = sequelize.define(
     "Users",
     {
@@ -10,12 +10,13 @@ export default(sequelize, DataTypes) => {
       roleId: DataTypes.INTEGER,
       provider: DataTypes.STRING,
       isVerified: DataTypes.BOOLEAN
-    },{}
+    }, {}
   );
-  Users.associate = models =>{
+
+  Users.associate = models => {
     Users.belongsTo(models.userRoles, {
-      as: 'role',
-      foreignKey: 'roleId'
+      as: "role",
+      foreignKey: "roleId"
     });
 
     Users.hasOne(models.TripRequest, {

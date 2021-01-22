@@ -8,7 +8,7 @@ const { Users, Trips, TripRequest } = models;
 export default class TripServices {
   /**
    * @description this service save a trip request in the database
-   * @param {object} tripRequest
+   * @param {object} tripData
    *  @param {object} tripRequestDetails
    * @return {object} return the message
    */

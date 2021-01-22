@@ -1,5 +1,6 @@
 import express from "express";
 import User from "./users.route";
+import Request from "./request.route";
 import Comment from "./comment.route";
 import i18n from "../../utils/i18n";
 import tripRequest from "./tripRequest.route";
@@ -10,5 +11,6 @@ router.use(i18n.init);
 router.use("/", User);
 router.use("/", Comment);
 router.use("/", tripRequest);
+router.use("/", Request);
 
 export default router;

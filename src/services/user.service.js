@@ -59,9 +59,9 @@ export default class UserServices {
     }
 
     if (
-      userNameCheck == undefined ||
-      userNameCheck.length == 0 ||
-      (userNameCheck.length == 1 && userNameCheck[0].id == id)
+      userNameCheck == undefined
+      || userNameCheck.length == 0
+      || (userNameCheck.length == 1 && userNameCheck[0].id == id)
     ) {
       colsAffected = await Users.update(updates, {
         where: { id },
@@ -80,22 +80,23 @@ export default class UserServices {
    * @param {object} email
    * @return {object} return current user
    */
+  static async findUserByEmail(email) {
+    const currentUser = await Users.findOne({ where: { email } });
+    return currentUser;
+  }
 
-   static async findUserByEmail(email){
-     const currentUser = await Users.findOne({where:{email}});
-      return currentUser;
-   }
-
-   /**
+  /**
+  /**
     * @description this sercice updateUserByRole
     * @param {object} roleId
+    * @param {object} email
     * @return {object} updatedUser by role
     */
 
-    static async updateUserByRole(roleId, email){
-    const updatedUser = await Users.update({roleId}, {where: {email}});
-    if(updatedUser) return updatedUser;
-    }
+  static async updateUserByRole(roleId, email) {
+    const updatedUser = await Users.update({ roleId }, { where: { email } });
+    if (updatedUser) return updatedUser;
+  }
 
   static async getUserByIdOrUsername(value) {
     let user;
@@ -106,30 +107,29 @@ export default class UserServices {
     return await Users.findOne({ where: { id: value } });
   }
 
-
   static async getUserByEmail(value) {
     const user = await Users.findOne({ where: { email: value } });
-      return user;
-   
+    return user;
   }
-  static async updateUser(decoded){
-    const User = await Users.update({isVerified:true}, {
+
+  static async updateUser(decoded) {
+    const User = await Users.update({ isVerified: true }, {
       where: { id: decoded.id },
       returning: true,
       plain: true,
-      })
-    return User
+    });
+    return User;
   }
-  static async updatePassword(hash,decoded){
+
+  static async updatePassword(hash, decoded) {
     const User = await Users.update(
       { password: hash },
       {
-      where: { id: decoded.id },
-      returning: true,
-      plain: true,
+        where: { id: decoded.id },
+        returning: true,
+        plain: true,
       }
-  );
-    return User
+    );
+    return User;
   }
-
 }

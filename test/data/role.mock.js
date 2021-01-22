@@ -1,4 +1,5 @@
 import dotenv from "dotenv";
+
 dotenv.config();
 const password = process.env.SUPER_ADMIN_PASSWORD;
 export default {

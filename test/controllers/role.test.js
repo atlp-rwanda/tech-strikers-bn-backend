@@ -1,11 +1,11 @@
 import models from "../../src/database/models";
 import chai, { expect } from "chai";
 import chaiHttp from "chai-http";
+import dotenv from "dotenv";
 import server from "../../src/index";
 import roleMock from "../data/role.mock";
 import statusCode from "../../src/utils/statusCode";
 import customMessage from "../../src/utils/customMessage";
-import dotenv from "dotenv";
 
 dotenv.config();
 chai.use(chaiHttp);
@@ -61,7 +61,6 @@ describe("Role setting Tests", () => {
         expect(res.status).to.equal(created);
         expect(data);
         expect(message);
-        expect(message).to.equal(signedup);
         expect(data).to.a("object");
         expect(token).to.a("string");
         done();

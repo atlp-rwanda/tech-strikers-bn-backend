@@ -63,5 +63,13 @@
   "errorOnGet": "Nta busabe nabumwe buhari!",
   "errorOnUpdate": "Ubwo busabe bw'urugendo ntabuhari!",
   "ErrorIfNonPending": "Ubusabe ntibucyemerewe guhindurwa!",
-  "errorOnDelete": "Ubwo busabe bw'urugendo ntabuhari!"
+  "errorOnDelete": "Ubwo busabe bw'urugendo ntabuhari!",
+	"Duplicate Email": "Iyi emayili yarafashwe",
+	"Account Exist": "Konti ifite iyi email irimo",
+	"Sign up": "Wiyandikishije",
+	"tripRequestFailedWrongUserToken": "Ubusabe ntubwemerewe, banza ufungure konti yawe.",
+  "tripRequestDeniedWhenAnotherOpenRequest": "Ubusabe ntibwemewe, uracyafite ubusabe butaremezwa.",
+	"tripRequestSubmitted": "Ubusabe bwawe buremewe.",
+	"invalidDepartureDate":"Itariki yo kugenda igomba kuba irenze itariki yuyu munsi",
+	"invalidReturnDate": "Itariki yo kugaruka igomba kuba irenze itariki yo kugenda"	
 }
