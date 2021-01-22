@@ -56,5 +56,14 @@ describe("POST Comments", () => {
         res.should.have.status(404);
         done();
       });
+    it("Should delete the comment with a specific comment id", (done) => {
+      chai.request(server)
+        .delete("/api/v1/request/comment/1")
+        .set("Authorization", `Bearer ${jwtToken.generateToken(user4).token}`)
+        .end((err, res) => {
+          res.should.have.status(200);
+          done();
+        });
+    });
   });
 });
