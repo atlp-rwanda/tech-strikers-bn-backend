@@ -28,11 +28,4 @@ const checkUsernameExist = async (req, res, next) => {
   return next();
 };
 export default { checkEmailExist, checkUsernameExist };
-// const loginCredentials = async (req, res, next) => {
-//   const user = await getUserByIdOrEmail(req.body.email);
-//   const boolPassword = user ? await comparePassword(req.body.password, user.password) : null;
-//   if (!user || !boolPassword) {
-//     return errorResponse(res, badRequest, "invalid email or password");
-//   }
-//   return next();
-// };
+

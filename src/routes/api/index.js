@@ -2,8 +2,8 @@ import express from "express";
 import User from "./users.route";
 import Request from "./request.route";
 import Comment from "./comment.route";
-import i18n from "../../utils/i18n";
 import tripRequest from "./tripRequest.route";
+import i18n from "../../utils/i18n";
 
 const router = express.Router();
 

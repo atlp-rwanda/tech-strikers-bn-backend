@@ -1,5 +1,4 @@
 import jwt from "jsonwebtoken";
-import tokenUtil from "../utils/util.jwt";
 
 const verifyToken = (req, res, next) => {
   const authHeader = req.headers.authorization;
@@ -22,4 +21,5 @@ const verifyToken = (req, res, next) => {
   // eslint-disable-next-line no-sequences
   return next();
 };
+
 export default verifyToken;

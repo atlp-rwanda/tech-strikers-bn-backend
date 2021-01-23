@@ -1,6 +1,7 @@
 import jwt from "jsonwebtoken";
 import { userRoles } from "../database/models";
 import RoleService from "../services/role.service";
+
 class RoleCheckMiddleware {
   static async isSuperAdmin(req, res, next) {
     const authHeader = req.headers.authorization;

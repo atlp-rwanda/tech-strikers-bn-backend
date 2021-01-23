@@ -72,7 +72,6 @@ export default class TripControllers {
   static async updateOneWayTripRequest(req, res) {
     const tripRequestDetails = req.body;
     const valid = validation(tripRequestDetails, validationSchema);
-    console.log(valid);
     getResponseOnValidation(res, valid);
     const trip = await updateRequest(tripRequestDetails, req.params.id);
 

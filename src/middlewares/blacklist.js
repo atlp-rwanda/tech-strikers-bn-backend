@@ -15,7 +15,8 @@ export default class blacklist {
         res.status(403).json({ message: "you loged out" });
       }
     } else {
-      return res.status(401).json("invalid session");
+      return res.status(401).json({message:"invalid session"})
+
+        }
     }
   }
-}

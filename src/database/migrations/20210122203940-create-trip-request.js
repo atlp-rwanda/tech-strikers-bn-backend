@@ -12,19 +12,22 @@ module.exports = {
       },
       departureDate: {
         type: Sequelize.DATEONLY,
+        allowNull: false,
       },
       returnDate: {
         type: Sequelize.DATEONLY,
+        allowNull: true,
       },
       reason: {
         type: Sequelize.STRING,
       },
       userId: {
         type: Sequelize.INTEGER,
+        references: { model: 'Users', key: 'id' }
       },
       status: {
         type: Sequelize.STRING,
-        defaultValue: "pending",
+        defaultValue: "pending"
       },
       createdAt: {
         allowNull: false,

@@ -12,7 +12,7 @@ chai.use(chaiHttp);
 chai.should();
 
 const { userRoles } = models;
-const { created, ok, conflict, notFound, forbidden, unAuthorized } = statusCode;
+const { created, ok, conflict, notFound, forbidden, unAuthorized, badRequest } = statusCode;
 const { signedup, duplicateEmail } = customMessage;
 let adminToken;
 const { superAdmin, simpleUser } = roleMock;
@@ -231,6 +231,56 @@ describe("Role setting Tests", () => {
       .end((err, res) => {
         expect(res.status).to.equal(ok);
         expect(res.body).to.a("object");
+        done();
+      });
+  });
+  it("Shouldn't create role when there is no role name", (done) => {
+    chai
+      .request(server)
+      .post("/api/v1/user/createRole")
+      .set("Authorization", `Bearer ${adminToken}`)
+      .send({
+        description: 'Role for managing'
+      }).end((err, res) => {
+        expect(res.status).to.equal(badRequest);
+        expect(res.body.error).to.eq("Enter the name of role")
+        done();
+      })
+  });
+  it("Shouldn't create role when there is no role description", (done) => {
+    chai
+      .request(server)
+      .post("/api/v1/user/createRole")
+      .set("Authorization", `Bearer ${adminToken}`)
+      .send({
+        name: 'CEO'
+      }).end((err, res) => {
+        expect(res.status).to.equal(badRequest);
+        expect(res.body.error).to.eq("Describe the role please")
+        done();
+      })
+  });
+  it("Super Admin shouldn't be able to assign role if email isn't provided.", (done) => {
+    chai
+      .request(server)
+      .post("/api/v1/user/assignRole")
+      .set("Authorization", `Bearer ${adminToken}`)
+      .send({ userRole: "Travel administrator" })
+      .end((err, res) => {
+        expect(res.status).to.equal(badRequest);
+        expect(res.body.error).to.equal("Enter the email");
+        done();
+      });
+  });
+  it("Super Admin shouldn't be able to assign role if role isn't provided.", (done) => {
+    chai
+      .request(server)
+      .post("/api/v1/user/assignRole")
+      .set("Authorization", `Bearer ${adminToken}`)
+      .send({ email: "ntirandth@gmail.com" })
+      .end((err, res) => {
+        expect(res.status).to.equal(badRequest);
+        expect(res.body.error).to.equal("Select the role");
         done();
       });
   });
