@@ -38,9 +38,29 @@ app.use(routes);
 app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerDoc));
 app.use(routes);
 
+// catch 404 and forward to error handler
+app.use((req, res, next) => {
+  const err = new Error("Not Found");
+  err.status = 404;
+  next(err);
+});
+
+// production error handler
+// no stacktraces leaked to user
+ app.use((err, req, res, next) => {
+  res.status(err.status || 500);
+  res.json({
+    errors: {
+      message: err.message,
+      error: {},
+    },
+  });
+}); 
 // finally, let's start our server...
+
 const port = process.env.PORT || 3000;
 const server = app.listen(port, () => {
   console.log(`Listening on port ${port}`);
 });
+
 export default server;

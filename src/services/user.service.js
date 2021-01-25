@@ -84,8 +84,6 @@ export default class UserServices {
     const currentUser = await Users.findOne({ where: { email } });
     return currentUser;
   }
-
-  /**
   /**
     * @description this sercice updateUserByRole
     * @param {object} roleId

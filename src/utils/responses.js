@@ -15,7 +15,7 @@ const successResponse = (res, code, token, message, data = null) => res.status(c
 
 
 const nonTokenSuccessResponse = (res, code, message) => res.status(code).json({message});
-
+const successResponseWithData = (res, code, message, data) => res.status(code).json({message, data})
 /**
  * @description it converts the success response into json object
  * @param {object} res response
@@ -28,5 +28,5 @@ const errorResponse = (res, code, error) => res.status(code).json({
 });
 
 export default {
-  successResponse, errorResponse, nonTokenSuccessResponse
+  successResponse, errorResponse, nonTokenSuccessResponse, successResponseWithData
 };

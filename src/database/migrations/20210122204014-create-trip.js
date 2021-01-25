@@ -1,4 +1,3 @@
-
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.createTable("Trips", {
@@ -10,14 +9,20 @@ module.exports = {
       },
       originId: {
         type: Sequelize.INTEGER,
+        references: { model: 'Locations', key: 'id' }
+
       },
       destinationId: {
         type: Sequelize.INTEGER,
+        references: { model: 'Locations', key: 'id' }
       },
-      accomodationId: Sequelize.INTEGER,
       tripRequestId: {
         type: Sequelize.INTEGER,
         allowNull: false,
+        references: { model: 'TripRequests', key: 'id' },
+        onDelete: "cascade",
+        hooks:true,
+        onUpdate: "cascade",
       },
       createdAt: {
         allowNull: false,

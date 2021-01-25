@@ -18,7 +18,6 @@ import RoleCheckMiddleware from "../../middlewares/superAdminCheck";
 import UserControllers from "../../controllers/user.controller";
 import checkblockedtoken from "../../middlewares/blacklist";
 import tokenlist from "../../controllers/list.controllers";
-import { UserValidation } from "../../middlewares/user";
 
 const router = express.Router();
 const { isSuperAdmin } = RoleCheckMiddleware;

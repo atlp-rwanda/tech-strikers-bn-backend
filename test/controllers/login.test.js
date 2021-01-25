@@ -17,6 +17,18 @@ describe("Login API", () => {
       })
       .end(done);
   });
+  it('Should login user if verified ',(done) => {
+    request(server)
+       .post("/api/v1/auth/siginIn")
+       .send({   
+        "email": "user1@example.com",
+        "password": "tytyne12345",
+    })
+       .end((err,res) => {
+       expect(res.body.token).to.be.a("string");
+       done();
+       });
+  });
 
   it("Should not succeed if password is missing", (done) => {
     request(server)

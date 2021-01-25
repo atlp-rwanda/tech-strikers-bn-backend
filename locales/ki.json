@@ -71,5 +71,17 @@
   "tripRequestDeniedWhenAnotherOpenRequest": "Ubusabe ntibwemewe, uracyafite ubusabe butaremezwa.",
 	"tripRequestSubmitted": "Ubusabe bwawe buremewe.",
 	"invalidDepartureDate":"Itariki yo kugenda igomba kuba irenze itariki yuyu munsi",
-	"invalidReturnDate": "Itariki yo kugaruka igomba kuba irenze itariki yo kugenda"	
+  "invalidReturnDate": "Itariki yo kugaruka igomba kuba irenze itariki yo kugenda",
+  "successfully logged in": "Winjiye neza",
+  "Enter the name of role": "Shyiramo izina rya role",
+  "Describe the role please": "Sobanura iyo nshingano",
+  "role is successfully assigned": "Inshingano yatanzwe neza",
+  "The role doesn't exist in the system": "Iyo nshingano ntayo dufite muri sisiteme.",
+  "User with that email does not exist in the system": "Nta konti ifite iyo emeyiri dufite muri sisiteme",
+  "Invalid comment": "Iyo comment ntiyujuje ibisabwa",
+	"Comment submitted": "Comment yatanzwe neza",
+	"Request not Found": "Ubusabe ntibubonetse",
+	"Server Error": "Ni ikibazo cyo kuri seriveri",
+  "Comment deleted": "Comment yasibwe",
+  "You've not made any requests!": "Ntimurasaba na rimwe kujya mu rugendo!"	
 }

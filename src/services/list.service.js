@@ -10,4 +10,5 @@ class listservices {
         return list.includes(data);
     }
 }
+
 export default listservices;

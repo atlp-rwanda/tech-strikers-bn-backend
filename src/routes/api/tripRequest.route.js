@@ -1,6 +1,7 @@
 import express from "express";
 import tokenAuthentication from "../../middlewares/tokenAuthentication";
 import TripControllers from "../../controllers/oneWaytrip.controller";
+import tripRequestController from "../../controllers/multcityRequest.controller";
 import checkblockedtoken from "../../middlewares/blacklist";
 
 const { checklisted } = checkblockedtoken;
@@ -12,6 +13,8 @@ const {
   updateOneWayTripRequest,
   deleteOneWayTripRequest,
 } = TripControllers;
+
+const { sendTripRequest, getUserTripRequests } = tripRequestController;
 
 router.get(
   "/trip/one-way",
@@ -37,5 +40,7 @@ router.delete(
   tokenAuthentication,
   deleteOneWayTripRequest
 );
+router.post('/multiCityRequest', checklisted, tokenAuthentication, sendTripRequest);
+router.get('/tripRequests', checklisted, tokenAuthentication, getUserTripRequests)
 
 export default router;

@@ -18,4 +18,16 @@ describe("Welcome to endPoints Testing", () => {
         done();
       });
   });
+  it("Should return error: not found when the route doesn't exist", (done) => {
+    chai
+      .request(server)
+      .get("/api/v1/user/oneway")
+      .end((err, res) => {
+        if (err) done(err);
+        expect(res.status).to.equal(404);
+        expect(res.body).to.be.a("object");
+        expect(res.body.errors.message).to.eq("Not Found");
+        done();
+      });
+  });
 });
