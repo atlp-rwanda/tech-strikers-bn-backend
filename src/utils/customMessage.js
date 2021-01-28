@@ -1,6 +1,6 @@
 export default {
   signedup: "You signed up successfully",
-  duplicateEmail: "This Email is in use",
+  duplicateEmail: "This account with this email already exist",
   logout: "You loged out successfully",
   loged: "You arleady Logged Out",
   flogin: "Please Login",
