@@ -19,11 +19,11 @@ module.exports = {
       tripRequestId: {
         type: Sequelize.INTEGER,
         allowNull: false,
-        references: { model: 'TripRequests', key: 'id' },
-        onDelete: "cascade",
-        hooks:true,
-        onUpdate: "cascade",
-      },
+         references: { model: 'TripRequests', key: 'id' },	           
+        onDelete: "cascade",	
+        hooks:true,	
+        onUpdate: "cascade"
+      },      
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,

@@ -75,6 +75,8 @@ export default class UserControllers {
     } catch (e) {
       return next(new Error(e));
     }
+  
+
   }
 
   /**

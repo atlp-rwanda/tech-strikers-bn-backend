@@ -18,7 +18,8 @@ import RoleCheckMiddleware from "../../middlewares/superAdminCheck";
 import UserControllers from "../../controllers/user.controller";
 import checkblockedtoken from "../../middlewares/blacklist";
 import tokenlist from "../../controllers/list.controllers";
-
+import  SocialLogin from "../../controllers/google.facebook.login";
+const { googleLogin, facebookLogin } = SocialLogin;
 const router = express.Router();
 const { isSuperAdmin } = RoleCheckMiddleware;
 const { roleAssignValidation, roleCreateValidation } = RoleValidation;
@@ -116,6 +117,10 @@ router.post(
   validatePassword,
   resetController.resetPassword
 );
+
+router.post("/auth/googlelogin", googleLogin);
+router.post("/auth/facebooklogin", facebookLogin);
+
 
 export default router;
 

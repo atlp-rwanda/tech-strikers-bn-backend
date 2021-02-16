@@ -1,5 +1,5 @@
 import UserService from "../services/user.service.js";
-import { jwtToken } from "../utils/util.jwt";
+import { jwtToken } from "../utils/util.jwt"
 import customMessage from "../utils/customMessage.js";
 import helper from "../utils/helpers.js";
 import responses from "../utils/responses.js";
@@ -8,12 +8,7 @@ import email from "../utils/email.js";
 
 const { getUserByIdOrEmail, updatePassword } = UserService;
 const { hashPassword } = helper;
-const {
-  noEmailAssociate,
-  passwordReset,
-  passwordMatch,
-  passwordUpdated,
-} = customMessage;
+const { noEmailAssociate, passwordReset, passwordMatch, passwordUpdated } = customMessage;
 const { ok, notFound, badRequest } = statusCode;
 const { successResponse, errorResponse } = responses;
 const { sendResetEmail } = email;

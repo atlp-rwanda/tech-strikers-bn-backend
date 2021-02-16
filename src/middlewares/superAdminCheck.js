@@ -1,5 +1,4 @@
 import jwt from "jsonwebtoken";
-import { userRoles } from "../database/models";
 import RoleService from "../services/role.service";
 
     class RoleCheckMiddleware {
@@ -54,6 +53,9 @@ import RoleService from "../services/role.service";
       return res.status(400)
       .json({message: res.__("You are not Travel administrator")})
        }
+    
     }
     
-    export default RoleCheckMiddleware;
+  
+
+export default RoleCheckMiddleware;
