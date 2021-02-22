@@ -18,7 +18,7 @@ let token2;
 const userTest = { fullname: "user test", username: "usertest", email: "1" };
 const { created, ok, conflict,badRequest} = statusCode;
 const{ signedup,duplicateEmail,accountVerified,resend, thisAccountVerified} = customMessage;
-const { user1, user2, user3, user4 } = userMock;
+const { user1, user9,user5, user3, user4 } = userMock;
 
 describe("User Test", () => {
   it("Should create a user", (done) => {
@@ -144,4 +144,17 @@ describe("User Test", () => {
         done();
       });
   });
+  it("Should get all  users ", (done) => {
+    chai
+      .request(server)
+      .get("/api/v1/users")
+      .set("Authorization", `Bearer ${jwtToken.generateToken(user3)}`)
+      .end((err, res) => {
+        expect(res.status).to.equal(ok);
+        expect(res.body).to.be.a("object");
+        done();
+      });
+  });
+ 
+  
 });

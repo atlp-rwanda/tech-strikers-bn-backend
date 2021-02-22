@@ -1,6 +1,6 @@
 import models from "../database/models/index.js";
 
-const { TripRequest, Trips, Users,Locations } = models;
+const { TripRequest, Trips, Users,userRoles,Locations } = models;
 
 export default class tripRequestService {
     static async findById(modelId) {

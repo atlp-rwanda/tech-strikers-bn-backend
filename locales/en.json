@@ -1,5 +1,4 @@
 {
-	"Sign up": "You signed up successfully",
 	"Duplicate Email": "This Email is in use",
 	"Account Exist": "This account with this email already exist",
 	"Select the role": "Select the role",
@@ -31,6 +30,7 @@
 	"Username is required": "username is required",
 	"Username must be in the range of 6 to 15 characters": "username must be in the range of 6 to 15 characters",
 	"ConfirmPassword is required": "ConfirmPassword is required",
+	"Sign up": "You signed up successfully",
 	"Password must be in the range of 6 to 15 characters": "Password must be in the range of 6 to 15 characters",
 	"updatedSuccessfully": "Profile information updated successfully",
 	"updateFailed": "Updating failed, try again later.",
@@ -133,5 +133,11 @@
 	"Room you need to delete doesn't exist": "Room you need to delete doesn't exist",
 	"Kabuga3 already exist, update the existing one": "Kabuga3 already exist, update the existing one",
 	" You are not  Travel administrator to manipulate accommodations": " You are not  Travel administrator to manipulate accommodations",
-	"Trip request has been Approved": "Trip request has been Approved"
+	"Trip request has been Approved": "Trip request has been Approved",
+	"fullname must be more than 6characters": "fullname must be more than 6characters",
+	"No user found": "No user found",
+	"Forbiden": "Forbiden",
+	"The Trip request not found!": "The Trip request not found!",
+	"role fetched successfully": "role fetched successfully",
+	"That role doesnot exist in the system": "That role doesnot exist in the system"
 }

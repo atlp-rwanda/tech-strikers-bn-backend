@@ -36,6 +36,16 @@ export default {
     provider: "local",
     isVerified: true,
   },
+  user9: {
+    fullname: "super Admin",
+    email: "admin@gmail.com",
+    username: "superAdmin00",
+    password: "superAdmin",
+    profilePicture: "http://res.cloudinary.com/tech-strikers/image/upload/v1607003723/user_profile_pics/ai4c9mqyifpsetp48rik.png",
+    roleId: 3,
+    provider: "local",
+    isVerified: false,
+  },
   password: {
     password: "tytyne12345",
     confirmPassword: "tytyne12345"
