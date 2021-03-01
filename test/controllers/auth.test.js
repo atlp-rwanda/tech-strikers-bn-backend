@@ -1,10 +1,16 @@
 import chai, { expect } from "chai";
 import chaiHttp from "chai-http";
+import { async } from "regenerator-runtime";
+import AuthControllers from "../../src/controllers/auth.controller";
 import server from "../../src/index";
+import AuthServices from "../../src/services/auth.service";
+import userMock from "../data/user.mock";
 
 chai.use(chaiHttp);
 
 const apiVersion = process.env.API_VERSION;
+
+const { user1 } = userMock;
 
 const googleURL = `/api/${apiVersion}/user/login/google`;
 const facebookURL = `/api/${apiVersion}/user/login/facebook`;

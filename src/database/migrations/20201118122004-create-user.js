@@ -37,6 +37,14 @@ module.exports = {
         defaultValue:
           "http://res.cloudinary.com/tech-strikers/image/upload/v1607003723/user_profile_pics/ai4c9mqyifpsetp48rik.png",
       },
+      emailNotification: {
+        type: Sequelize.BOOLEAN,
+        defaultValue: true,
+      },
+      inAppNotification: {
+        type: Sequelize.BOOLEAN,
+        defaultValue: true,
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,

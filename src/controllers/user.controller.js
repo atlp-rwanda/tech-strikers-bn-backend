@@ -1,12 +1,12 @@
 import UserService from "../services/user.service.js";
+import customMessage from "../utils/customMessage.js";
 import helper from "../utils/helpers.js";
 import responses from "../utils/responses.js";
 import statusCode from "../utils/statusCode";
 import email from "../utils/email.js";
-import { jwtToken } from "../utils/util.jwt";
+import generateToken, { jwtToken } from "../utils/util.jwt";
 import cloudinary from "../utils/cloudinary";
 import userUpdateValidation from "../validation/userUpdate.validation";
-import customMessage from "../utils/customMessage";
 
 const {
   createUser,
@@ -14,6 +14,8 @@ const {
   upDateUserInfo,
   getUserByIdOrEmail,
   updateUser,
+  toogleEmailNotification,
+  toogleInAppNotification,
 } = UserService;
 const { hashPassword, base64FileStringGenerator } = helper;
 const {
@@ -24,12 +26,13 @@ const {
   userVerification,
   resend,
 } = customMessage;
-const { created, ok, badRequest, unprocessableEntity } = statusCode;
+const { created, ok, badRequest, unprocessableEntity, notFound } = statusCode;
 const { successResponse, errorResponse, nonTokenSuccessResponse } = responses;
 const { sendConfirmationEmail } = email;
 const { uploadProfilePic } = cloudinary;
 const { updateUserInfoValidation } = userUpdateValidation;
 
+const { APP_URL } = process.env;
 /**
  * @description this controller deals with user services
  */
@@ -49,7 +52,9 @@ export default class UserControllers {
       formData.role = "user";
       const user = await createUser(formData);
       const token = jwtToken.generateToken(user);
-      await sendConfirmationEmail(user, token);
+      await sendConfirmationEmail(user,
+        `You have successfully signed up, please proceed to <a href=${APP_URL}/verified>${APP_URL}/verified</a>`,
+        token);
       return successResponse(res, created, token, res.__(signedup), user);
     } catch (e) {
       return next(new Error(e));
@@ -75,8 +80,6 @@ export default class UserControllers {
     } catch (e) {
       return next(new Error(e));
     }
-  
-
   }
 
   /**
@@ -148,6 +151,48 @@ export default class UserControllers {
       } else if (dbResponse === "Username has been taken") {
         errorResponse(res, badRequest, res.__("userNameTaken"));
       }
+    }
+  }
+
+  /**
+   * @description this controller toogles email notification status
+   * @param {object} req request
+   * @param {object} res response
+   * @return {object} updated user data
+   */
+  static async updateEmailNotificationStatus(req, res) {
+    try {
+      const data = await toogleEmailNotification(req.params.id);
+      successResponse(
+        res,
+        201,
+        null,
+        "Email notification status changed",
+        data
+      );
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  /**
+   * @description this controller toogles in-app notification status
+   * @param {object} req request
+   * @param {object} res response
+   * @return {object} updated user data
+   */
+  static async updateInAppNotificationStatus(req, res) {
+    try {
+      const data = await toogleInAppNotification(req.params.id);
+      successResponse(
+        res,
+        201,
+        null,
+        "In-app notification status changed",
+        data
+      );
+    } catch (error) {
+      throw error;
     }
   }
 }

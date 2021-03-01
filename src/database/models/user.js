@@ -9,7 +9,9 @@ export default (sequelize, DataTypes) => {
       profilePicture: DataTypes.STRING,
       roleId: DataTypes.INTEGER,
       provider: DataTypes.STRING,
-      isVerified: DataTypes.BOOLEAN
+      isVerified: DataTypes.BOOLEAN,
+      emailNotification: DataTypes.BOOLEAN,
+      inAppNotification: DataTypes.BOOLEAN,
     }, {}
   );
 
@@ -23,13 +25,14 @@ export default (sequelize, DataTypes) => {
       foreignKey: "userId",
       onDelete: "cascade",
       onUpdate: "cascade"
-    })
-  }
+    });
+  };
 
-  Users.associate = models => {
-    Users.hasOne(models.TripRequest, {
-      foreignKey: "userId"
-    })
+  Users.associate = (models) => {
+    Users.hasMany(models.Notifications, {
+      as: "notification",
+      foreignKey: "userId",
+    });
   };
   return Users;
 };

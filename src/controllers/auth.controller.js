@@ -1,6 +1,6 @@
 import AuthServices from "../services/auth.service";
 import { jwtToken } from "../utils/util.jwt";
-import tokenUtil from "../utils/util.jwt";
+
 /**
  * @class AuthControllers
  * @classdesc This controller deals with social media auth

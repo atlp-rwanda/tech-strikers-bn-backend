@@ -3,7 +3,7 @@ import "regenerator-runtime/runtime";
 
 const { Users } = models;
 /**
- * @description This service deals with the User model
+ * @classdesc This service deals with the User model
  */
 export default class UserServices {
   /**
@@ -18,7 +18,7 @@ export default class UserServices {
   }
 
   /**
-   * @description this service create a new user in the db
+   * @description this service finds a user in the db
    * @param {object} value
    * @return {object} return the created user
    */
@@ -80,10 +80,12 @@ export default class UserServices {
    * @param {object} email
    * @return {object} return current user
    */
+
   static async findUserByEmail(email) {
     const currentUser = await Users.findOne({ where: { email } });
     return currentUser;
   }
+
   /**
     * @description this sercice updateUserByRole
     * @param {object} roleId
@@ -95,6 +97,12 @@ export default class UserServices {
     const updatedUser = await Users.update({ roleId }, { where: { email } });
     if (updatedUser) return updatedUser;
   }
+
+  /**
+   * @description this service retrieve user by Id or by username
+   * @param {object} value
+   * @returns {object} returns user details
+   */
 
   static async getUserByIdOrUsername(value) {
     let user;
@@ -129,5 +137,33 @@ export default class UserServices {
       }
     );
     return User;
+  }
+
+  /*
+   * @description this service updates email notification status
+   * @param {object} userID
+   * @return {object} return update data
+   */
+  static async toogleEmailNotification(userID) {
+    Users.findOne({ where: { id: userID } }).then((data) => {
+      data.dataValues.emailNotification = !data.dataValues.emailNotification;
+      Users.update(data, {
+        where: { id: userID },
+      });
+    });
+  }
+
+  /**
+   * @description this service updates in-app notification status
+   * @param {object} userID
+   * @return {object} return update data
+   */
+  static async toogleInAppNotification(userID) {
+    return await Users.findOne({ where: { id: userID } }).then((data) => {
+      data.inAppNotification = !data.inAppNotification;
+      Users.update(data, {
+        where: { id: data.dataValues.id },
+      });
+    });
   }
 }

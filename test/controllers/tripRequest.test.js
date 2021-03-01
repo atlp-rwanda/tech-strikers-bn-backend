@@ -102,7 +102,7 @@ describe("Trip request route suporting return trip", () => {
         {
           originId: 1,
           destinationId: 1,
-          departureDate: "2021-03-01",
+          departureDate: "2021-03-05",
           returnDate: "2020-10-29",
           tripType: "return trip",
         }
