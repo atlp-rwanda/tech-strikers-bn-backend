@@ -20,8 +20,8 @@ describe("Trip request route supoorting multi city trip", () => {
         .set("Authorization", `Bearer ${testUser1}`)
         .set("Accept-Language", "en")
         .end((err, res) => {
-            expect(res.status).to.equal(400)
-            expect(res.body.error).to.eq("You've not made any requests!")
+            expect(res.status).to.equal(400)   
+            expect(res.body.error).to.eq("You've not made any requests!")         
             done();
         })
     });

@@ -12,24 +12,14 @@ export default (sequelize, DataTypes) => {
       isVerified: DataTypes.BOOLEAN
     }, {}
   );
-
-  Users.associate = models => {
-    Users.belongsTo(models.userRoles, {
-      as: "role",
-      foreignKey: "roleId"
-    });
-
-    Users.hasOne(models.TripRequest, {
-      foreignKey: "userId",
-      onDelete: "cascade",
-      onUpdate: "cascade"
-    })
-  }
-
   Users.associate = models => {
     Users.hasOne(models.TripRequest, {
       foreignKey: "userId"
     })
+    Users.belongsTo(models.userRoles, { 
+      as:"role",              
+      foreignKey: 'roleId',        
+    });
   };
   return Users;
 };

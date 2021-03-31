@@ -43,7 +43,20 @@ class UserRoleController {
         .json({ message: res.__("role is successfully assigned") });
     }
   }
-
+  static async getRoleByName(req, res) {
+    const { name } = req.params;
+    const roleName = await RoleService.findRoleByName(name);
+    if (roleName) {
+      return res.status(ok).json({
+        message: res.__("role fetched successfully"),
+        roleName,
+      });
+    }else{
+      return res.status(badRequest).json({
+        message: res.__("That role doesnot exist in the system"),
+      });
+    }
+  }
   static async createRole(req, res) {
     const { name } = req.body;
     const roleName = await RoleService.findRoleByName(name);

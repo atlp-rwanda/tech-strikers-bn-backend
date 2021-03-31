@@ -31,6 +31,10 @@ const {
   upDateUser,
   resend,
   confirmation,
+  getUsersInfo,
+  getUserbyemailorfullname,
+  
+
 } = UserControllers;
 const {
   assign,
@@ -39,6 +43,7 @@ const {
   updateRole,
   deleteRole,
   getRole,
+  getRoleByName
 } = UserRoleController;
 const { checkEmailExist, checkUsernameExist } = authMiddleware;
 
@@ -47,6 +52,8 @@ const { loginCallback } = AuthControllers;
 const { login } = loginController;
 
 router.get("/user", checklisted, tokenAuth, getUserInfo);
+router.get("/users", checklisted, tokenAuth, getUsersInfo);
+router.get("/userbyinput/:input", checklisted, tokenAuth, getUserbyemailorfullname);
 
 // this route uses form-data for inputs
 router.put("/user", checklisted, tokenAuth, multerUploads, upDateUser);
@@ -71,6 +78,7 @@ router.post(
   roleCreateValidation,
   createRole
 );
+router.get("/user/getRoleByName/:name", checklisted, isSuperAdmin, getRoleByName);
 router.get("/user/getRoles", checklisted, isSuperAdmin, getRoles);
 router.delete("/user/deleteRole/:id", checklisted, isSuperAdmin, deleteRole);
 router.patch("/user/updateRole/:id", checklisted, isSuperAdmin, updateRole);

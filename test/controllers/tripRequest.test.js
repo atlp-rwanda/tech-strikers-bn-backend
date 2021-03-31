@@ -109,7 +109,7 @@ describe("Trip request route suporting return trip", () => {
       )
       .end((err, res) => {
         expect(res.status).to.equal(400);
-        expect(res.body.error).to.equal("Return date must be greater than departure date");
+        expect(res.body.error).to.equal("Departure date must be greater than today's date");
         done();
       });
   });
@@ -129,7 +129,7 @@ describe("Trip request route suporting return trip", () => {
       )
       .end((err, res) => {
         expect(res.status).to.equal(400);
-        expect(res.body.error).to.equal("Return date must be greater than departure date");
+        expect(res.body.error).to.equal("Departure date must be greater than today's date");
         done();
       });
   });

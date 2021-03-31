@@ -1,7 +1,9 @@
 import models from "../database/models/index";
 import "regenerator-runtime/runtime";
+import Sequelize from "sequelize";
 
-const { Users } = models;
+const Op = Sequelize.Op;
+const { Users, userRoles,TripRequest } = models;
 /**
  * @description This service deals with the User model
  */
@@ -43,6 +45,43 @@ export default class UserServices {
     });
     return data;
   }
+  /**
+   * @description this service retrieve user by fullname
+   * @param {object} fullname
+   * @return {object} return the created user
+   */
+  static async retrieveUserfullname(value) {
+    let user;
+    if (typeof value === "string") {
+      user = await Users.findOne({
+        include:[{
+          model:userRoles,
+          as:"role"
+        ,}],
+        where: {
+          [Op.or]: [{ fullname: value }, { email: value }],
+        },
+
+        attributes: { exclude: "password" },
+      });
+      return user;
+    }
+  }
+  /**
+   * @description this service
+   * @param {object} userid
+   * @return {object} return the created user
+   */
+  static async retrieveUsers() {
+    const data = await Users.findAll({ 
+      include:[{
+        model:userRoles,
+        as:"role"
+      ,}],  
+      attributes: { exclude: "password" },
+    });
+    return data;
+  }
 
   /**
    * @description this service create a new user in the db
@@ -59,9 +98,9 @@ export default class UserServices {
     }
 
     if (
-      userNameCheck == undefined
-      || userNameCheck.length == 0
-      || (userNameCheck.length == 1 && userNameCheck[0].id == id)
+      userNameCheck == undefined ||
+      userNameCheck.length == 0 ||
+      (userNameCheck.length == 1 && userNameCheck[0].id == id)
     ) {
       colsAffected = await Users.update(updates, {
         where: { id },
@@ -85,11 +124,11 @@ export default class UserServices {
     return currentUser;
   }
   /**
-    * @description this sercice updateUserByRole
-    * @param {object} roleId
-    * @param {object} email
-    * @return {object} updatedUser by role
-    */
+   * @description this sercice updateUserByRole
+   * @param {object} roleId
+   * @param {object} email
+   * @return {object} updatedUser by role
+   */
 
   static async updateUserByRole(roleId, email) {
     const updatedUser = await Users.update({ roleId }, { where: { email } });
@@ -111,11 +150,14 @@ export default class UserServices {
   }
 
   static async updateUser(decoded) {
-    const User = await Users.update({ isVerified: true }, {
-      where: { id: decoded.id },
-      returning: true,
-      plain: true,
-    });
+    const User = await Users.update(
+      { isVerified: true },
+      {
+        where: { id: decoded.id },
+        returning: true,
+        plain: true,
+      }
+    );
     return User;
   }
 

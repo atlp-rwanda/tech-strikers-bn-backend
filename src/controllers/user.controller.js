@@ -14,6 +14,8 @@ const {
   upDateUserInfo,
   getUserByIdOrEmail,
   updateUser,
+  retrieveUsers,
+  retrieveUserfullname,
 } = UserService;
 const { hashPassword, base64FileStringGenerator } = helper;
 const {
@@ -24,7 +26,7 @@ const {
   userVerification,
   resend,
 } = customMessage;
-const { created, ok, badRequest, unprocessableEntity } = statusCode;
+const { created, ok, badRequest, notFound, unprocessableEntity } = statusCode;
 const { successResponse, errorResponse, nonTokenSuccessResponse } = responses;
 const { sendConfirmationEmail } = email;
 const { uploadProfilePic } = cloudinary;
@@ -68,15 +70,15 @@ export default class UserControllers {
       const { token } = req.params;
       const decoded = jwtToken.verifyToken(token);
       const user = await getUserByIdOrEmail(decoded.email);
-      if (user.dataValues.isVerified) return errorResponse(res, badRequest, res.__(userVerification));
+      if (user.dataValues.isVerified) {
+        return errorResponse(res, badRequest, res.__(userVerification));
+      }
       const userUpdated = await updateUser(decoded);
       const { id, email } = userUpdated[1];
       return successResponse(res, ok, undefined, res.__(accountVerified));
     } catch (e) {
       return next(new Error(e));
     }
-  
-
   }
 
   /**
@@ -91,7 +93,8 @@ export default class UserControllers {
       const { email } = req.body;
       const user = await getUserByIdOrEmail(email);
       if (!user) return errorResponse(res, badRequest, res.__(emailAssociate));
-      if (user.isVerified) return errorResponse(res, badRequest, res.__(thisAccountVerified));
+      if (user.isVerified)
+        return errorResponse(res, badRequest, res.__(thisAccountVerified));
       const token = jwtToken.generateToken(user);
       await sendConfirmationEmail(user, token);
       return successResponse(res, ok, token, res.__(resend), user);
@@ -112,6 +115,39 @@ export default class UserControllers {
       successResponse(res, ok, null, userInfo);
     } else {
       errorResponse(res, notFound, res.__("userNotFound"));
+    }
+  }
+  /**
+   * @description this controller retrieves  users in database
+   * @param {object} req request
+   * @param {object} res response
+   * @return {object} return json object with signup message
+   */
+  static async getUsersInfo(req, res) {
+    const userInfo = await retrieveUsers();
+    if (userInfo != null) {
+      successResponse(res, ok, null, "users retrieved", userInfo);
+    } else {
+      errorResponse(res, notFound, res.__("No user found"));
+    }
+  }
+  /**
+   * @description this controller retrieves  users by in database
+   * @param {object} req request
+   * @param {object} res response
+   * @return {object} return json object with signup message
+   */
+  static async getUserbyemailorfullname(req, res) {
+    const { input } = req.params;
+    try {
+      const userInfo = await retrieveUserfullname(input);
+      if (userInfo != null) {
+        successResponse(res, ok, null, "user retrieved", userInfo);
+      } else {
+        errorResponse(res, notFound, res.__("No user found"));
+      }
+    } catch (err) {
+      (err) => console.log(err);
     }
   }
 
