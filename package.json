@@ -48,7 +48,7 @@
     "google-auth-library": "^7.0.1",
     "i18n": "^0.13.2",
     "joi": "^17.3.0",
-    "jsonwebtoken": "^8.5.1",
+    "jsonwebtoken": "^9.0.0",
     "jwt-simple": "^0.5.6",
     "method-override": "^2.3.10",
     "methods": "^1.1.2",
